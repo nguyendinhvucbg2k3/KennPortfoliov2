@@ -14,10 +14,10 @@ import { skills as placeholderSkills } from "@/lib/placeholder-data";
 import { useState, useEffect } from "react";
 
 const softwareIcons = [
-    { name: "Photoshop", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg" },
-    { name: "Illustrator", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg" },
-    { name: "Figma", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
-    { name: "Canva", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg" },
+    { name: "Photoshop", src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/photoshop/photoshop-original.svg" },
+    { name: "Illustrator", src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/illustrator/illustrator-original.svg" },
+    { name: "Figma", src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" },
+    { name: "Canva", src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/canva/canva-original.svg" },
     { name: "Capcut", src: "https://www.capcut.com/favicon.ico" }, // Note: Capcut doesn't have a devicon, using favicon as a placeholder.
 ];
 
@@ -117,7 +117,7 @@ export default function AboutPage() {
           ))}
         </div>
       </section>
-
+      
       <section className="mt-16">
           <div className="flex justify-center items-center gap-6 md:gap-8 flex-wrap">
               {softwareIcons.map(icon => (
