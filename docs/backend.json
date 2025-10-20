@@ -1,125 +1,142 @@
 {
   "entities": {
-    "AdminProfile": {
-      "title": "AdminProfile",
-      "type": "object",
-      "description": "Represents an administrator user profile.",
-      "properties": {
-        "uid": { "type": "string", "description": "Firebase Authentication UID." },
-        "email": { "type": "string", "description": "Email address of the admin user.", "format": "email" },
-        "displayName": { "type": "string", "description": "Display name of the admin user." },
-        "photoURL": { "type": "string", "description": "URL of the admin's profile picture.", "format": "uri" }
-      },
-      "required": ["uid", "email", "displayName"]
-    },
     "Project": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Project",
       "type": "object",
       "description": "Represents a graphic design project in the portfolio.",
       "properties": {
-        "id": { "type": "string", "description": "Unique identifier for the project." },
-        "slug": { "type": "string", "description": "URL-friendly slug for the project." },
-        "name": { "type": "string", "description": "Title of the project." },
-        "category": { "type": "string", "enum": ["Branding", "Illustration", "Art Direction", "Packaging", "Graphic Design", "UI/UX", "Web Design", "Game Design"] },
-        "shortDescription": { "type": "string", "description": "A brief summary of the project." },
-        "description": { "type": "string", "description": "Detailed description of the project." },
-        "designPrinciples": { "type": "string", "description": "Design principles applied." },
-        "image": {
-          "type": "object",
-          "properties": {
-            "src": { "type": "string", "format": "uri" },
-            "alt": { "type": "string" },
-            "aiHint": { "type": "string" }
-          },
-          "required": ["src", "alt", "aiHint"]
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Project entity."
         },
-        "year": { "type": "number" },
-        "behanceUrl": { "type": "string", "format": "uri" }
-      },
-      "required": ["id", "slug", "name", "category", "shortDescription", "description", "image", "year", "behanceUrl"]
-    },
-    "ResourceLink": {
-      "title": "ResourceLink",
-      "type": "object",
-      "description": "Represents a link to an external design resource.",
-      "properties": {
-        "id": { "type": "string" },
-        "title": { "type": "string" },
-        "url": { "type": "string", "format": "uri" },
-        "category": { "type": "string" },
-        "description": { "type": "string" }
-      },
-      "required": ["id", "title", "url", "category", "description"]
-    },
-    "Experience": {
-      "title": "Experience",
-      "type": "object",
-      "properties": {
-        "id": { "type": "string" },
-        "title": { "type": "string" },
-        "organization": { "type": "string" },
-        "date": { "type": "string" },
-        "description": { "type": "string" }
-      },
-      "required": ["id", "title", "organization", "date", "description"]
-    },
-    "Skill": {
-      "title": "Skill",
-      "type": "object",
-      "properties": {
-        "id": { "type": "string" },
-        "name": { "type": "string" },
-        "level": { "type": "number" },
-        "description": { "type": "string" }
-      },
-      "required": ["id", "name", "level", "description"]
-    },
-    "PersonalInfo": {
-        "title": "PersonalInfo",
-        "type": "object",
-        "properties": {
-            "fullName": { "type": "string" },
-            "footerName": { "type": "string" },
-            "title": { "type": "string" },
-            "fieldOfStudy": { "type": "string" },
-            "dateOfBirth": { "type": "string" },
-            "email": { "type": "string", "format": "email" },
-            "phone": { "type": "string" },
-            "phoneHref": { "type": "string" },
-            "address": { "type": "string" }
+        "title": {
+          "type": "string",
+          "description": "Title of the project."
         },
-        "required": ["fullName", "footerName", "title", "fieldOfStudy", "dateOfBirth", "email", "phone", "phoneHref", "address"]
+        "description": {
+          "type": "string",
+          "description": "Detailed description of the project."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL of the project's main image.",
+          "format": "uri"
+        },
+        "category": {
+          "type": "string",
+          "description": "Category the project belongs to (e.g., Branding, Web Design)."
+        },
+        "aiCritique": {
+          "type": "string",
+          "description": "The AI-generated critique for this project."
+        },
+        "resourceIds": {
+          "type": "array",
+          "description": "References to Resources. (Relationship: Project 1:N Resource)",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "description",
+        "imageUrl",
+        "category"
+      ]
+    },
+    "Resource": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Resource",
+      "type": "object",
+      "description": "Represents a design resource, tool, or inspiration link.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Resource entity."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the resource."
+        },
+        "url": {
+          "type": "string",
+          "description": "URL of the resource.",
+          "format": "uri"
+        },
+        "description": {
+          "type": "string",
+          "description": "Brief description of the resource."
+        },
+        "category": {
+          "type": "string",
+          "description": "Category of the resource (e.g., Tools, Inspiration, Tutorials)."
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "url",
+        "description",
+        "category"
+      ]
     }
   },
   "auth": {
     "providers": [
-      "google"
+      "password",
+      "anonymous"
     ]
   },
   "firestore": {
-    "/projects/{projectId}": {
-      "schema": { "$ref": "#/entities/Project" },
-      "description": "Stores project details. Publicly readable, admin-writable."
-    },
-    "/resources/{resourceId}": {
-      "schema": { "$ref": "#/entities/ResourceLink" },
-      "description": "Stores resource links. Publicly readable, admin-writable."
-    },
-    "/experience/{experienceId}": {
-      "schema": { "$ref": "#/entities/Experience" },
-      "description": "Stores work experience. Publicly readable, admin-writable."
-    },
-    "/skills/{skillId}": {
-        "schema": { "$ref": "#/entities/Skill" },
-        "description": "Stores skills. Publicly readable, admin-writable."
-    },
-    "/personalInfo/main": {
-        "schema": { "$ref": "#/entities/PersonalInfo" },
-        "description": "Stores personal information. A single document. Publicly readable, admin-writable."
-    },
-    "/admins/{uid}": {
-      "schema": { "$ref": "#/entities/AdminProfile" },
-      "description": "Stores admin user profiles. The existence of a document here confers admin privileges."
-    }
+    "structure": [
+      {
+        "path": "/users/{userId}/projects/{projectId}",
+        "definition": {
+          "entityName": "Project",
+          "schema": {
+            "$ref": "#/backend/entities/Project"
+          },
+          "description": "Stores project data for each user. Projects are owned by the user identified by {userId}.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The ID of the user who owns the project."
+            },
+            {
+              "name": "projectId",
+              "description": "The ID of the project."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/projects/{projectId}/resources/{resourceId}",
+        "definition": {
+          "entityName": "Resource",
+          "schema": {
+            "$ref": "#/backend/entities/Resource"
+          },
+          "description": "Stores resources associated with a specific project owned by a user. Resources are owned by the user, accessible via the project.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The ID of the user who owns the project and its resources."
+            },
+            {
+              "name": "projectId",
+              "description": "The ID of the project to which the resource belongs."
+            },
+            {
+              "name": "resourceId",
+              "description": "The ID of the resource."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "This Firestore structure prioritizes authorization independence and QAPs (Query After Pagination). It leverages structural segregation to maintain a homogeneous security posture within collections, and denormalization to avoid complex `get()` calls in security rules. All data is owned by the user and access via a path based ownership model.\n\nThe `/users/{userId}/projects/{projectId}` structure enables simple, secure rules based on path-based ownership. Resources are nested under Projects, continuing the ownership model. The `resourceIds` field in `Project` is only a reference and not used for authorization.\n\nThis structure enables QAPs because listing projects only requires checking the path. Similarly, listing resources under a specific project only requires verifying the path."
   }
 }

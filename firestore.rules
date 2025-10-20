@@ -1,118 +1,97 @@
+/**
+ * @fileoverview Firestore Security Rules for the application.
+ *
+ * Core Philosophy:
+ * This ruleset enforces a strict user-ownership model.  Each user has their own data tree
+ * under `/users/{userId}`, and only that user can read or write to that tree.
+ *
+ * Data Structure:
+ * All data is nested under /users/{userId}, creating a clear ownership hierarchy.
+ * Projects are stored under /users/{userId}/projects/{projectId}, and Resources are stored
+ * under /users/{userId}/projects/{projectId}/resources/{resourceId}.
+ *
+ * Key Security Decisions:
+ * - User listing is implicitly disallowed because there is no top-level `users` collection.
+ * - All access control decisions are based on the authenticated user's ID and the
+ *   path structure.
+ * - Data validation is relaxed in this prototyping phase, but authorization is strictly
+ *   enforced.
+ */
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
     /**
-     * @description Checks if the user is signed in.
-     * @return {boolean} True if the user is signed in, false otherwise.
+     * @description Protects the /users/{userId}/projects/{projectId} path.
+     * @path /users/{userId}/projects/{projectId}
+     * @allow (create) - User 'abc' can create a new project under /users/abc/projects/123 if authenticated as 'abc'.
+     * @allow (update) - User 'abc' can update project '123' under /users/abc/projects/123 if authenticated as 'abc'.
+     * @allow (delete) - User 'abc' can delete project '123' under /users/abc/projects/123 if authenticated as 'abc'.
+     * @allow (get) - User 'abc' can get project '123' under /users/abc/projects/123 if authenticated as 'abc'.
+     * @allow (list) - User 'abc' can list projects under /users/abc/projects if authenticated as 'abc'.
+     * @deny (create) - User 'def' cannot create a new project under /users/abc/projects/123, even if authenticated, because they are not the owner.
+     * @deny (update) - User 'def' cannot update project '123' under /users/abc/projects/123, even if authenticated, because they are not the owner.
+     * @deny (delete) - User 'def' cannot delete project '123' under /users/abc/projects/123, even if authenticated, because they are not the owner.
+     * @principle Enforces document ownership for writes. Restricts access to a user's own data tree.
      */
-    function isSignedIn() {
-      return request.auth != null;
+    match /users/{userId}/projects/{projectId} {
+      // Helpers
+      function isSignedIn() {
+        return request.auth != null;
+      }
+
+      function isOwner(userId) {
+        return request.auth.uid == userId;
+      }
+
+      function isExistingOwner(userId) {
+        return isSignedIn() && isOwner(userId) && resource != null;
+      }
+      // Read Permissions
+      allow get: if isSignedIn() && isOwner(userId);
+      allow list: if isSignedIn() && isOwner(userId);
+
+      // Write Permissions
+      allow create: if isSignedIn() && isOwner(userId);
+      allow update: if isExistingOwner(userId);
+      allow delete: if isExistingOwner(userId);
     }
 
     /**
-     * @description Checks if the user is an admin.
-     * @return {boolean} True if the user has an admin profile, false otherwise.
+     * @description Protects the /users/{userId}/projects/{projectId}/resources/{resourceId} path.
+     * @path /users/{userId}/projects/{projectId}/resources/{resourceId}
+     * @allow (create) - User 'abc' can create a new resource under /users/abc/projects/123/resources/456 if authenticated as 'abc'.
+     * @allow (update) - User 'abc' can update resource '456' under /users/abc/projects/123/resources/456 if authenticated as 'abc'.
+     * @allow (delete) - User 'abc' can delete resource '456' under /users/abc/projects/123/resources/456 if authenticated as 'abc'.
+     * @allow (get) - User 'abc' can get resource '456' under /users/abc/projects/123/resources/456 if authenticated as 'abc'.
+     * @allow (list) - User 'abc' can list resources under /users/abc/projects/123/resources if authenticated as 'abc'.
+     * @deny (create) - User 'def' cannot create a new resource under /users/abc/projects/123/resources/456, even if authenticated, because they are not the owner.
+     * @deny (update) - User 'def' cannot update resource '456' under /users/abc/projects/123/resources/456, even if authenticated, because they are not the owner.
+     * @deny (delete) - User 'def' cannot delete resource '456' under /users/abc/projects/123/resources/456, even if authenticated, because they are not the owner.
+     * @principle Enforces document ownership for writes. Restricts access to a user's own data tree.
      */
-    function isAdmin() {
-      return isSignedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
-    }
+    match /users/{userId}/projects/{projectId}/resources/{resourceId} {
+      // Helpers
+      function isSignedIn() {
+        return request.auth != null;
+      }
 
-    match /projects/{projectId} {
-      /**
-       * @description Allows anyone to read project details, but only admins can create, update, or delete them.
-       * @path /projects/{projectId}
-       * @allow (get, list): Any user can read project details.
-       * @allow (create, update, delete): Only an admin can modify project details.
-       * @deny (create, update, delete): A non-admin user cannot modify project details.
-       * @principle Public read, admin-only write access.
-       */
-      allow get: if true;
-      allow list: if true;
-      allow create: if isAdmin();
-      allow update: if isAdmin();
-      allow delete: if isAdmin();
-    }
+      function isOwner(userId) {
+        return request.auth.uid == userId;
+      }
 
-    match /resources/{resourceId} {
-      /**
-       * @description Allows anyone to read resource links, but only admins can create, update, or delete them.
-       * @path /resources/{resourceId}
-       * @allow (get, list): Any user can read resource links.
-       * @allow (create, update, delete): Only an admin can modify resource links.
-       * @deny (create, update, delete): A non-admin user cannot modify resource links.
-       * @principle Public read, admin-only write access.
-       */
-      allow get: if true;
-      allow list: if true;
-      allow create: if isAdmin();
-      allow update: if isAdmin();
-      allow delete: if isAdmin();
-    }
+      function isExistingOwner(userId) {
+        return isSignedIn() && isOwner(userId) && resource != null;
+      }
 
-    match /experience/{experienceId} {
-      /**
-       * @description Allows anyone to read experience details, but only admins can create, update, or delete them.
-       * @path /experience/{experienceId}
-       * @allow (get, list): Any user can read experience details.
-       * @allow (create, update, delete): Only an admin can modify experience details.
-       * @deny (create, update, delete): A non-admin user cannot modify experience details.
-       * @principle Public read, admin-only write access.
-       */
-      allow get: if true;
-      allow list: if true;
-      allow create: if isAdmin();
-      allow update: if isAdmin();
-      allow delete: if isAdmin();
-    }
+      // Read Permissions
+      allow get: if isSignedIn() && isOwner(userId);
+      allow list: if isSignedIn() && isOwner(userId);
 
-    match /skills/{skillId} {
-      /**
-       * @description Allows anyone to read skill details, but only admins can create, update, or delete them.
-       * @path /skills/{skillId}
-       * @allow (get, list): Any user can read skill details.
-       * @allow (create, update, delete): Only an admin can modify skill details.
-       * @deny (create, update, delete): A non-admin user cannot modify skill details.
-       * @principle Public read, admin-only write access.
-       */
-      allow get: if true;
-      allow list: if true;
-      allow create: if isAdmin();
-      allow update: if isAdmin();
-      allow delete: if isAdmin();
-    }
-
-    match /personalInfo/{document} {
-        /**
-         * @description Allows anyone to read personal info, but only admins can create, update, or delete it.
-         * @path /personalInfo/main
-         * @allow (get): Any user can read personal info.
-         * @allow (create, update, delete): Only an admin can modify personal info.
-         * @deny (create, update, delete): A non-admin user cannot modify personal info.
-         * @principle Public read, admin-only write access.
-         */
-        allow get: if true;
-        allow create: if isAdmin();
-        allow update: if isAdmin();
-        allow delete: if isAdmin();
-        allow list: if false; // There's only one document. Listing is not useful or needed.
-    }
-
-    match /admins/{uid} {
-      /**
-       * @description Allows admins to manage other admin profiles.
-       * @path /admins/{uid}
-       * @allow (get): Only admins can retrieve admin profiles.
-       * @allow (create, update, delete): Only admins can modify admin profiles.
-       * @deny (list): Listing admin profiles is not allowed.
-       * @deny (create, update, delete): A non-admin user cannot modify admin profiles.
-       * @principle Admin-only access for admin management.
-       */
-      allow get: if isAdmin();
-      allow create: if isAdmin();
-      allow update: if isAdmin();
-      allow delete: if isAdmin();
-      allow list: if false;
+      // Write Permissions
+      allow create: if isSignedIn() && isOwner(userId);
+      allow update: if isExistingOwner(userId);
+      allow delete: if isExistingOwner(userId);
     }
   }
 }
