@@ -11,6 +11,7 @@ import {
 import Link from 'next/link';
 import { ExternalLink } from 'lucide-react';
 import type { Resource } from '@/lib/types';
+import { useMemo } from 'react';
 
 export default function ResourcesPage() {
   const firestore = useFirestore();
