@@ -13,6 +13,15 @@ import { content } from "@/lib/content";
 import { skills as placeholderSkills } from "@/lib/placeholder-data";
 import { useState, useEffect } from "react";
 
+const softwareIcons = [
+    { name: "Photoshop", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg" },
+    { name: "Illustrator", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg" },
+    { name: "Figma", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
+    { name: "Canva", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg" },
+    { name: "Capcut", src: "https://www.capcut.com/favicon.ico" }, // Note: Capcut doesn't have a devicon, using favicon as a placeholder.
+];
+
+
 export default function AboutPage() {
   const { language } = useLanguage();
   const pageContent = content[language].about;
@@ -108,6 +117,20 @@ export default function AboutPage() {
           ))}
         </div>
       </section>
+
+      <section className="mt-16">
+          <div className="flex justify-center items-center gap-6 md:gap-8 flex-wrap">
+              {softwareIcons.map(icon => (
+                  <div key={icon.name} className="flex flex-col items-center gap-2 group">
+                      <div className="relative w-16 h-16 md:w-20 md:h-20 transition-transform duration-300 group-hover:scale-110">
+                          <Image src={icon.src} alt={`${icon.name} logo`} fill className="object-contain" />
+                      </div>
+                      <p className="text-sm text-muted-foreground transition-colors duration-300 group-hover:text-primary">{icon.name}</p>
+                  </div>
+              ))}
+          </div>
+      </section>
+
 
       <section id="contact" className="mt-24 text-center bg-card p-8 md:p-16 rounded-lg">
         <h2 className="font-headline text-3xl md:text-4xl font-bold">
