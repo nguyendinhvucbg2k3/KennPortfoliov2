@@ -9,23 +9,20 @@ import {
 import Link from 'next/link';
 import { ExternalLink } from 'lucide-react';
 import type { Resource } from '@/lib/types';
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo } from 'react';
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
-import { resources as placeholderResources } from '@/lib/placeholder-data';
+import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
+import { collection } from 'firebase/firestore';
 
 
 export default function ResourcesPage() {
   const { language } = useLanguage();
   const pageContent = content[language].resources;
-  
-  const [resources, setResources] = useState<Resource[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const firestore = useFirestore();
 
-  useEffect(() => {
-    setResources(placeholderResources);
-    setIsLoading(false);
-  }, []);
+  const resourcesQuery = useMemoFirebase(() => firestore ? collection(firestore, 'resources') : null, [firestore]);
+  const { data: resources, isLoading } = useCollection<Resource>(resourcesQuery);
 
   const resourcesByCategory = useMemo(() => {
     if (!resources) return {};
@@ -38,6 +35,12 @@ export default function ResourcesPage() {
       return acc;
     }, {} as Record<string, Resource[]>);
   }, [resources]);
+
+  const defaultAccordionValue = useMemo(() => {
+    const keys = Object.keys(resourcesByCategory);
+    return keys.length > 0 ? keys[0] : undefined;
+  }, [resourcesByCategory]);
+
 
   if (isLoading) {
     return (
@@ -66,36 +69,38 @@ export default function ResourcesPage() {
       </div>
 
       <div className="max-w-3xl mx-auto mt-12">
-        <Accordion type="single" collapsible className="w-full" defaultValue={Object.keys(resourcesByCategory)[0]}>
-          {Object.entries(resourcesByCategory).map(([category, resourcesInCategory]) => (
-            <AccordionItem key={category} value={category}>
-              <AccordionTrigger className="text-xl font-headline hover:text-primary">
-                {category}
-              </AccordionTrigger>
-              <AccordionContent>
-                <div className="space-y-4 pt-2">
-                  {resourcesInCategory.map((resource, index) => (
-                    <Link
-                      key={resource.id || index}
-                      href={resource.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block p-4 rounded-lg bg-card/50 hover:bg-card transition-colors group"
-                    >
-                      <div className="flex justify-between items-center">
-                        <div>
-                          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">{resource.title}</h3>
-                          <p className="text-sm text-muted-foreground">{resource.description}</p>
+        {defaultAccordionValue && (
+            <Accordion type="single" collapsible className="w-full" defaultValue={defaultAccordionValue}>
+            {Object.entries(resourcesByCategory).map(([category, resourcesInCategory]) => (
+                <AccordionItem key={category} value={category}>
+                <AccordionTrigger className="text-xl font-headline hover:text-primary">
+                    {category}
+                </AccordionTrigger>
+                <AccordionContent>
+                    <div className="space-y-4 pt-2">
+                    {resourcesInCategory.map((resource) => (
+                        <Link
+                        key={resource.id}
+                        href={resource.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block p-4 rounded-lg bg-card/50 hover:bg-card transition-colors group"
+                        >
+                        <div className="flex justify-between items-center">
+                            <div>
+                            <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">{resource.title}</h3>
+                            <p className="text-sm text-muted-foreground">{resource.description}</p>
+                            </div>
+                            <ExternalLink className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
                         </div>
-                        <ExternalLink className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+                        </Link>
+                    ))}
+                    </div>
+                </AccordionContent>
+                </AccordionItem>
+            ))}
+            </Accordion>
+        )}
       </div>
     </div>
   );

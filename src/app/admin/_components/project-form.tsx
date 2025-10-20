@@ -12,6 +12,9 @@ import { Project } from '@/lib/types';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
+import { useFirestore } from '@/firebase';
+import { collection, doc } from 'firebase/firestore';
+import { setDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 
 const projectSchema = z.object({
   name: z.string().min(1, 'Name is required.'),
@@ -38,6 +41,7 @@ export function ProjectForm({ project, onSave }: ProjectFormProps) {
   const { language } = useLanguage();
   const formContent = content[language].admin.projects.form;
   const { toast } = useToast();
+  const firestore = useFirestore();
 
   const form = useForm<z.infer<typeof projectSchema>>({
     resolver: zodResolver(projectSchema),
@@ -59,10 +63,15 @@ export function ProjectForm({ project, onSave }: ProjectFormProps) {
   });
 
   const onSubmit = (values: z.infer<typeof projectSchema>) => {
-    console.log('Form submitted. In a real app, this would save to a database.', values);
+    const projectData = { ...values };
+    const docId = project?.id || doc(collection(firestore, 'projects')).id;
+    const docRef = doc(firestore, 'projects', docId);
+
+    setDocumentNonBlocking(docRef, { ...projectData, id: docId }, { merge: true });
+
     toast({
-      title: project?.id ? 'Project Updated (Simulated)' : 'Project Added (Simulated)',
-      description: `Project "${values.name}" has been logged to the console.`,
+      title: project?.id ? 'Project Updated' : 'Project Added',
+      description: `Project "${values.name}" has been saved.`,
     });
     onSave();
   };

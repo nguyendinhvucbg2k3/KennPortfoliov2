@@ -35,6 +35,9 @@ import {
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
 import { useToast } from '@/hooks/use-toast';
+import { useFirestore } from '@/firebase';
+import { doc } from 'firebase/firestore';
+import { deleteDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 
 export const columns: ColumnDef<Project>[] = [
   {
@@ -79,12 +82,14 @@ export const columns: ColumnDef<Project>[] = [
       const adminContent = content[language].admin;
       const { toast } = useToast();
       const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+      const firestore = useFirestore();
 
       const handleDelete = () => {
-        console.log(`Deleting project: ${project.name}`);
+        const docRef = doc(firestore, 'projects', project.id);
+        deleteDocumentNonBlocking(docRef);
         toast({
-          title: 'Project Deleted (Simulated)',
-          description: `Project "${project.name}" would have been deleted.`,
+          title: 'Project Deleted',
+          description: `Project "${project.name}" has been deleted.`,
         });
       };
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -8,31 +8,34 @@ import { Button } from '@/components/ui/button';
 import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import type { Project } from '@/lib/types';
-import { projectCategories, projects as placeholderProjects } from '@/lib/placeholder-data'; 
+import { projectCategories as staticCategories } from '@/lib/placeholder-data'; 
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
+import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
+import { collection, query, where } from 'firebase/firestore';
+
 
 export default function ProjectsPage() {
   const { language } = useLanguage();
   const pageContent = content[language].projects;
   const [activeCategory, setActiveCategory] = useState('All');
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const firestore = useFirestore();
 
-  useEffect(() => {
-    setProjects(placeholderProjects);
-    setIsLoading(false);
-  }, []);
-
-  useEffect(() => {
+  const projectsQuery = useMemoFirebase(() => {
+    if (!firestore) return null;
     if (activeCategory === 'All') {
-      setFilteredProjects(projects);
+      return collection(firestore, 'projects');
     } else {
-      setFilteredProjects(projects.filter(p => p.category === activeCategory));
+      return query(collection(firestore, 'projects'), where('category', '==', activeCategory));
     }
-  }, [activeCategory, projects]);
+  }, [firestore, activeCategory]);
 
+  const { data: projects, isLoading } = useCollection<Project>(projectsQuery);
+
+  const projectCategories = useMemo(() => {
+    // Using static categories for the filter buttons to avoid complexity
+    return staticCategories;
+  }, []);
 
   return (
     <div className="container mx-auto px-4 py-16 md:py-24">
@@ -88,7 +91,7 @@ export default function ProjectsPage() {
                 </motion.div>
              ))
           ) : (
-            filteredProjects.map((project) => (
+            (projects || []).map((project) => (
               <motion.div
                 key={project.id}
                 layout
@@ -99,7 +102,7 @@ export default function ProjectsPage() {
               >
                 <Card className="h-full overflow-hidden group transition-all duration-300 ease-in-out hover:border-primary hover:shadow-lg hover:shadow-primary/20">
                   <Link
-                    href={`/projects/${project.slug}`}
+                    href={`/projects/${project.id}`}
                     className="block h-full"
                   >
                     <div className="relative aspect-video overflow-hidden">

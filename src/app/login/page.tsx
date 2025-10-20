@@ -5,33 +5,32 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Chrome } from 'lucide-react';
-
-// Mock user authentication
-const useMockUser = () => {
-    // For this static version, we'll assume the user is not logged in on this page
-    // until they "log in".
-    return { user: null, isUserLoading: false };
-};
-
+import { useAuth, useUser } from '@/firebase';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 export default function LoginPage() {
-  const { user, isUserLoading } = useMockUser();
+  const { user, isUserLoading } = useUser();
+  const auth = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    // If we were using real auth, we'd check if a user is already logged in
-    // and redirect. For now, this page is just a gateway.
-  }, []);
+    if (!isUserLoading && user) {
+      router.push('/admin');
+    }
+  }, [user, isUserLoading, router]);
 
   const handleSignIn = async () => {
-    // In a real app, this would trigger the Google sign-in popup.
-    // For this static version, we'll just redirect to the admin page
-    // as if the login was successful.
-    console.log("Simulating sign in...");
-    router.push('/admin');
+    if (!auth) return;
+    const provider = new GoogleAuthProvider();
+    try {
+      await signInWithPopup(auth, provider);
+      // The onAuthStateChanged listener in the provider will handle the redirect
+    } catch (error) {
+      console.error("Error signing in with Google", error);
+    }
   };
   
-  if (isUserLoading) {
+  if (isUserLoading || user) {
     return (
       <div className="flex justify-center items-center h-screen">
         <p>Loading...</p>

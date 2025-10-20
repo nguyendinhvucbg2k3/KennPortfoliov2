@@ -11,21 +11,12 @@ import { useRouter } from "next/navigation";
 import { LanguageSwitcher } from "../language-switcher";
 import { useLanguage } from "@/context/language-context";
 import { content } from "@/lib/content";
-import { useState, useEffect } from 'react';
-
-// Mock user authentication
-const useMockUser = () => {
-    // In a real app, this would involve checking a cookie or session
-    // For this static version, we'll assume the user is always logged in to see the admin page.
-    const [user, setUser] = useState<{ name: string } | null>({ name: 'Admin' });
-    const [isUserLoading, setIsLoading] = useState(false);
-    return { user, isUserLoading };
-};
-
+import { useAuth, useUser } from "@/firebase";
 
 export function Header() {
   const pathname = usePathname();
-  const { user, isUserLoading } = useMockUser();
+  const { user, isUserLoading } = useUser();
+  const auth = useAuth();
   const router = useRouter();
   const { language } = useLanguage();
   const navContent = content[language].nav;
@@ -39,8 +30,9 @@ export function Header() {
   ];
 
   const handleSignOut = async () => {
-    // In a real app, this would clear the session/cookie
-    console.log("Signing out...");
+    if (auth) {
+      await auth.signOut();
+    }
     router.push('/');
   };
 
@@ -77,13 +69,15 @@ export function Header() {
         </nav>
         <div className="flex items-center gap-2">
            <LanguageSwitcher />
-           {!isUserLoading && user ? (
+           {isUserLoading ? (
+             <div className="h-8 w-8 bg-muted/50 rounded-full animate-pulse" />
+           ) : user ? (
              <Button variant="ghost" size="icon" onClick={handleSignOut} title="Sign Out">
                 <LogOut className="h-5 w-5" />
              </Button>
-           ) : !isUserLoading && (
+           ) : (
               <Button variant="ghost" size="icon" asChild>
-                <Link href="/admin" title="Sign In">
+                <Link href="/login" title="Sign In">
                   <LogIn className="h-5 w-5" />
                 </Link>
               </Button>
