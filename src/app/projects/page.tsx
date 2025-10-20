@@ -8,29 +8,27 @@ import { Button } from '@/components/ui/button';
 import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import type { Project } from '@/lib/types';
-import { projectCategories, projects as staticProjects } from '@/lib/placeholder-data'; 
+import { projectCategories } from '@/lib/placeholder-data'; 
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
+import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
+import { collection, query, where } from 'firebase/firestore';
 
 export default function ProjectsPage() {
   const { language } = useLanguage();
   const pageContent = content[language].projects;
   const [activeCategory, setActiveCategory] = useState('All');
+  const firestore = useFirestore();
 
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const projectsQuery = useMemoFirebase(() => {
+    const baseQuery = collection(firestore, 'projects');
+    if (activeCategory === 'All') {
+      return baseQuery;
+    }
+    return query(baseQuery, where('category', '==', activeCategory));
+  }, [firestore, activeCategory]);
 
-  useEffect(() => {
-    setProjects(staticProjects);
-    setIsLoading(false);
-  }, []);
-
-  const filteredProjects =
-    !isLoading && projects
-      ? activeCategory === 'All'
-        ? projects
-        : projects.filter((p) => p.category === activeCategory)
-      : [];
+  const { data: projects, isLoading } = useCollection<Project>(projectsQuery);
 
   return (
     <div className="container mx-auto px-4 py-16 md:py-24">
@@ -86,7 +84,7 @@ export default function ProjectsPage() {
                 </motion.div>
              ))
           ) : (
-            filteredProjects.map((project) => (
+            (projects || []).map((project) => (
               <motion.div
                 key={project.id}
                 layout

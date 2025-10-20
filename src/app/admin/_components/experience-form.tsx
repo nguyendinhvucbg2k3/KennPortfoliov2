@@ -11,6 +11,9 @@ import { useToast } from '@/hooks/use-toast';
 import { Experience } from '@/lib/types';
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
+import { useFirestore } from '@/firebase';
+import { addDocumentNonBlocking, setDocumentNonBlocking } from '@/firebase/non-blocking-updates';
+import { collection, doc } from 'firebase/firestore';
 
 const experienceSchema = z.object({
   title: z.string().min(1, 'Title is required.'),
@@ -28,6 +31,7 @@ export function ExperienceForm({ experience, onSave }: ExperienceFormProps) {
   const { language } = useLanguage();
   const formContent = content[language].admin.experience.form;
   const { toast } = useToast();
+  const firestore = useFirestore();
 
   const form = useForm<z.infer<typeof experienceSchema>>({
     resolver: zodResolver(experienceSchema),
@@ -40,11 +44,16 @@ export function ExperienceForm({ experience, onSave }: ExperienceFormProps) {
   });
 
   const onSubmit = (values: z.infer<typeof experienceSchema>) => {
-    // Firestore writing is disabled.
-    console.log('Form submitted. Firestore writing is currently disabled.', values);
+    if (experience?.id) {
+      const docRef = doc(firestore, 'experience', experience.id);
+      setDocumentNonBlocking(docRef, values, { merge: true });
+    } else {
+      const colRef = collection(firestore, 'experience');
+      addDocumentNonBlocking(colRef, values);
+    }
     toast({
-      title: 'Submit Disabled',
-      description: 'Experience data has been logged to the console. Database writing is disabled.',
+      title: experience?.id ? 'Experience Updated' : 'Experience Added',
+      description: `Experience entry "${values.title}" has been saved.`,
     });
     onSave();
   };

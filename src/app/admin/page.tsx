@@ -1,41 +1,30 @@
 'use client';
 
-import { useUser } from '@/firebase';
+import { useUser, useFirestore, useCollection, useDoc, useMemoFirebase } from '@/firebase';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { AdminDashboard } from './_components/admin-dashboard';
 import type { Project, Resource, Skill, Experience, PersonalInfo } from '@/lib/types';
-import { 
-  projects as staticProjects, 
-  resources as staticResources, 
-  experiences as staticExperiences, 
-  skills as staticSkills 
-} from '@/lib/placeholder-data';
-
-
-const staticPersonalInfo: PersonalInfo = {
-    fullName: "Thac Nguyen Dinh Vu",
-    footerName: "Thac Nguyen Dinh Vu",
-    title: "Intern Graphic Designer",
-    fieldOfStudy: "Information Technology",
-    dateOfBirth: "20/07/2003",
-    email: "thacnguyendinhvu.esports@gmail.com",
-    phone: "0964664117",
-    phoneHref: "tel:+84964664117",
-    address: "Ha Dong, Hanoi",
-};
+import { collection, doc } from 'firebase/firestore';
 
 export default function AdminPage() {
   const { user, isUserLoading } = useUser();
   const router = useRouter();
-  
-  // Use state to hold the static data
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [resources, setResources] = useState<Resource[]>([]);
-  const [experiences, setExperiences] = useState<Experience[]>([]);
-  const [skills, setSkills] = useState<Skill[]>([]);
-  const [personalInfo, setPersonalInfo] = useState<PersonalInfo | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const firestore = useFirestore();
+
+  // Memoize Firestore references
+  const projectsQuery = useMemoFirebase(() => collection(firestore, 'projects'), [firestore]);
+  const resourcesQuery = useMemoFirebase(() => collection(firestore, 'resources'), [firestore]);
+  const experiencesQuery = useMemoFirebase(() => collection(firestore, 'experience'), [firestore]);
+  const skillsQuery = useMemoFirebase(() => collection(firestore, 'skills'), [firestore]);
+  const personalInfoDoc = useMemoFirebase(() => doc(firestore, 'personalInfo', 'main'), [firestore]);
+
+  // Fetch data from Firestore
+  const { data: projects, isLoading: projectsLoading } = useCollection<Project>(projectsQuery);
+  const { data: resources, isLoading: resourcesLoading } = useCollection<Resource>(resourcesQuery);
+  const { data: experiences, isLoading: experiencesLoading } = useCollection<Experience>(experiencesQuery);
+  const { data: skills, isLoading: skillsLoading } = useCollection<Skill>(skillsQuery);
+  const { data: personalInfo, isLoading: personalInfoLoading } = useDoc<PersonalInfo>(personalInfoDoc);
 
   useEffect(() => {
     if (!isUserLoading && !user) {
@@ -43,17 +32,9 @@ export default function AdminPage() {
     }
   }, [user, isUserLoading, router]);
 
-  // Load static data on component mount
-  useEffect(() => {
-    setProjects(staticProjects.map(p => ({...p, id: p.id || crypto.randomUUID()})));
-    setResources(staticResources.map(r => ({...r, id: r.id || crypto.randomUUID()})));
-    setExperiences(staticExperiences.map(e => ({...e, id: e.id || crypto.randomUUID()})));
-    setSkills(staticSkills.map(s => ({...s, id: s.id || crypto.randomUUID()})));
-    setPersonalInfo(staticPersonalInfo);
-    setIsLoading(false);
-  }, []);
+  const isLoading = isUserLoading || projectsLoading || resourcesLoading || experiencesLoading || skillsLoading || personalInfoLoading;
 
-  if (isUserLoading || isLoading) {
+  if (isLoading) {
     return <div className="flex items-center justify-center h-screen">Loading...</div>;
   }
 
@@ -63,10 +44,10 @@ export default function AdminPage() {
   
   return (
     <AdminDashboard
-      projects={projects}
-      resources={resources}
-      experiences={experiences}
-      skills={skills}
+      projects={projects || []}
+      resources={resources || []}
+      experiences={experiences || []}
+      skills={skills || []}
       personalInfo={personalInfo}
     />
   );

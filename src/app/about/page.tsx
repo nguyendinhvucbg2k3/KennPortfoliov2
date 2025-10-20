@@ -10,21 +10,17 @@ import { Download } from "lucide-react";
 import type { Skill } from "@/lib/types";
 import { useLanguage } from "@/context/language-context";
 import { content } from "@/lib/content";
-import { skills as staticSkills } from '@/lib/placeholder-data';
-import { useEffect, useState } from "react";
+import { useCollection, useFirestore, useMemoFirebase } from "@/firebase";
+import { collection } from "firebase/firestore";
 
 export default function AboutPage() {
   const { language } = useLanguage();
   const pageContent = content[language].about;
   const aboutImage = PlaceHolderImages.find((img) => img.id === "about-image");
+  const firestore = useFirestore();
 
-  const [skills, setSkills] = useState<Skill[]>([]);
-  const [skillsLoading, setSkillsLoading] = useState(true);
-
-  useEffect(() => {
-    setSkills(staticSkills);
-    setSkillsLoading(false);
-  }, []);
+  const skillsQuery = useMemoFirebase(() => collection(firestore, 'skills'), [firestore]);
+  const { data: skills, isLoading: skillsLoading } = useCollection<Skill>(skillsQuery);
 
   return (
     <div className="container mx-auto px-4 py-16 md:py-24">

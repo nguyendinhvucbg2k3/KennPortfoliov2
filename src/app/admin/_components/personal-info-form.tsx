@@ -4,13 +4,16 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { PersonalInfo } from '@/lib/types';
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
+import { useFirestore } from '@/firebase';
+import { doc } from 'firebase/firestore';
+import { setDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 
 const personalInfoSchema = z.object({
   fullName: z.string().min(1, 'Full name is required.'),
@@ -32,6 +35,7 @@ export function PersonalInfoForm({ initialData }: PersonalInfoFormProps) {
   const { language } = useLanguage();
   const adminContent = content[language].admin;
   const { toast } = useToast();
+  const firestore = useFirestore();
 
   const form = useForm<z.infer<typeof personalInfoSchema>>({
     resolver: zodResolver(personalInfoSchema),
@@ -49,11 +53,11 @@ export function PersonalInfoForm({ initialData }: PersonalInfoFormProps) {
   });
 
   const onSubmit = (values: z.infer<typeof personalInfoSchema>) => {
-    // Firestore writing is disabled.
-    console.log('Form submitted. Firestore writing is currently disabled.', values);
+    const docRef = doc(firestore, 'personalInfo', 'main');
+    setDocumentNonBlocking(docRef, values, { merge: true });
     toast({
-      title: 'Submit Disabled',
-      description: 'Your information has been logged to the console. Database writing is disabled.',
+      title: 'Personal Info Saved',
+      description: 'Your information has been successfully updated.',
     });
   };
 

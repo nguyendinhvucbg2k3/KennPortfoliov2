@@ -11,7 +11,8 @@ import { ArrowRight } from 'lucide-react';
 import type { Project } from '@/lib/types';
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
-import { projects as staticProjects } from '@/lib/placeholder-data';
+import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
+import { collection, query, where, limit } from 'firebase/firestore';
 
 type ProjectPageProps = {
   params: {
@@ -19,34 +20,30 @@ type ProjectPageProps = {
   };
 };
 
-function getProjectBySlug(slug: string): Project | null {
-  const project = staticProjects.find(p => p.slug === slug);
-  return project || null;
-}
-
 export default function ProjectPage({ params }: ProjectPageProps) {
   const { language } = useLanguage();
   const pageContent = content[language].projectDetail;
-  const [project, setProject] = React.useState<Project | null>(null);
-  const [loading, setLoading] = React.useState(true);
+  const firestore = useFirestore();
+
+  const projectQuery = useMemoFirebase(() => {
+    return query(collection(firestore, 'projects'), where('slug', '==', params.slug), limit(1));
+  }, [firestore, params.slug]);
+
+  const { data: projects, isLoading } = useCollection<Project>(projectQuery);
+  const project = projects?.[0];
 
   React.useEffect(() => {
-    const foundProject = getProjectBySlug(params.slug);
-    if (!foundProject) {
+    if (!isLoading && !project) {
       notFound();
-    } else {
-      setProject(foundProject);
-      setLoading(false);
     }
-  }, [params.slug]);
-
-  if (loading) {
+  }, [isLoading, project]);
+  
+  if (isLoading) {
     return <div className="flex items-center justify-center h-screen">Loading project...</div>;
   }
   
   if (!project) {
-    // This will be caught by the notFound() in useEffect, but as a fallback
-    notFound();
+    return null; // or a not found component, useEffect will trigger notFound()
   }
 
   return (

@@ -12,6 +12,9 @@ import { Project } from '@/lib/types';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
+import { useFirestore } from '@/firebase';
+import { addDocumentNonBlocking, setDocumentNonBlocking } from '@/firebase/non-blocking-updates';
+import { collection, doc } from 'firebase/firestore';
 
 const projectSchema = z.object({
   name: z.string().min(1, 'Name is required.'),
@@ -38,10 +41,15 @@ export function ProjectForm({ project, onSave }: ProjectFormProps) {
   const { language } = useLanguage();
   const formContent = content[language].admin.projects.form;
   const { toast } = useToast();
+  const firestore = useFirestore();
 
   const form = useForm<z.infer<typeof projectSchema>>({
     resolver: zodResolver(projectSchema),
-    defaultValues: project || {
+    defaultValues: project ? {
+      ...project,
+      // @ts-ignore
+      category: project.category
+    } : {
       name: '',
       slug: '',
       category: 'Graphic Design',
@@ -55,11 +63,16 @@ export function ProjectForm({ project, onSave }: ProjectFormProps) {
   });
 
   const onSubmit = (values: z.infer<typeof projectSchema>) => {
-    // Firestore writing is disabled.
-    console.log('Form submitted. Firestore writing is currently disabled.', values);
+    if (project?.id) {
+      const docRef = doc(firestore, 'projects', project.id);
+      setDocumentNonBlocking(docRef, values, { merge: true });
+    } else {
+      const colRef = collection(firestore, 'projects');
+      addDocumentNonBlocking(colRef, values);
+    }
     toast({
-      title: 'Submit Disabled',
-      description: 'Project data has been logged to the console. Database writing is disabled.',
+      title: project?.id ? 'Project Updated' : 'Project Added',
+      description: `Project "${values.name}" has been saved.`,
     });
     onSave();
   };

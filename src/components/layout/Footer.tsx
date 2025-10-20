@@ -7,7 +7,8 @@ import { NeonBloomLogo } from "../icons/NeonBloomLogo";
 import { PersonalInfo } from "@/lib/types";
 import { useLanguage } from "@/context/language-context";
 import { content } from "@/lib/content";
-import { useEffect, useState } from "react";
+import { useDoc, useFirestore, useMemoFirebase } from "@/firebase";
+import { doc } from "firebase/firestore";
 
 const BehanceIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg
@@ -46,29 +47,13 @@ const PinterestIcon = (props: React.SVGProps<SVGSVGElement>) => (
     </svg>
 );
 
-const staticPersonalInfo: PersonalInfo = {
-    fullName: "Thac Nguyen Dinh Vu",
-    footerName: "Thac Nguyen Dinh Vu",
-    title: "Intern Graphic Designer",
-    fieldOfStudy: "Information Technology",
-    dateOfBirth: "20/07/2003",
-    email: "thacnguyendinhvu.esports@gmail.com",
-    phone: "0964664117",
-    phoneHref: "tel:+84964664117",
-    address: "Ha Dong, Hanoi",
-};
-
-
 export function Footer() {
     const { language } = useLanguage();
     const pageContent = content[language].footer;
-    const [personalInfo, setPersonalInfo] = useState<PersonalInfo | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const firestore = useFirestore();
 
-    useEffect(() => {
-        setPersonalInfo(staticPersonalInfo);
-        setIsLoading(false);
-    }, []);
+    const personalInfoDoc = useMemoFirebase(() => doc(firestore, 'personalInfo', 'main'), [firestore]);
+    const { data: personalInfo, isLoading } = useDoc<PersonalInfo>(personalInfoDoc);
 
   return (
     <footer className="w-full border-t border-border/40">

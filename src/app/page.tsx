@@ -10,35 +10,21 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { Experience, PersonalInfo } from '@/lib/types';
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
-import { experiences as staticExperiences } from '@/lib/placeholder-data';
-import { useEffect, useState } from 'react';
-
-const staticPersonalInfo: PersonalInfo = {
-    fullName: "Thac Nguyen Dinh Vu",
-    footerName: "Thac Nguyen Dinh Vu",
-    title: "Intern Graphic Designer",
-    fieldOfStudy: "Information Technology",
-    dateOfBirth: "20/07/2003",
-    email: "thacnguyendinhvu.esports@gmail.com",
-    phone: "0964664117",
-    phoneHref: "tel:+84964664117",
-    address: "Ha Dong, Hanoi",
-};
+import { useCollection, useDoc, useFirestore, useMemoFirebase } from '@/firebase';
+import { collection, doc } from 'firebase/firestore';
 
 export default function Home() {
   const { language } = useLanguage();
   const heroImage = PlaceHolderImages.find((img) => img.id === 'hero-background');
+  const firestore = useFirestore();
   
-  const [personalInfo, setPersonalInfo] = useState<PersonalInfo | null>(null);
-  const [experiences, setExperiences] = useState<Experience[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    setPersonalInfo(staticPersonalInfo);
-    setExperiences(staticExperiences);
-    setIsLoading(false);
-  }, []);
+  const personalInfoDoc = useMemoFirebase(() => doc(firestore, 'personalInfo', 'main'), [firestore]);
+  const experiencesQuery = useMemoFirebase(() => collection(firestore, 'experience'), [firestore]);
   
+  const { data: personalInfo, isLoading: personalInfoLoading } = useDoc<PersonalInfo>(personalInfoDoc);
+  const { data: experiences, isLoading: experiencesLoading } = useCollection<Experience>(experiencesQuery);
+  
+  const isLoading = personalInfoLoading || experiencesLoading;
   const pageContent = content[language].home;
 
   return (

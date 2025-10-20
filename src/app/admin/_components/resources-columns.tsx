@@ -34,6 +34,9 @@ import {
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
 import { useToast } from '@/hooks/use-toast';
+import { useFirestore } from '@/firebase';
+import { doc } from 'firebase/firestore';
+import { deleteDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 
 
 export const columns: ColumnDef<Resource>[] = [
@@ -80,13 +83,14 @@ export const columns: ColumnDef<Resource>[] = [
       const adminContent = content[language].admin;
       const { toast } = useToast();
       const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+      const firestore = useFirestore();
 
       const handleDelete = () => {
-        // Firestore writing is disabled.
-        console.log('Delete action triggered. Firestore writing is currently disabled for resource:', resource.id);
+        const docRef = doc(firestore, 'resources', resource.id);
+        deleteDocumentNonBlocking(docRef);
         toast({
-          title: 'Delete Disabled',
-          description: `Resource "${resource.title}" delete action logged to console.`,
+          title: 'Resource Deleted',
+          description: `Resource "${resource.title}" has been deleted.`,
         });
       };
 
