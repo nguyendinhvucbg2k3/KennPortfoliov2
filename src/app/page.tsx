@@ -9,22 +9,9 @@ import { Mail, Phone, MapPin, Briefcase, GraduationCap, Cake } from 'lucide-reac
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
-import { experiences as placeholderExperiences } from '@/lib/placeholder-data';
+import { experiences as placeholderExperiences, personalInfo as placeholderPersonalInfo } from '@/lib/placeholder-data';
 import type { PersonalInfo, Experience } from '@/lib/types';
 import { useState, useEffect } from 'react';
-
-// Mock data to simulate fetching since we are not using Firebase
-const placeholderPersonalInfo: PersonalInfo = {
-    fullName: "Thac Nguyen Dinh Vu",
-    footerName: "Thac Nguyen Dinh Vu",
-    title: "Intern Graphic Designer",
-    fieldOfStudy: "Information Technology",
-    dateOfBirth: "20/07/2003",
-    email: "thacnguyendinhvu.esports@gmail.com",
-    phone: "0964664117",
-    phoneHref: "tel:+84964664117",
-    address: "Hà Đông, Hà Nội",
-};
 
 export default function Home() {
   const { language } = useLanguage();

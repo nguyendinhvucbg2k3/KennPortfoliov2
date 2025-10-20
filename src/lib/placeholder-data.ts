@@ -1,35 +1,26 @@
 import { PlaceHolderImages } from "./placeholder-images";
+import type { Skill, Project, Resource, Experience, PersonalInfo } from "./types";
 
-export type Skill = {
-  id?: string;
-  name: string;
-  level: number;
-  description: string;
+export const personalInfo: PersonalInfo = {
+    fullName: "Thac Nguyen Dinh Vu",
+    footerName: "Thac Nguyen Dinh Vu",
+    title: "Intern Graphic Designer",
+    fieldOfStudy: "Information Technology",
+    dateOfBirth: "20/07/2003",
+    email: "thacnguyendinhvu.esports@gmail.com",
+    phone: "0964664117",
+    phoneHref: "tel:+84964664117",
+    address: "Hà Đông, Hà Nội",
 };
+
 
 export const skills: Skill[] = [
-  { name: "ADOBE PHOTOSHOP / ILLUSTRATOR / ...", level: 75, description: "Advanced proficiency in Adobe Creative Suite." },
-  { name: "GRAPHIC DESIGNER", level: 75, description: "Comprehensive skills in graphic design principles." },
-  { name: "WORKING GROUP", level: 60, description: "Experienced in collaborative team environments." },
-  { name: "OFFICE INFORMATION", level: 55, description: "Proficient with standard office software." },
+  { id: "1", name: "ADOBE PHOTOSHOP / ILLUSTRATOR / ...", level: 75, description: "Advanced proficiency in Adobe Creative Suite." },
+  { id: "2", name: "GRAPHIC DESIGNER", level: 75, description: "Comprehensive skills in graphic design principles." },
+  { id: "3", name: "WORKING GROUP", level: 60, description: "Experienced in collaborative team environments." },
+  { id: "4", name: "OFFICE INFORMATION", level: 55, description: "Proficient with standard office software." },
 ];
 
-export type Project = {
-  id: string;
-  slug: string;
-  name: string;
-  category: "Branding" | "Illustration" | "Art Direction" | "Packaging" | "Graphic Design" | "UI/UX" | "Web Design" | "Game Design";
-  shortDescription: string;
-  description: string;
-  designPrinciples: string;
-  image: {
-    src: string;
-    alt: string;
-    aiHint: string;
-  };
-  year: number;
-  behanceUrl: string;
-};
 
 export const projects: Project[] = [
   {
@@ -196,46 +187,45 @@ export const projects: Project[] = [
 
 export const projectCategories = ["All", ...Array.from(new Set(projects.map(p => p.category)))];
 
-export type Resource = {
-  id?: string;
-  title: string;
-  description: string;
-  url: string;
-  category: string;
-};
 
 export const resources: Resource[] = [
     {
+      id: "1",
       category: "Nguồn website tham khảo",
       title: "Behance",
       description: "Showcase and discover the latest work from top creatives.",
       url: "https://www.behance.net/",
     },
     {
+      id: "2",
       category: "Nguồn website tham khảo",
       title: "Dribbble",
       description: "A community for creatives to share their work.",
       url: "https://dribbble.com/",
     },
     {
+      id: "3",
       category: "Nguồn website tham khảo",
       title: "Awwwards",
       description: "The best of web design and development.",
       url: "https://www.awwwards.com/",
     },
     {
+      id: "4",
       category: "Link Drive sưu tầm",
       title: "My Collected Resources",
       description: "A personal collection of design assets and inspiration.",
       url: "#",
     },
     {
+      id: "5",
       category: "Link driver design community",
       title: "Community Design Drive",
       description: "Shared resources from the design community.",
       url: "#",
     },
     {
+      id: "6",
       category: "Link drive cho editor",
       title: "Editor's Asset Drive",
       description: "A collection of assets for video and photo editors.",
@@ -244,46 +234,44 @@ export const resources: Resource[] = [
 ];
 
 
-export type Experience = {
-  id?: string;
-  title: string;
-  organization: string;
-  date: string;
-  description: string;
-};
-
 export const experiences: Experience[] = [
     {
+      id: "1",
       title: "LEADER DESIGNER",
       organization: "ORGANIZATION",
       date: "06/2022 — 06/2022",
       description: "Responsible for designing and publishing most of the tournament's materials. In one month, nearly 20 publications were produced.",
     },
     {
+      id: "2",
       title: "LEADER DESIGNER",
       organization: "ORGANIZATION",
       date: "03/2022 — 04/2022",
       description: "Designed and published synchronized materials. In two months, nearly 50 publications were produced.",
     },
     {
+      id: "3",
       title: "LEADER DESIGNER",
       organization: "ORGANIZATION",
       date: "11/2023 — 12/2023",
       description: "In two months, nearly 80 publications and designs were produced.",
     },
     {
+      id: "4",
       title: "LEADER DESIGNER",
       organization: "ORGANIZATION",
       date: "11/2023 — 11/2023",
       description: "In one month, 12 publications and design images were published.",
     },
      {
+      id: "5",
       title: "LEADER DESIGNER",
       organization: "ORGANIZATION",
       date: "03/2024 — 03/2024",
       description: "In one month, nearly 30 publications and design images were published.",
     },
     {
+      id: "6",
       title: "GRAPHIC DESIGNER",
       organization: "MEDIA 2WIN",
       date: "03/2024 — 05/2024",

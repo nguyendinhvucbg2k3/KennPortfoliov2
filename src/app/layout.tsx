@@ -6,7 +6,7 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { Toaster } from '@/components/ui/toaster';
 import { LanguageProvider } from '@/context/language-context';
-// import { FirebaseClientProvider } from '@/firebase';
+import { QuickContact } from '@/components/layout/QuickContact';
 
 const fontInter = Inter({
   subsets: ['latin'],
@@ -37,16 +37,15 @@ export default function RootLayout({
           fontSpaceGrotesk.variable
         )}
       >
-        {/* <FirebaseClientProvider> */}
-          <LanguageProvider>
-            <div className="relative flex min-h-dvh flex-col bg-background">
-              <Header />
-              <main className="flex-1">{children}</main>
-              <Footer />
-            </div>
-            <Toaster />
-          </LanguageProvider>
-        {/* </FirebaseClientProvider> */}
+        <LanguageProvider>
+          <div className="relative flex min-h-dvh flex-col bg-background">
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <QuickContact />
+          </div>
+          <Toaster />
+        </LanguageProvider>
       </body>
     </html>
   );
