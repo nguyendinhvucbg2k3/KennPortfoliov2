@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowRight } from 'lucide-react';
 import type { Project } from '@/lib/types';
-import { projects as placeholderProjects, projectCategories as placeholderCategories } from '@/lib/placeholder-data';
+import { projects as placeholderProjects } from '@/lib/placeholder-data';
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
 
@@ -17,23 +17,13 @@ export default function ProjectsPage() {
   const pageContent = content[language].projects;
 
   const [projects, setProjects] = useState<Project[]>([]);
-  const [categories, setCategories] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [activeCategory, setActiveCategory] = useState('All');
 
   useEffect(() => {
     // Simulate fetching data
     setProjects(placeholderProjects);
-    setCategories(placeholderCategories);
     setIsLoading(false);
   }, []);
-
-  const filteredProjects = useMemo(() => {
-    if (activeCategory === 'All') {
-      return projects;
-    }
-    return projects.filter(project => project.category === activeCategory);
-  }, [activeCategory, projects]);
 
   const behanceProfileUrl = "https://www.behance.net/TNDVKenn";
 
@@ -53,26 +43,7 @@ export default function ProjectsPage() {
         </Button>
       </div>
 
-      <div className="mt-12 mb-8 flex justify-center flex-wrap gap-2">
-        {isLoading ? (
-          Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="h-9 w-24 bg-muted/50 rounded-full animate-pulse" />
-          ))
-        ) : (
-          categories.map(category => (
-            <Button
-              key={category}
-              variant={activeCategory === category ? 'default' : 'ghost'}
-              className="rounded-full"
-              onClick={() => setActiveCategory(category)}
-            >
-              {category}
-            </Button>
-          ))
-        )}
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {isLoading ? (
           Array.from({ length: 6 }).map((_, i) => (
             <Card key={i} className="overflow-hidden bg-card/50">
@@ -90,7 +61,7 @@ export default function ProjectsPage() {
             </Card>
           ))
         ) : (
-          filteredProjects.map(project => (
+          projects.map(project => (
             <Card key={project.id} className="overflow-hidden bg-card/50 flex flex-col">
               <div className="relative aspect-video">
                 <Image

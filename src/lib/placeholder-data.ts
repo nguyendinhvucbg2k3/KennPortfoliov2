@@ -185,8 +185,6 @@ export const projects: Project[] = [
   }
 ];
 
-export const projectCategories = ["All", ...Array.from(new Set(projects.map(p => p.category)))];
-
 
 export const resources: Resource[] = [
     {
