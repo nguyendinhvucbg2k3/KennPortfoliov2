@@ -12,7 +12,6 @@ import { content } from '@/lib/content';
 import { experiences as placeholderExperiences, personalInfo as placeholderPersonalInfo } from '@/lib/placeholder-data';
 import type { PersonalInfo, Experience } from '@/lib/types';
 import { useState, useEffect } from 'react';
-import { NeonBloomLogo } from '@/components/icons/NeonBloomLogo';
 
 export default function Home() {
   const { language } = useLanguage();
@@ -51,7 +50,7 @@ export default function Home() {
           ) : (
             <>
               <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl font-bold text-glow">
-                {personalInfo?.fullName || "Thac Nguyen Dinh Vu"}
+                KENN
               </h1>
             </>
           )}
