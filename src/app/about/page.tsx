@@ -45,6 +45,22 @@ export default function AboutPage() {
 
       <section className="mt-24">
         <h2 className="text-center font-headline text-3xl md:text-4xl font-bold">
+          Học <span className="text-primary text-glow">vấn</span>
+        </h2>
+        <div className="mt-12 max-w-2xl mx-auto space-y-8">
+            <div className="p-6 bg-card/50 backdrop-blur-sm border-border/50 rounded-lg">
+                <h3 className="text-xl font-headline">Phenikaa University — INFORMATION TECHNOLOGY</h3>
+                <p className="text-muted-foreground">2021 — now</p>
+            </div>
+             <div className="p-6 bg-card/50 backdrop-blur-sm border-border/50 rounded-lg">
+                <h3 className="text-xl font-headline">Chuyên Bắc Giang High School</h3>
+                <p className="text-muted-foreground">2018 — 2021</p>
+            </div>
+        </div>
+      </section>
+
+      <section className="mt-24">
+        <h2 className="text-center font-headline text-3xl md:text-4xl font-bold">
           My <span className="text-primary text-glow">Skills</span>
         </h2>
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -70,7 +86,7 @@ export default function AboutPage() {
           I'm currently available for freelance projects and full-time opportunities. If you have an idea you'd like to discuss, I'd love to hear from you.
         </p>
         <Button asChild size="lg" className="mt-8">
-          <Link href="mailto:hello@alexdoe.com">
+          <Link href="/contact">
             Contact Me
           </Link>
         </Button>

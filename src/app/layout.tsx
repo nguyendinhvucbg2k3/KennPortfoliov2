@@ -17,8 +17,8 @@ const fontSpaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: 'NeonBloom Portfolio',
-  description: 'The graphic design portfolio of Alex Doe.',
+  title: 'Thac Nguyen Dinh Vu - Portfolio',
+  description: 'The graphic design portfolio of Thac Nguyen Dinh Vu.',
 };
 
 export default function RootLayout({
