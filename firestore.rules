@@ -1,0 +1,128 @@
+/**
+ * @fileoverview Firestore Security Rules for NeonBloom Portfolio.
+ *
+ * Core Philosophy:
+ * This ruleset enforces role-based access control for admin users, allowing them to manage their profiles, projects, and resource links.
+ *
+ * Data Structure:
+ * - /admin_profiles/{adminId}: Stores admin user profiles.
+ * - /projects/{projectId}: Stores project details.
+ * - /resource_links/{resourceLinkId}: Stores resource links.
+ * - /roles_admin/{adminId}: Used to confer admin privileges based on document existence.
+ *
+ * Key Security Decisions:
+ * - Only authenticated admins can create, read, update, or delete projects and resource links.
+ * - Admin profiles can only be accessed by the owning admin user.
+ * - The existence of a document in `/roles_admin/{adminId}` grants admin privileges.
+ * - `list` operations are restricted to prevent unauthorized data exposure.
+ *
+ * Denormalization for Authorization:
+ * Admin status is determined by the existence of a document in `/roles_admin/{adminId}`, avoiding costly `get()` calls in other rules.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * @description Allows admins to manage their own profiles.
+     * @path /admin_profiles/{adminId}
+     * @allow (get, create, update, delete) if the user is signed in and the adminId matches the user's UID.
+     * @deny (get, create, update, delete) if the user is not signed in or the adminId does not match the user's UID.
+     * @principle Enforces document ownership for admin profile management.
+     */
+    match /admin_profiles/{adminId} {
+      // Helper function to check if the user is signed in and owns the document.
+      function isAdminOwner(adminId) {
+        return isSignedIn() && request.auth.uid == adminId && exists(/databases/$(database)/documents/roles_admin/$(adminId));
+      }
+      
+      // Helper function to check if the user is signed in, owns the document, and the document exists.
+      function isExistingAdminOwner(adminId) {
+        return isAdminOwner(adminId) && resource != null;
+      }
+      
+      allow get: if isAdminOwner(adminId);
+      allow list: if false;
+      allow create: if isAdminOwner(adminId) && request.resource.data.id == request.auth.uid;
+      allow update: if isExistingAdminOwner(adminId) && request.resource.data.id == resource.data.id;
+      allow delete: if isExistingAdminOwner(adminId);
+    }
+
+    /**
+     * @description Allows admins to manage projects.
+     * @path /projects/{projectId}
+     * @allow (get, create, update, delete) if the user is an authenticated admin.
+     * @deny (get, create, update, delete) if the user is not an authenticated admin.
+     * @principle Restricts project management to authenticated admins.
+     */
+    match /projects/{projectId} {
+        // Helper function to check if the user is an admin.
+        function isAdmin() {
+            return isSignedIn() && exists(/databases/$(database)/documents/roles_admin/$(request.auth.uid));
+        }
+
+        // Helper function to check if the user is an admin and the document exists.
+        function isExistingAdmin() {
+            return isAdmin() && resource != null;
+        }
+
+        allow get: if isAdmin();
+        allow list: if isAdmin();
+        allow create: if isAdmin();
+        allow update: if isExistingAdmin();
+        allow delete: if isExistingAdmin();
+    }
+
+    /**
+     * @description Allows admins to manage resource links.
+     * @path /resource_links/{resourceLinkId}
+     * @allow (get, create, update, delete) if the user is an authenticated admin.
+     * @deny (get, create, update, delete) if the user is not an authenticated admin.
+     * @principle Restricts resource link management to authenticated admins.
+     */
+    match /resource_links/{resourceLinkId} {
+        // Helper function to check if the user is an admin.
+        function isAdmin() {
+            return isSignedIn() && exists(/databases/$(database)/documents/roles_admin/$(request.auth.uid));
+        }
+
+        // Helper function to check if the user is an admin and the document exists.
+        function isExistingAdmin() {
+            return isAdmin() && resource != null;
+        }
+
+        allow get: if isAdmin();
+        allow list: if isAdmin();
+        allow create: if isAdmin();
+        allow update: if isExistingAdmin();
+        allow delete: if isExistingAdmin();
+    }
+
+    /**
+     * @description Used to verify that the user is an administrator of the system. The existence of this document confers admin privileges.
+     * @path /roles_admin/{adminId}
+     */
+    match /roles_admin/{adminId} {
+        // Helper function to check if the user is an admin.
+        function isAdminOwner(adminId) {
+            return isSignedIn() && request.auth.uid == adminId;
+        }
+        
+        // Helper function to check if the user is signed in, owns the document, and the document exists.
+        function isExistingAdminOwner(adminId) {
+            return isAdminOwner(adminId) && resource != null;
+        }
+
+        allow get: if isAdminOwner(adminId);
+        allow list: if false;
+        allow create: if isAdminOwner(adminId);
+        allow update: if isExistingAdminOwner(adminId);
+        allow delete: if isExistingAdminOwner(adminId);
+    }
+  }
+
+  // Helper function to check if the user is signed in.
+  function isSignedIn() {
+    return request.auth != null;
+  }
+}

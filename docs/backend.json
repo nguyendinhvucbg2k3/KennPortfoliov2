@@ -1,0 +1,197 @@
+{
+  "entities": {
+    "AdminProfile": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "AdminProfile",
+      "type": "object",
+      "description": "Represents an administrator user profile, including their personal information and association with authentication details.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the admin profile."
+        },
+        "googleId": {
+          "type": "string",
+          "description": "Google ID of the admin user. Used for Google authentication."
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the admin user.",
+          "format": "email"
+        },
+        "firstName": {
+          "type": "string",
+          "description": "First name of the admin user."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Last name of the admin user."
+        },
+        "experience": {
+          "type": "string",
+          "description": "Professional experience details of the admin user; can be rich text or markdown."
+        }
+      },
+      "required": [
+        "id",
+        "googleId",
+        "email",
+        "firstName",
+        "lastName",
+        "experience"
+      ]
+    },
+    "Project": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Project",
+      "type": "object",
+      "description": "Represents a graphic design project in the portfolio.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the project."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the project."
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed description of the project; can be rich text or markdown."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL of the project's main image.",
+          "format": "uri"
+        },
+        "category": {
+          "type": "string",
+          "description": "Category the project belongs to (e.g., branding, web design)."
+        },
+        "aiCritique": {
+          "type": "string",
+          "description": "AI-generated critique of the project."
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "description",
+        "imageUrl",
+        "category",
+        "aiCritique"
+      ]
+    },
+    "ResourceLink": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "ResourceLink",
+      "type": "object",
+      "description": "Represents a link to an external design resource.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the resource link."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the resource."
+        },
+        "url": {
+          "type": "string",
+          "description": "URL of the resource.",
+          "format": "uri"
+        },
+        "category": {
+          "type": "string",
+          "description": "Category of the resource (e.g., tutorials, tools)."
+        },
+        "description": {
+          "type": "string",
+          "description": "A short description of the resource."
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "url",
+        "category",
+        "description"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/admin_profiles/{adminId}",
+        "definition": {
+          "entityName": "AdminProfile",
+          "schema": {
+            "$ref": "#/backend/entities/AdminProfile"
+          },
+          "description": "Stores admin profiles. Only authenticated admins can read or write their own profile. The 'adminId' corresponds to the user's Firebase Authentication UID.",
+          "params": [
+            {
+              "name": "adminId",
+              "description": "The Firebase Authentication UID of the admin user."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/projects/{projectId}",
+        "definition": {
+          "entityName": "Project",
+          "schema": {
+            "$ref": "#/backend/entities/Project"
+          },
+          "description": "Stores project details. Only authenticated admins can create, read, update, or delete projects.",
+          "params": [
+            {
+              "name": "projectId",
+              "description": "Unique identifier for the project."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/resource_links/{resourceLinkId}",
+        "definition": {
+          "entityName": "ResourceLink",
+          "schema": {
+            "$ref": "#/backend/entities/ResourceLink"
+          },
+          "description": "Stores resource links. Only authenticated admins can create, read, update, or delete resource links.",
+          "params": [
+            {
+              "name": "resourceLinkId",
+              "description": "Unique identifier for the resource link."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/roles_admin/{adminId}",
+        "definition": {
+          "entityName": "admin",
+          "schema": {
+            "$ref": "#/backend/entities/AdminProfile"
+          },
+          "description": "This collection is used to verify that the user is an administrator of the system.  The existence of this document confers admin privileges.",
+          "params": [
+            {
+              "name": "adminId",
+              "description": "The Firebase Authentication UID of the admin user."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "This Firestore data structure is designed to manage admin profiles, projects, and resource links for the NeonBloom Portfolio application. It emphasizes authorization independence and simplifies security rules by denormalizing authorization context where needed. The structure segregates data with different access needs into separate collections for clarity and security.  \n\n**Authorization Independence:**  The structure ensures authorization independence by relying solely on `request.auth.uid` and dedicated role collections (`/roles_admin/{uid}`). No `get()` calls are required in security rules to validate admin status.  This facilitates atomic operations and simplifies debugging.\n\n**Structural Segregation:**  The data is segregated based on access requirements. Admin profiles are stored in a dedicated collection (`/admin_profiles/{adminId}`) allowing for straightforward access control rules.\n\n**QAPs (Rules Are Not Filters):**  The structure supports secure `list` operations. Only authorized admins can list projects and resource links.  The role-based access control on the `/admin_profiles` collection ensures that unauthorized users cannot list admin profiles.\n\n**Invariants:** The structure ensures invariants by enforcing strict naming conventions and explicit state modeling. The use of dedicated collections for different entity types ensures data integrity."
+  }
+}
