@@ -37,7 +37,7 @@ export const projects: Project[] = [
       aiHint: "event poster design",
     },
     year: 2024,
-    behanceUrl: "https://www.behance.net/gallery/198656181/FPT-UNIVERSITY-ART-SHOW-2024",
+    behanceUrl: "https://www.behance.net/TNDVKenn",
   },
   {
     id: "2",
@@ -53,7 +53,7 @@ export const projects: Project[] = [
       aiHint: "media branding red",
     },
     year: 2024,
-    behanceUrl: "https://www.behance.net/gallery/194451007/CHOP-CON-LAM-MEDIA-PROJECT",
+    behanceUrl: "https://www.behance.net/TNDVKenn",
   },
   {
     id: "3",
@@ -69,7 +69,7 @@ export const projects: Project[] = [
       aiHint: "esports logo lightning",
     },
     year: 2024,
-    behanceUrl: "https://www.behance.net/gallery/193910695/FPT-FLASH-LOGO-REDESIGN-CONCEPT",
+    behanceUrl: "https://www.behance.net/TNDVKenn",
   },
   {
     id: "4",
@@ -85,7 +85,7 @@ export const projects: Project[] = [
       aiHint: "logo collection grid",
     },
     year: 2024,
-    behanceUrl: "https://www.behance.net/gallery/193909775/LOGO-FOLIO",
+    behanceUrl: "https://www.behance.net/TNDVKenn",
   },
   {
     id: "5",
@@ -101,7 +101,7 @@ export const projects: Project[] = [
       aiHint: "esports player illustration",
     },
     year: 2024,
-    behanceUrl: "https://www.behance.net/gallery/193909069/ARTWORK-FOR-TEAM-FLASH",
+    behanceUrl: "https://www.behance.net/TNDVKenn",
   },
   {
     id: "6",
@@ -117,7 +117,7 @@ export const projects: Project[] = [
       aiHint: "graphic design posters",
     },
     year: 2024,
-    behanceUrl: "https://www.behance.net/gallery/193908235/POSTER-COLLECTION",
+    behanceUrl: "https://www.behance.net/TNDVKenn",
   },
   {
     id: "7",
@@ -133,7 +133,7 @@ export const projects: Project[] = [
       aiHint: "restaurant logo traditional",
     },
     year: 2024,
-    behanceUrl: "https://www.behance.net/gallery/193907347/PROJECT-QUAN-AN-CUA-ME",
+    behanceUrl: "https://www.behance.net/TNDVKenn",
   },
   {
     id: "8",
@@ -149,7 +149,7 @@ export const projects: Project[] = [
       aiHint: "university website design",
     },
     year: 2024,
-    behanceUrl: "https://www.behance.net/gallery/193906321/Landing-Page-FPT-University",
+    behanceUrl: "https://www.behance.net/TNDVKenn",
   },
   {
     id: "9",
@@ -165,7 +165,7 @@ export const projects: Project[] = [
       aiHint: "game ui interface",
     },
     year: 2024,
-    behanceUrl: "https://www.behance.net/gallery/193905545/UIUX-FOR-WEB-GAME",
+    behanceUrl: "https://www.behance.net/TNDVKenn",
   },
   {
     id: "10",
@@ -181,7 +181,7 @@ export const projects: Project[] = [
       aiHint: "digital art detailed",
     },
     year: 2024,
-    behanceUrl: "https://www.behance.net/gallery/193904663/ILLUSTRATION",
+    behanceUrl: "https://www.behance.net/TNDVKenn",
   }
 ];
 
