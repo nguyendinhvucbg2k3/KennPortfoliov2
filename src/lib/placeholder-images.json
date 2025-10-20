@@ -1,3 +1,52 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-background",
+      "description": "Abstract neon lights in a garden-like formation, creating a futuristic and vibrant atmosphere.",
+      "imageUrl": "https://images.unsplash.com/photo-1617280196904-8e0a4ba6ce95?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxhYnN0cmFjdCUyMG5lb258ZW58MHx8fHwxNzYwOTQyODc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "abstract neon"
+    },
+    {
+      "id": "about-image",
+      "description": "An abstract, stylized portrait of the designer, blending with neon-colored organic shapes.",
+      "imageUrl": "https://images.unsplash.com/photo-1587592209017-711cfc83a206?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxhYnN0cmFjdCUyMHBvcnRyYWl0fGVufDB8fHx8MTc2MDg4ODUzMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "abstract portrait"
+    },
+    {
+      "id": "project-aurora-branding",
+      "description": "Logo and branding materials for 'Aurora', featuring vibrant gradients and flowing lines.",
+      "imageUrl": "https://images.unsplash.com/photo-1634578196187-d8ef70aaf7e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxsb2dvJTIwYnJhbmRpbmd8ZW58MHx8fHwxNzYwOTI3ODQyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "logo branding"
+    },
+    {
+      "id": "project-cyber-flora",
+      "description": "A series of digital illustrations depicting futuristic, robotic flowers with glowing neon elements.",
+      "imageUrl": "https://images.unsplash.com/photo-1739391565679-f7f165c23ae5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxkaWdpdGFsJTIwaWxsdXN0cmF0aW9ufGVufDB8fHx8MTc2MDk0MDAyOHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "digital illustration"
+    },
+    {
+      "id": "project-retro-synth",
+      "description": "Album art for a synth-wave band, with classic 80s retro-futuristic grid lines and a neon sunset.",
+      "imageUrl": "https://images.unsplash.com/photo-1509114397022-ed747cca3f65?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxhbGJ1bSUyMGFydHxlbnwwfHx8fDE3NjA5NTU4OTV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "album art"
+    },
+    {
+      "id": "project-neo-tokyo",
+      "description": "Concept art for a video game set in a futuristic Tokyo, with towering neon-lit skyscrapers.",
+      "imageUrl": "https://images.unsplash.com/photo-1630921863029-b3abdbf5758b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxjb25jZXB0JTIwYXJ0fGVufDB8fHx8MTc2MDk4MjExOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "concept art"
+    },
+    {
+      "id": "project-quantum-poster",
+      "description": "A poster for a science conference about quantum physics, using abstract particle-like visuals.",
+      "imageUrl": "https://images.unsplash.com/photo-1543487945-139a97f387d5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwb3N0ZXIlMjBkZXNpZ258ZW58MHx8fHwxNzYwOTMxNDcwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "poster design"
+    },
+    {
+      "id": "project-eco-packaging",
+      "description": "Packaging design for an eco-friendly product, with leaf motifs and a clean, modern aesthetic.",
+      "imageUrl": "https://images.unsplash.com/photo-1610963349673-3d94501d569a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cGFja2FnaW5nJTIwZGVzaWdufGVufDB8fHx8MTc2MDk0ODYwMnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "packaging design"
+    }
+  ]
 }
