@@ -1,14 +1,52 @@
-import { resources } from "@/lib/placeholder-data";
+'use client';
+
+import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
+import { collection } from 'firebase/firestore';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
-import Link from "next/link";
-import { ExternalLink } from "lucide-react";
+} from '@/components/ui/accordion';
+import Link from 'next/link';
+import { ExternalLink } from 'lucide-react';
+import type { Resource } from '@/lib/types';
 
 export default function ResourcesPage() {
+  const firestore = useFirestore();
+  const resourcesCollection = useMemoFirebase(
+    () => (firestore ? collection(firestore, 'resources') : null),
+    [firestore]
+  );
+  const { data: resources, isLoading } = useCollection<Resource>(resourcesCollection);
+
+  const resourcesByCategory = useMemo(() => {
+    if (!resources) return {};
+    return resources.reduce((acc, resource) => {
+      const { category } = resource;
+      if (!acc[category]) {
+        acc[category] = [];
+      }
+      acc[category].push(resource);
+      return acc;
+    }, {} as Record<string, Resource[]>);
+  }, [resources]);
+
+  if (isLoading) {
+    return (
+        <div className="container mx-auto px-4 py-16 md:py-24">
+            <div className="text-center">
+                <h1 className="font-headline text-4xl md:text-6xl font-bold text-glow">
+                    Resource Hub
+                </h1>
+                <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
+                    Loading resources...
+                </p>
+            </div>
+        </div>
+    )
+  }
+
   return (
     <div className="container mx-auto px-4 py-16 md:py-24">
       <div className="text-center">
@@ -21,17 +59,17 @@ export default function ResourcesPage() {
       </div>
 
       <div className="max-w-3xl mx-auto mt-12">
-        <Accordion type="single" collapsible className="w-full" defaultValue="item-0">
-          {resources.map((categoryItem, index) => (
-            <AccordionItem key={categoryItem.category} value={`item-${index}`}>
+        <Accordion type="single" collapsible className="w-full" defaultValue={Object.keys(resourcesByCategory)[0]}>
+          {Object.entries(resourcesByCategory).map(([category, resourcesInCategory]) => (
+            <AccordionItem key={category} value={category}>
               <AccordionTrigger className="text-xl font-headline hover:text-primary">
-                {categoryItem.category}
+                {category}
               </AccordionTrigger>
               <AccordionContent>
                 <div className="space-y-4 pt-2">
-                  {categoryItem.resources.map((resource) => (
+                  {resourcesInCategory.map((resource) => (
                     <Link
-                      key={resource.title}
+                      key={resource.id}
                       href={resource.url}
                       target="_blank"
                       rel="noopener noreferrer"
