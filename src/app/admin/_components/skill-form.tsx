@@ -12,6 +12,8 @@ import { doc, collection } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
 import { Skill } from '@/lib/types';
 import { Slider } from '@/components/ui/slider';
+import { useLanguage } from '@/context/language-context';
+import { content } from '@/lib/content';
 
 const skillSchema = z.object({
   name: z.string().min(1, 'Name is required.'),
@@ -25,6 +27,8 @@ interface SkillFormProps {
 }
 
 export function SkillForm({ skill, onSave }: SkillFormProps) {
+  const { language } = useLanguage();
+  const formContent = content[language].admin.skills.form;
   const firestore = useFirestore();
   const { toast } = useToast();
 
@@ -58,14 +62,14 @@ export function SkillForm({ skill, onSave }: SkillFormProps) {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField control={form.control} name="name" render={({ field }) => (
-          <FormItem><FormLabel>Name</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
+          <FormItem><FormLabel>{formContent.name}</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
         )} />
         <FormField control={form.control} name="description" render={({ field }) => (
-          <FormItem><FormLabel>Description</FormLabel><FormControl><Textarea {...field} /></FormControl><FormMessage /></FormItem>
+          <FormItem><FormLabel>{formContent.description}</FormLabel><FormControl><Textarea {...field} /></FormControl><FormMessage /></FormItem>
         )} />
         <FormField control={form.control} name="level" render={({ field }) => (
           <FormItem>
-            <FormLabel>Level: {field.value}%</FormLabel>
+            <FormLabel>{formContent.level}: {field.value}%</FormLabel>
             <FormControl>
               <Slider
                 defaultValue={[field.value]}
@@ -77,7 +81,7 @@ export function SkillForm({ skill, onSave }: SkillFormProps) {
             <FormMessage />
           </FormItem>
         )} />
-        <Button type="submit">Save</Button>
+        <Button type="submit">{formContent.save}</Button>
       </form>
     </Form>
   );

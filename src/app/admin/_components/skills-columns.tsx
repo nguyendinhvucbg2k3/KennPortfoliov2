@@ -35,24 +35,36 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import { useLanguage } from '@/context/language-context';
+import { content } from '@/lib/content';
 
 export const columns: ColumnDef<Skill>[] = [
   {
     accessorKey: 'name',
-    header: ({ column }) => (
-      <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-        Name
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
-    ),
+    header: ({ column }) => {
+        const { language } = useLanguage();
+        const adminContent = content[language].admin;
+        return (
+            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+                {adminContent.shared.name}
+                <ArrowUpDown className="ml-2 h-4 w-4" />
+            </Button>
+        )
+    },
   },
   {
     accessorKey: 'description',
-    header: 'Description',
+    header: () => {
+        const { language } = useLanguage();
+        return content[language].admin.shared.description;
+    }
   },
   {
     accessorKey: 'level',
-    header: 'Level',
+    header: () => {
+        const { language } = useLanguage();
+        return content[language].admin.shared.level;
+    },
     cell: ({ row }) => {
         const level = parseFloat(row.getValue('level'))
         return <div className="flex items-center gap-2">
@@ -63,8 +75,14 @@ export const columns: ColumnDef<Skill>[] = [
   },
   {
     id: 'actions',
+    header: () => {
+        const { language } = useLanguage();
+        return content[language].admin.shared.actions;
+    },
     cell: ({ row }) => {
       const skill = row.original;
+      const { language } = useLanguage();
+      const adminContent = content[language].admin;
       const firestore = useFirestore();
       const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
@@ -85,34 +103,33 @@ export const columns: ColumnDef<Skill>[] = [
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                <DropdownMenuLabel>{adminContent.shared.actions}</DropdownMenuLabel>
                 <DialogTrigger asChild>
                   <DropdownMenuItem>
-                    Edit
+                    {adminContent.shared.edit}
                   </DropdownMenuItem>
                 </DialogTrigger>
                 <AlertDialogTrigger asChild>
-                  <DropdownMenuItem className="text-destructive">Delete</DropdownMenuItem>
+                  <DropdownMenuItem className="text-destructive">{adminContent.shared.delete}</DropdownMenuItem>
                 </AlertDialogTrigger>
               </DropdownMenuContent>
             </DropdownMenu>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogTitle>{adminContent.shared.areYouSure}</AlertDialogTitle>
                 <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete the skill
-                  and remove its data from our servers.
+                  {adminContent.shared.deleteWarning.replace("dữ liệu", "kỹ năng")}
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction onClick={handleDelete}>Continue</AlertDialogAction>
+                <AlertDialogCancel>{adminContent.shared.cancel}</AlertDialogCancel>
+                <AlertDialogAction onClick={handleDelete}>{adminContent.shared.continue}</AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
-              <DialogTitle>Edit Skill</DialogTitle>
+              <DialogTitle>{adminContent.skills.edit}</DialogTitle>
             </DialogHeader>
             <SkillForm skill={skill} onSave={() => setIsEditDialogOpen(false)}/>
           </DialogContent>

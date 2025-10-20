@@ -12,6 +12,8 @@ import { doc, collection } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
 import { Project } from '@/lib/types';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useLanguage } from '@/context/language-context';
+import { content } from '@/lib/content';
 
 const projectSchema = z.object({
   name: z.string().min(1, 'Name is required.'),
@@ -35,6 +37,8 @@ interface ProjectFormProps {
 }
 
 export function ProjectForm({ project, onSave }: ProjectFormProps) {
+  const { language } = useLanguage();
+  const formContent = content[language].admin.projects.form;
   const firestore = useFirestore();
   const { toast } = useToast();
 
@@ -74,16 +78,16 @@ export function ProjectForm({ project, onSave }: ProjectFormProps) {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField control={form.control} name="name" render={({ field }) => (
-          <FormItem><FormLabel>Name</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
+          <FormItem><FormLabel>{formContent.name}</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
         )} />
         <FormField control={form.control} name="slug" render={({ field }) => (
-          <FormItem><FormLabel>Slug</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
+          <FormItem><FormLabel>{formContent.slug}</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
         )} />
         <FormField control={form.control} name="category" render={({ field }) => (
             <FormItem>
-                <FormLabel>Category</FormLabel>
+                <FormLabel>{formContent.category}</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl><SelectTrigger><SelectValue placeholder="Select a category" /></SelectTrigger></FormControl>
+                    <FormControl><SelectTrigger><SelectValue placeholder={formContent.selectCategory} /></SelectTrigger></FormControl>
                     <SelectContent>
                         {["Branding", "Illustration", "Art Direction", "Packaging", "Graphic Design", "UI/UX", "Web Design", "Game Design"].map(cat => (
                             <SelectItem key={cat} value={cat}>{cat}</SelectItem>
@@ -94,30 +98,30 @@ export function ProjectForm({ project, onSave }: ProjectFormProps) {
             </FormItem>
         )} />
         <FormField control={form.control} name="year" render={({ field }) => (
-          <FormItem><FormLabel>Year</FormLabel><FormControl><Input type="number" {...field} /></FormControl><FormMessage /></FormItem>
+          <FormItem><FormLabel>{formContent.year}</FormLabel><FormControl><Input type="number" {...field} /></FormControl><FormMessage /></FormItem>
         )} />
         <FormField control={form.control} name="shortDescription" render={({ field }) => (
-            <FormItem><FormLabel>Short Description</FormLabel><FormControl><Textarea {...field} /></FormControl><FormMessage /></FormItem>
+            <FormItem><FormLabel>{formContent.shortDesc}</FormLabel><FormControl><Textarea {...field} /></FormControl><FormMessage /></FormItem>
         )} />
         <FormField control={form.control} name="description" render={({ field }) => (
-            <FormItem><FormLabel>Description</FormLabel><FormControl><Textarea {...field} /></FormControl><FormMessage /></FormItem>
+            <FormItem><FormLabel>{formContent.description}</FormLabel><FormControl><Textarea {...field} /></FormControl><FormMessage /></FormItem>
         )} />
         <FormField control={form.control} name="designPrinciples" render={({ field }) => (
-            <FormItem><FormLabel>Design Principles</FormLabel><FormControl><Textarea {...field} /></FormControl><FormMessage /></FormItem>
+            <FormItem><FormLabel>{formContent.principles}</FormLabel><FormControl><Textarea {...field} /></FormControl><FormMessage /></FormItem>
         )} />
         <FormField control={form.control} name="image.src" render={({ field }) => (
-          <FormItem><FormLabel>Image URL</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
+          <FormItem><FormLabel>{formContent.imgUrl}</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
         )} />
         <FormField control={form.control} name="image.alt" render={({ field }) => (
-          <FormItem><FormLabel>Image Alt Text</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
+          <FormItem><FormLabel>{formContent.imgAlt}</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
         )} />
         <FormField control={form.control} name="image.aiHint" render={({ field }) => (
-            <FormItem><FormLabel>Image AI Hint</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
+            <FormItem><FormLabel>{formContent.imgAiHint}</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
         )} />
         <FormField control={form.control} name="behanceUrl" render={({ field }) => (
-            <FormItem><FormLabel>Behance URL</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
+            <FormItem><FormLabel>{formContent.behanceUrl}</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
         )} />
-        <Button type="submit">Save</Button>
+        <Button type="submit">{formContent.save}</Button>
       </form>
     </Form>
   );

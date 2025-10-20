@@ -11,6 +11,8 @@ import { useFirestore, setDocumentNonBlocking } from '@/firebase';
 import { doc } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
 import { PersonalInfo } from '@/lib/types';
+import { useLanguage } from '@/context/language-context';
+import { content } from '@/lib/content';
 
 const personalInfoSchema = z.object({
   fullName: z.string().min(1, 'Full name is required.'),
@@ -29,6 +31,8 @@ interface PersonalInfoFormProps {
 }
 
 export function PersonalInfoForm({ initialData }: PersonalInfoFormProps) {
+  const { language } = useLanguage();
+  const adminContent = content[language].admin;
   const firestore = useFirestore();
   const { toast } = useToast();
 
@@ -60,77 +64,77 @@ export function PersonalInfoForm({ initialData }: PersonalInfoFormProps) {
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle className="font-headline text-2xl">Personal Information</CardTitle>
-        <CardDescription>Update your public profile information here. This will be visible on your main site.</CardDescription>
+        <CardTitle className="font-headline text-2xl">{adminContent.personalInfo.title}</CardTitle>
+        <CardDescription>{adminContent.personalInfo.description}</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <FormField control={form.control} name="fullName" render={({ field }) => (
               <FormItem>
-                <FormLabel>Full Name</FormLabel>
+                <FormLabel>{adminContent.personalInfo.fullName}</FormLabel>
                 <FormControl><Input {...field} /></FormControl>
                 <FormMessage />
               </FormItem>
             )} />
             <FormField control={form.control} name="footerName" render={({ field }) => (
               <FormItem>
-                <FormLabel>Footer Name (e.g., with accents)</FormLabel>
+                <FormLabel>{adminContent.personalInfo.footerName}</FormLabel>
                 <FormControl><Input {...field} /></FormControl>
                 <FormMessage />
               </FormItem>
             )} />
             <FormField control={form.control} name="title" render={({ field }) => (
               <FormItem>
-                <FormLabel>Title</FormLabel>
+                <FormLabel>{adminContent.personalInfo.jobTitle}</FormLabel>
                 <FormControl><Input {...field} /></FormControl>
                 <FormMessage />
               </FormItem>
             )} />
             <FormField control={form.control} name="fieldOfStudy" render={({ field }) => (
               <FormItem>
-                <FormLabel>Field of Study</FormLabel>
+                <FormLabel>{adminContent.personalInfo.fieldOfStudy}</FormLabel>
                 <FormControl><Input {...field} /></FormControl>
                 <FormMessage />
               </FormItem>
             )} />
             <FormField control={form.control} name="dateOfBirth" render={({ field }) => (
               <FormItem>
-                <FormLabel>Date of Birth</FormLabel>
+                <FormLabel>{adminContent.personalInfo.dob}</FormLabel>
                 <FormControl><Input {...field} /></FormControl>
                 <FormMessage />
               </FormItem>
             )} />
             <FormField control={form.control} name="email" render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>{adminContent.personalInfo.email}</FormLabel>
                 <FormControl><Input type="email" {...field} /></FormControl>
                 <FormMessage />
               </FormItem>
             )} />
             <FormField control={form.control} name="phone" render={({ field }) => (
               <FormItem>
-                <FormLabel>Phone</FormLabel>
+                <FormLabel>{adminContent.personalInfo.phone}</FormLabel>
                 <FormControl><Input {...field} /></FormControl>
                 <FormMessage />
               </FormItem>
             )} />
              <FormField control={form.control} name="phoneHref" render={({ field }) => (
               <FormItem>
-                <FormLabel>Phone Href (e.g., tel:+84123456789)</FormLabel>
+                <FormLabel>{adminContent.personalInfo.phoneHref}</FormLabel>
                 <FormControl><Input {...field} /></FormControl>
                 <FormMessage />
               </FormItem>
             )} />
             <FormField control={form.control} name="address" render={({ field }) => (
               <FormItem className="md:col-span-2">
-                <FormLabel>Address</FormLabel>
+                <FormLabel>{adminContent.personalInfo.address}</FormLabel>
                 <FormControl><Input {...field} /></FormControl>
                 <FormMessage />
               </FormItem>
             )} />
             <div className="md:col-span-2 flex justify-end">
-              <Button type="submit">Save Changes</Button>
+              <Button type="submit">{adminContent.personalInfo.save}</Button>
             </div>
           </form>
         </Form>

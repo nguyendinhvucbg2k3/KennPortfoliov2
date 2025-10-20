@@ -34,30 +34,48 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import { useLanguage } from '@/context/language-context';
+import { content } from '@/lib/content';
 
 
 export const columns: ColumnDef<Experience>[] = [
   {
     accessorKey: 'title',
-    header: ({ column }) => (
-      <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-        Title
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
-    ),
+    header: ({ column }) => {
+        const { language } = useLanguage();
+        const adminContent = content[language].admin;
+        return (
+            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+                {adminContent.shared.title}
+                <ArrowUpDown className="ml-2 h-4 w-4" />
+            </Button>
+        )
+    },
   },
   {
     accessorKey: 'organization',
-    header: 'Organization',
+    header: () => {
+        const { language } = useLanguage();
+        return content[language].admin.shared.organization;
+    }
   },
   {
     accessorKey: 'date',
-    header: 'Date',
+    header: () => {
+        const { language } = useLanguage();
+        return content[language].admin.shared.date;
+    }
   },
   {
     id: 'actions',
+    header: () => {
+        const { language } = useLanguage();
+        return content[language].admin.shared.actions;
+    },
     cell: ({ row }) => {
       const experience = row.original;
+      const { language } = useLanguage();
+      const adminContent = content[language].admin;
       const firestore = useFirestore();
       const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
@@ -78,34 +96,33 @@ export const columns: ColumnDef<Experience>[] = [
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                <DropdownMenuLabel>{adminContent.shared.actions}</DropdownMenuLabel>
                 <DialogTrigger asChild>
                   <DropdownMenuItem>
-                    Edit
+                    {adminContent.shared.edit}
                   </DropdownMenuItem>
                 </DialogTrigger>
                 <AlertDialogTrigger asChild>
-                  <DropdownMenuItem className="text-destructive">Delete</DropdownMenuItem>
+                  <DropdownMenuItem className="text-destructive">{adminContent.shared.delete}</DropdownMenuItem>
                 </AlertDialogTrigger>
               </DropdownMenuContent>
             </DropdownMenu>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogTitle>{adminContent.shared.areYouSure}</AlertDialogTitle>
                 <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete the experience
-                  and remove its data from our servers.
+                  {adminContent.shared.deleteWarning.replace("dữ liệu", "kinh nghiệm")}
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction onClick={handleDelete}>Continue</AlertDialogAction>
+                <AlertDialogCancel>{adminContent.shared.cancel}</AlertDialogCancel>
+                <AlertDialogAction onClick={handleDelete}>{adminContent.shared.continue}</AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
-              <DialogTitle>Edit Experience</DialogTitle>
+              <DialogTitle>{adminContent.experience.edit}</DialogTitle>
             </DialogHeader>
             <ExperienceForm experience={experience} onSave={() => setIsEditDialogOpen(false)}/>
           </DialogContent>

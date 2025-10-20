@@ -11,6 +11,8 @@ import { useFirestore, addDocumentNonBlocking, setDocumentNonBlocking } from '@/
 import { doc, collection } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
 import { Resource } from '@/lib/types';
+import { useLanguage } from '@/context/language-context';
+import { content } from '@/lib/content';
 
 const resourceSchema = z.object({
   title: z.string().min(1, 'Title is required.'),
@@ -25,6 +27,8 @@ interface ResourceFormProps {
 }
 
 export function ResourceForm({ resource, onSave }: ResourceFormProps) {
+  const { language } = useLanguage();
+  const formContent = content[language].admin.resources.form;
   const firestore = useFirestore();
   const { toast } = useToast();
 
@@ -59,18 +63,18 @@ export function ResourceForm({ resource, onSave }: ResourceFormProps) {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField control={form.control} name="title" render={({ field }) => (
-          <FormItem><FormLabel>Title</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
+          <FormItem><FormLabel>{formContent.title}</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
         )} />
         <FormField control={form.control} name="category" render={({ field }) => (
-          <FormItem><FormLabel>Category</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
+          <FormItem><FormLabel>{formContent.category}</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
         )} />
         <FormField control={form.control} name="url" render={({ field }) => (
-          <FormItem><FormLabel>URL</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
+          <FormItem><FormLabel>{formContent.url}</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
         )} />
         <FormField control={form.control} name="description" render={({ field }) => (
-            <FormItem><FormLabel>Description</FormLabel><FormControl><Textarea {...field} /></FormControl><FormMessage /></FormItem>
+            <FormItem><FormLabel>{formContent.description}</FormLabel><FormControl><Textarea {...field} /></FormControl><FormMessage /></FormItem>
         )} />
-        <Button type="submit">Save</Button>
+        <Button type="submit">{formContent.save}</Button>
       </form>
     </Form>
   );

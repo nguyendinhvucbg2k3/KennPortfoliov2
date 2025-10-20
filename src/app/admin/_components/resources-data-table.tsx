@@ -22,6 +22,8 @@ import React from 'react';
 import { PlusCircle } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { ResourceForm } from './resource-form';
+import { useLanguage } from '@/context/language-context';
+import { content } from '@/lib/content';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -32,6 +34,8 @@ export function ResourcesDataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+  const { language } = useLanguage();
+  const adminContent = content[language].admin;
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [isAddDialogOpen, setIsAddDialogOpen] = React.useState(false);
   const table = useReactTable({
@@ -50,11 +54,11 @@ export function ResourcesDataTable<TData, TValue>({
     <div className="w-full">
       <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
         <div className="flex items-center justify-between py-4">
-            <h2 className="text-2xl font-bold font-headline">Manage Resources</h2>
+            <h2 className="text-2xl font-bold font-headline">{adminContent.resources.manage}</h2>
             <DialogTrigger asChild>
               <Button>
                   <PlusCircle className="mr-2 h-4 w-4" />
-                  Add New Resource
+                  {adminContent.resources.add}
               </Button>
             </DialogTrigger>
         </div>
@@ -95,7 +99,7 @@ export function ResourcesDataTable<TData, TValue>({
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-24 text-center">
-                  No resources found.
+                  {adminContent.resources.noData}
                 </TableCell>
               </TableRow>
             )}
@@ -109,7 +113,7 @@ export function ResourcesDataTable<TData, TValue>({
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         >
-          Previous
+          {adminContent.shared.previous}
         </Button>
         <Button
           variant="outline"
@@ -117,12 +121,12 @@ export function ResourcesDataTable<TData, TValue>({
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
         >
-          Next
+          {adminContent.shared.next}
         </Button>
         </div>
         <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
-                <DialogTitle>Add New Resource</DialogTitle>
+                <DialogTitle>{adminContent.resources.add}</DialogTitle>
             </DialogHeader>
             <ResourceForm onSave={() => setIsAddDialogOpen(false)} />
         </DialogContent>

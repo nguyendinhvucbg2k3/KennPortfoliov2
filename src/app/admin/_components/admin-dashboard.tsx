@@ -11,6 +11,8 @@ import { columns as experienceColumns } from "./experience-columns";
 import { SkillsDataTable } from "./skills-data-table";
 import { columns as skillsColumns } from "./skills-columns";
 import { PersonalInfoForm } from "./personal-info-form";
+import { useLanguage } from "@/context/language-context";
+import { content } from "@/lib/content";
 
 interface AdminDashboardProps {
   projects: Project[];
@@ -21,16 +23,19 @@ interface AdminDashboardProps {
 }
 
 export function AdminDashboard({ projects, resources, experiences, skills, personalInfo }: AdminDashboardProps) {
+  const { language } = useLanguage();
+  const adminContent = content[language].admin;
+
   return (
     <div className="container mx-auto py-10">
-      <h1 className="text-3xl font-bold mb-6 font-headline">Admin Dashboard</h1>
+      <h1 className="text-3xl font-bold mb-6 font-headline">{adminContent.dashboard.title}</h1>
       <Tabs defaultValue="personal-info">
         <TabsList className="grid w-full grid-cols-2 md:grid-cols-5">
-          <TabsTrigger value="personal-info">Personal Info</TabsTrigger>
-          <TabsTrigger value="projects">Projects</TabsTrigger>
-          <TabsTrigger value="resources">Resources</TabsTrigger>
-          <TabsTrigger value="experience">Experience</TabsTrigger>
-          <TabsTrigger value="skills">Skills</TabsTrigger>
+          <TabsTrigger value="personal-info">{adminContent.dashboard.personalInfo}</TabsTrigger>
+          <TabsTrigger value="projects">{adminContent.dashboard.projects}</TabsTrigger>
+          <TabsTrigger value="resources">{adminContent.dashboard.resources}</TabsTrigger>
+          <TabsTrigger value="experience">{adminContent.dashboard.experience}</TabsTrigger>
+          <TabsTrigger value="skills">{adminContent.dashboard.skills}</TabsTrigger>
         </TabsList>
         <TabsContent value="personal-info">
             <PersonalInfoForm initialData={personalInfo} />
