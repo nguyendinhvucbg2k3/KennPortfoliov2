@@ -1,27 +1,30 @@
 ========================================
-HƯỚNG DẪN CẬP NHẬT TÀI NGUYÊN
+HƯỚSNG DẪN CẬP NHẬT TÀI NGUYÊN
 ========================================
 
 Danh sách các tài nguyên, công cụ, hoặc trang web hữu ích của bạn được quản lý tại một nơi duy nhất.
 
 ---------------------------------
-Tệp dữ liệu (`src/lib/placeholder-data.ts`)
+1. Vị trí tệp tin
 ---------------------------------
-Mở tệp này và tìm đến mảng (array) có tên là `resources`. Mỗi tài nguyên là một đối tượng (object) trong mảng này.
+Mở tệp: `src/lib/placeholder-data.ts`
 
-Trang "Tài nguyên" (`/resources`) sẽ tự động nhóm các tài nguyên này theo danh mục (`category`).
+Tìm đến một mảng (array) có tên là `resources`. Mỗi tài nguyên là một đối tượng (object) trong mảng này. Trang "Tài nguyên" sẽ tự động nhóm các tài nguyên này theo danh mục (`category`).
 
-**Để thêm một tài nguyên mới:**
-Sao chép một khối đối tượng `{...}` có sẵn, dán nó vào cuối danh sách và thay đổi nội dung. Nếu bạn thêm một `category` mới, nó sẽ tự động tạo một nhóm mới trên trang.
+---------------------------------
+2. Cách chỉnh sửa
+---------------------------------
+- **Để thêm một tài nguyên mới:** Sao chép một khối đối tượng `{...}` có sẵn, dán vào cuối danh sách và thay đổi nội dung. Nếu bạn thêm một `category` mới, một nhóm mới sẽ tự động được tạo trên trang.
+- **Để sửa hoặc xóa:** Tìm tài nguyên bạn muốn sửa và thay đổi nội dung, hoặc xóa toàn bộ khối đối tượng đó.
 
-**Để sửa hoặc xóa:**
-Tìm đến tài nguyên bạn muốn chỉnh sửa và thay đổi nội dung, hoặc xóa toàn bộ khối đối tượng đó.
-
-
-**Cấu trúc của một đối tượng tài nguyên:**
+---------------------------------
+3. Cấu trúc của một đối tượng Tài nguyên
+---------------------------------
+Mỗi tài nguyên cần có cấu trúc như sau:
 
 ```javascript
 {
+  id: "1", // ID duy nhất cho mỗi tài nguyên, không được trùng nhau.
   category: "Tên danh mục (ví dụ: Nguồn website tham khảo)",
   title: "Tên của tài nguyên (ví dụ: Behance)",
   description: "Mô tả ngắn gọn về tài nguyên đó.",
@@ -34,19 +37,23 @@ Tìm đến tài nguyên bạn muốn chỉnh sửa và thay đổi nội dung, 
 ```javascript
 export const resources: Resource[] = [
     {
+      id: "1",
       category: "Nguồn website tham khảo",
       title: "Behance",
-      description: "Showcase and discover the latest work from top creatives.",
+      description: "Nơi trưng bày và khám phá các tác phẩm mới nhất từ những nhà sáng tạo hàng đầu.",
       url: "https://www.behance.net/",
     },
     {
-      category: "Công cụ thiết kế", // Một danh mục mới
+      id: "2",
+      category: "Công cụ thiết kế",
       title: "Figma",
-      description: "A collaborative interface design tool.",
+      description: "Công cụ thiết kế giao diện hợp tác trực tuyến.",
       url: "https://www.figma.com/",
     },
     // Thêm các tài nguyên khác của bạn ở đây...
 ];
 ```
 
-Sau khi bạn lưu tệp, trang Tài nguyên sẽ tự động cập nhật danh sách và các nhóm tài nguyên tương ứng.
+**LƯU Ý QUAN TRỌNG:**
+- Đảm bảo mỗi `id` là duy nhất.
+- Sau khi bạn lưu tệp, trang "Tài nguyên" sẽ tự động cập nhật danh sách và các nhóm tài nguyên tương ứng.

@@ -2,47 +2,42 @@
 HƯỚNG DẪN CẬP NHẬT THÔNG TIN CÁ NHÂN
 ===============================================
 
-Để thay đổi thông tin cá nhân của bạn như tên, chức danh, email, điện thoại, địa chỉ, bạn cần chỉnh sửa các tệp sau:
+Để thay đổi các thông tin cá nhân cơ bản của bạn như tên, chức danh, email, điện thoại, địa chỉ, bạn chỉ cần chỉnh sửa một tệp duy nhất.
 
 ---------------------------------
-1. Tệp trang Liên hệ (`src/app/contact/page.tsx`)
+1. Vị trí tệp tin
 ---------------------------------
-Mở tệp này và tìm đến đối tượng `placeholderPersonalInfo`. Đây là nơi bạn cập nhật thông tin liên lạc chính.
+Mở tệp: `src/lib/placeholder-data.ts`
+
+Tìm đến một đối tượng (object) có tên là `personalInfo`. Đây là nơi bạn cập nhật tất cả thông tin liên lạc chính của mình.
+
+---------------------------------
+2. Cách chỉnh sửa
+---------------------------------
+Thay đổi giá trị của các thuộc tính trong đối tượng `personalInfo`.
 
 Ví dụ:
 ```javascript
-const placeholderPersonalInfo: PersonalInfo = {
+export const personalInfo: PersonalInfo = {
     fullName: "Tên đầy đủ của bạn",
-    footerName: "Tên hiển thị ở chân trang",
+    footerName: "Tên hiển thị ở chân trang (ngắn gọn)",
     title: "Chức danh của bạn (ví dụ: Graphic Designer)",
     fieldOfStudy: "Ngành học của bạn",
     dateOfBirth: "Ngày/Tháng/Năm sinh",
     email: "emailcuaban@example.com",
     phone: "Số điện thoại của bạn",
-    phoneHref: "tel:+84123456789", // Giữ nguyên định dạng tel:+...
-    address: "Địa chỉ của bạn",
+    phoneHref: "tel:+84123456789", // Giữ nguyên định dạng tel:+... với mã quốc gia
+    address: "Địa chỉ của bạn (ví dụ: Hà Đông, Hà Nội)",
 };
 ```
 
 ---------------------------------
-2. Tệp chân trang (`src/components/layout/Footer.tsx`)
+3. Cập nhật các liên kết mạng xã hội
 ---------------------------------
-Tệp này cũng sử dụng thông tin cá nhân. Hãy tìm đối tượng `placeholderPersonalInfo` và cập nhật tương tự như trên để đảm bảo tính đồng nhất.
+Các liên kết mạng xã hội được quản lý tại 2 tệp riêng:
+- **Chân trang (Footer):** Mở tệp `src/components/layout/Footer.tsx` và cập nhật các đường link `href` trong các thẻ `<Link>`.
+- **Trang liên hệ (Contact Page):** Mở tệp `src/app/contact/page.tsx` và cập nhật các đường link `href` tương ứng.
 
-Ví dụ:
-```javascript
-const placeholderPersonalInfo: PersonalInfo = {
-    fullName: "Tên đầy đủ của bạn",
-    footerName: "Tên hiển thị ở chân trang",
-    // ... các thông tin khác
-};
-```
-
----------------------------------
-3. Tệp trang chủ (`src/app/page.tsx`)
----------------------------------
-Tương tự, hãy tìm đối tượng `placeholderPersonalInfo` trong tệp này và thay đổi thông tin cho phù hợp.
-
-LƯU Ý QUAN TRỌNG:
-- Hãy đảm bảo bạn cập nhật thông tin ở CẢ BA tệp trên để trang web hiển thị đồng bộ.
-- Giữ nguyên cấu trúc của các đối tượng, chỉ thay đổi phần nội dung trong dấu ngoặc kép `""`.
+**LƯU Ý QUAN TRỌNG:**
+- Sau khi bạn lưu tệp `placeholder-data.ts`, tất cả các khu vực sử dụng thông tin này (trang chủ, trang liên hệ, chân trang...) sẽ được cập nhật tự động.
+- Giữ nguyên cấu trúc của đối tượng, chỉ thay đổi phần nội dung trong dấu ngoặc kép `""`.

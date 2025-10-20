@@ -2,69 +2,48 @@
 HƯỚNG DẪN CẬP NHẬT DỰ ÁN
 ======================================
 
-Tất cả thông tin về các dự án của bạn được quản lý trong một tệp duy nhất.
+Tất cả thông tin về các dự án hiển thị trên trang "Dự án" của bạn đều được quản lý trong một tệp duy nhất.
 
----------------------------------
-1. Tệp dữ liệu dự án (`src/lib/placeholder-data.ts`)
----------------------------------
-Mở tệp này và tìm đến mảng (array) có tên là `projects`. Mỗi dự án là một đối tượng (object) nằm trong mảng này.
+--------------------------------------
+1. Vị trí tệp tin
+--------------------------------------
+Mở tệp: `src/lib/placeholder-data.ts`
 
-**Để thêm một dự án mới:**
-Sao chép một khối đối tượng dự án có sẵn, dán nó vào cuối danh sách (trước dấu `];`) và thay đổi nội dung.
+Tìm đến một mảng (array) có tên là `projects`. Mỗi dự án là một đối tượng (object) nằm trong mảng này.
 
-**Để sửa một dự án:**
-Tìm đến đối tượng dự án bạn muốn sửa và thay đổi các giá trị.
+--------------------------------------
+2. Cách chỉnh sửa
+--------------------------------------
+- **Để thêm dự án mới:** Sao chép một khối đối tượng dự án có sẵn (bắt đầu bằng `{` và kết thúc bằng `},`), dán nó vào cuối danh sách (ngay trước dấu `];`) và thay đổi nội dung bên trong cho phù hợp với dự án mới của bạn.
+- **Để sửa một dự án:** Tìm dự án bạn muốn sửa trong mảng `projects` và thay đổi các giá trị của nó.
+- **Để xóa một dự án:** Xóa toàn bộ khối đối tượng của dự án đó (từ dấu `{` mở đầu đến dấu `},` kết thúc).
 
-**Để xóa một dự án:**
-Xóa toàn bộ khối đối tượng của dự án đó, từ dấu `{` mở đầu đến dấu `},` kết thúc.
-
-
-**Cấu trúc của một đối tượng dự án:**
+--------------------------------------
+3. Cấu trúc của một đối tượng Dự án
+--------------------------------------
+Mỗi dự án cần có cấu trúc như sau:
 
 ```javascript
 {
-  id: "1", // Giữ nguyên hoặc thay đổi bằng một chuỗi số duy nhất
-  slug: "ten-du-an-khong-dau", // URL của dự án, viết liền không dấu, ngăn cách bằng gạch nối
-  name: "Tên dự án của bạn",
-  category: "Branding", // Danh mục dự án. Các lựa chọn có sẵn: "Branding", "Illustration", "Art Direction", "Packaging", "Graphic Design", "UI/UX", "Web Design", "Game Design"
-  shortDescription: "Một mô tả rất ngắn gọn về dự án (hiển thị ở trang danh sách dự án).",
-  description: "Một mô tả chi tiết hơn về dự án, sẽ hiển thị ở trang chi tiết.",
-  designPrinciples: "Mô tả các nguyên tắc thiết kế hoặc ý tưởng chính bạn đã sử dụng.",
+  id: "10", // ID duy nhất cho mỗi dự án, không được trùng nhau.
+  slug: "ten-du-an-moi", // Tên rút gọn cho URL, viết liền không dấu, ngăn cách bằng gạch nối.
+  name: "Tên đầy đủ của dự án",
+  category: "Branding", // Danh mục của dự án.
+  shortDescription: "Một mô tả rất ngắn gọn về dự án (dưới 150 ký tự).",
+  description: "Mô tả chi tiết hơn về dự án để hiển thị ở trang chi tiết.",
+  designPrinciples: "Mô tả các nguyên tắc hoặc ý tưởng thiết kế chính bạn đã áp dụng.",
   image: {
-    src: PlaceHolderImages.find(p => p.id === 'project-fpt-art-show')?.imageUrl || '', // THAY 'project-fpt-art-show' bằng ID ảnh của bạn từ tệp placeholder-images.json
+    // Để quản lý ảnh, hãy xem tệp `src/lib/placeholder-images.json`
+    src: PlaceHolderImages.find(p => p.id === 'project-id-anh')?.imageUrl || '',
     alt: "Mô tả hình ảnh (quan trọng cho SEO)",
-    aiHint: "gợi ý hình ảnh cho AI (ví dụ: 'event poster design')"
+    aiHint: "goi-y-cho-ai" // Gợi ý cho AI (ví dụ: 'event poster design')
   },
-  year: 2024, // Năm thực hiện dự án
-  behanceUrl: "https://www.behance.net/your-project-link", // Đường dẫn đến dự án trên Behance
+  year: 2024, // Năm hoàn thành dự án
+  behanceUrl: "https://www.behance.net/your-project-link", // (Tùy chọn) Đường dẫn đến dự án trên Behance.
 },
 ```
 
----------------------------------
-2. Quản lý hình ảnh (`src/lib/placeholder-images.json`)
----------------------------------
-Tất cả hình ảnh cho dự án được quản lý tại đây để dễ dàng thay thế.
-
-**Để thêm ảnh mới cho dự án:**
-1. Thêm một đối tượng mới vào danh sách `placeholderImages`.
-2. Đặt một `id` duy nhất cho ảnh (ví dụ: `"project-ten-moi"`).
-3. Cung cấp đường dẫn `imageUrl` đến ảnh của bạn (bạn có thể tải ảnh lên một dịch vụ hosting như Imgur, Cloudinary, hoặc sử dụng ảnh từ Unsplash).
-4. Quay lại tệp `placeholder-data.ts`, trong đối tượng dự án của bạn, thay đổi phần `src` để trỏ đến `id` ảnh bạn vừa tạo.
-
-Ví dụ trong `placeholder-images.json`:
-```json
-{
-  "id": "project-ten-moi",
-  "description": "Mô tả ảnh mới",
-  "imageUrl": "https://link-den-anh-cua-ban.com/image.jpg",
-  "imageHint": "gợi ý ảnh"
-}
-```
-
-Ví dụ trong `placeholder-data.ts`:
-```javascript
-image: {
-    src: PlaceHolderImages.find(p => p.id === 'project-ten-moi')?.imageUrl || '',
-    // ...
-}
-```
+**LƯU Ý QUAN TRỌNG:**
+- Đảm bảo mỗi `id` là duy nhất.
+- Sau khi lưu tệp `placeholder-data.ts`, trang web sẽ tự động cập nhật với thông tin mới nhất.
+- Để thay đổi hình ảnh, bạn cần chỉnh sửa trong tệp `src/lib/placeholder-images.json` và sau đó cập nhật lại `id` của ảnh trong đối tượng dự án.

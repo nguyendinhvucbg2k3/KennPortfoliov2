@@ -2,29 +2,32 @@
 HƯỚNG DẪN CẬP NHẬT KỸ NĂNG
 =======================================
 
-Tất cả các kỹ năng của bạn được quản lý tập trung trong một tệp duy nhất để dễ dàng chỉnh sửa.
+Tất cả các kỹ năng của bạn được quản lý tập trung trong một tệp duy nhất và sẽ được hiển thị trên trang "Giới thiệu".
 
 ---------------------------------
-Tệp dữ liệu (`src/lib/placeholder-data.ts`)
+1. Vị trí tệp tin
 ---------------------------------
-Mở tệp này và tìm đến mảng (array) có tên là `skills`. Mỗi kỹ năng là một đối tượng (object) nằm trong mảng này.
+Mở tệp: `src/lib/placeholder-data.ts`
 
-Trang "Giới thiệu" (`/about`) sẽ tự động hiển thị các kỹ năng từ đây.
+Tìm đến một mảng (array) có tên là `skills`. Mỗi kỹ năng là một đối tượng (object) nằm trong mảng này.
 
-**Để thêm một kỹ năng mới:**
-Sao chép một khối đối tượng `{...}` có sẵn, dán nó vào cuối danh sách và thay đổi nội dung.
+---------------------------------
+2. Cách chỉnh sửa
+---------------------------------
+- **Để thêm một kỹ năng mới:** Sao chép một khối đối tượng `{...}` có sẵn, dán nó vào cuối danh sách và thay đổi nội dung.
+- **Để sửa hoặc xóa:** Tìm đến kỹ năng bạn muốn chỉnh sửa và thay đổi nội dung, hoặc xóa toàn bộ khối đối tượng đó.
 
-**Để sửa hoặc xóa:**
-Tìm đến kỹ năng bạn muốn chỉnh sửa và thay đổi nội dung, hoặc xóa toàn bộ khối đối tượng đó.
-
-
-**Cấu trúc của một đối tượng kỹ năng:**
+---------------------------------
+3. Cấu trúc của một đối tượng Kỹ năng
+---------------------------------
+Mỗi kỹ năng cần có cấu trúc như sau:
 
 ```javascript
 {
+  id: "1", // ID duy nhất cho mỗi kỹ năng, không được trùng nhau.
   name: "Tên kỹ năng (ví dụ: ADOBE PHOTOSHOP)",
-  level: 75, // Mức độ thành thạo, là một con số từ 0 đến 100
-  description: "Mô tả ngắn về kỹ năng của bạn.",
+  level: 80, // Mức độ thành thạo, là một con số từ 0 đến 100
+  description: "Mô tả ngắn về kỹ năng hoặc kinh nghiệm sử dụng của bạn.",
 },
 ```
 
@@ -32,10 +35,12 @@ Tìm đến kỹ năng bạn muốn chỉnh sửa và thay đổi nội dung, ho
 
 ```javascript
 export const skills: Skill[] = [
-  { name: "ADOBE PHOTOSHOP / ILLUSTRATOR / ...", level: 75, description: "Advanced proficiency in Adobe Creative Suite." },
-  { name: "GRAPHIC DESIGNER", level: 75, description: "Comprehensive skills in graphic design principles." },
+  { id: "1", name: "ADOBE PHOTOSHOP / ILLUSTRATOR", level: 75, description: "Thành thạo các công cụ trong bộ Adobe Creative Suite." },
+  { id: "2", name: "GRAPHIC DESIGN", level: 80, description: "Kiến thức toàn diện về các nguyên tắc thiết kế đồ họa." },
   // Thêm các kỹ năng khác của bạn ở đây
 ];
 ```
 
-Sau khi bạn lưu tệp, trang Giới thiệu sẽ tự động cập nhật danh sách kỹ năng và thanh tiến trình tương ứng.
+**LƯU Ý QUAN TRONT:**
+- Đảm bảo mỗi `id` là duy nhất.
+- Sau khi bạn lưu tệp, trang "Giới thiệu" sẽ tự động cập nhật danh sách kỹ năng và thanh tiến trình tương ứng.
