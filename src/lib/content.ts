@@ -8,7 +8,7 @@ export const content = {
       contact: "Liên hệ",
     },
     home: {
-      title: "Freelancer Esports Media || Esports Event Operations Associate || Social Media",
+      title: "Freelancer Esports Media || Esports Event Operations Associate",
       introduction: "Tạo ra những câu chuyện hình ảnh hấp dẫn, kết hợp thẩm mỹ tương lai với các nguyên tắc thiết kế vượt thời gian. Chào mừng đến với khu vườn sáng tạo neon của tôi.",
       exploreWork: "Khám phá tác phẩm",
       basicInfo: {
@@ -101,7 +101,7 @@ export const content = {
       contact: "Contact",
     },
     home: {
-      title: "Freelancer Esports Media || Esports Event Operations Associate || Social Media",
+      title: "Freelancer Esports Media || Esports Event Operations Associate",
       introduction: "Crafting compelling visual narratives that blend futuristic aesthetics with timeless design principles. Welcome to my neon garden of creativity.",
       exploreWork: "Explore My Work",
       basicInfo: {

@@ -5,7 +5,7 @@ import type { Skill, Project, Resource, Experience, PersonalInfo } from "./types
 export const personalInfo: PersonalInfo = {
     fullName: "Thac Nguyen Dinh Vu",
     footerName: "Thac Nguyen Dinh Vu",
-    title: "Freelancer Esports Media || Esports Event Operations Associate || Social Media",
+    title: "Freelancer Esports Media || Esports Event Operations Associate",
     fieldOfStudy: "Information Technology",
     dateOfBirth: "20/07/2003",
     email: "thacnguyendinhvu.esports@gmail.com",
