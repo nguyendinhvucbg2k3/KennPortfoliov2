@@ -208,35 +208,29 @@ export type ResourceCategory = {
 
 export const resources: ResourceCategory[] = [
   {
-    category: "Inspiration",
+    category: "Nguồn website tham khảo",
     resources: [
-      { title: "Awwwards", description: "The best of web design and development.", url: "#" },
-      { title: "Dribbble", description: "A community for creatives to share their work.", url: "#" },
-      { title: "Behance", description: "Showcase and discover the latest work from top creatives.", url: "#" },
+      { title: "Behance", description: "Showcase and discover the latest work from top creatives.", url: "https://www.behance.net/" },
+      { title: "Dribbble", description: "A community for creatives to share their work.", url: "https://dribbble.com/" },
+      { title: "Awwwards", description: "The best of web design and development.", url: "https://www.awwwards.com/" },
     ],
   },
   {
-    category: "Tools",
+    category: "Link Drive sưu tầm",
     resources: [
-      { title: "Figma", description: "The collaborative interface design tool.", url: "#" },
-      { title: "Adobe Creative Cloud", description: "The ultimate creative toolkit.", url: "#" },
-      { title: "Coolors", description: "Generate beautiful color palettes.", url: "#" },
+      { title: "My Collected Resources", description: "A personal collection of design assets and inspiration.", url: "#" },
     ],
   },
   {
-    category: "Typography",
+    category: "Link driver design community",
     resources: [
-      { title: "Google Fonts", description: "A library of free and open source fonts.", url: "#" },
-      { title: "Fonts in Use", description: "A public archive of typography.", url: "#" },
-      { title: "Typewolf", description: "The definitive guide to typography on the web.", url: "#" },
+      { title: "Community Design Drive", description: "Shared resources from the design community.", url: "#" },
     ],
   },
   {
-    category: "Resources",
+    category: "Link drive cho editor",
     resources: [
-      { title: "Unsplash", description: "Free high-resolution photos.", url: "#" },
-      { title: "Pexels", description: "The best free stock photos and videos.", url: "#" },
-      { title: "Icon-Icons", description: "Free Icons, PNG, ICO, ICNS.", url: "#" },
+      { title: "Editor's Asset Drive", description: "A collection of assets for video and photo editors.", url: "#" },
     ],
   },
 ];
