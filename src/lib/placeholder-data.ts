@@ -4,7 +4,7 @@ import type { Skill, Project, Resource, Experience, PersonalInfo } from "./types
 export const personalInfo: PersonalInfo = {
     fullName: "Thac Nguyen Dinh Vu",
     footerName: "Thac Nguyen Dinh Vu",
-    title: "Intern Graphic Designer",
+    title: "Freelancer Esports Media || Esports Event Operations Associate || Social Media",
     fieldOfStudy: "Information Technology",
     dateOfBirth: "20/07/2003",
     email: "thacnguyendinhvu.esports@gmail.com",
@@ -278,3 +278,5 @@ export const experiences: Experience[] = [
       description: "In charge of product images on e-commerce platforms; unified brand assets across shops. Worked for 10 shops with over 20 products per shop; 5 banners were published.",
     },
 ];
+
+    
