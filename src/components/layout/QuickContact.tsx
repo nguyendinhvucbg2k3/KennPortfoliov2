@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from "@/components/ui/button";
-import { Mail, MessageSquare, Phone } from "lucide-react";
+import { Mail } from "lucide-react";
 import Link from "next/link";
 import { personalInfo } from "@/lib/placeholder-data";
 
@@ -13,18 +13,7 @@ const ZaloIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 const FacebookIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-    </svg>
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}><path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4v-8.5z"/></svg>
 );
 
 
@@ -35,22 +24,19 @@ export function QuickContact() {
 
     return (
         <div className="fixed bottom-4 left-4 z-50 flex flex-col gap-3">
-             <Button asChild size="icon" className="rounded-full w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white shadow-lg transition-transform duration-300 ease-in-out hover:scale-110">
-                <Link href={facebookLink} target="_blank">
-                    <FacebookIcon className="h-7 w-7" />
-                    <span className="sr-only">Facebook</span>
+             <Button asChild size="icon" className="rounded-full w-12 h-12 md:w-14 md:h-14 bg-[#0866FF] hover:bg-[#0759d1] text-white shadow-lg transition-transform duration-300 ease-in-out hover:scale-110">
+                <Link href={facebookLink} target="_blank" aria-label="Facebook Messenger">
+                    <FacebookIcon className="h-6 w-6 md:h-7 md:w-7" />
                 </Link>
             </Button>
-            <Button asChild size="icon" className="rounded-full w-14 h-14 bg-blue-500 hover:bg-blue-600 text-white shadow-lg transition-transform duration-300 ease-in-out hover:scale-110">
-                <Link href={zaloLink} target="_blank">
-                    <ZaloIcon className="h-7 w-7" />
-                    <span className="sr-only">Zalo</span>
+            <Button asChild size="icon" className="rounded-full w-12 h-12 md:w-14 md:h-14 bg-[#0068FF] hover:bg-[#0052cc] text-white shadow-lg transition-transform duration-300 ease-in-out hover:scale-110">
+                <Link href={zaloLink} target="_blank" aria-label="Zalo">
+                    <ZaloIcon className="h-6 w-6 md:h-7 md:w-7" />
                 </Link>
             </Button>
-            <Button asChild size="icon" className="rounded-full w-14 h-14 bg-red-600 hover:bg-red-700 text-white shadow-lg transition-transform duration-300 ease-in-out hover:scale-110">
-                <Link href={`mailto:${email}`}>
-                    <Mail className="h-7 w-7" />
-                    <span className="sr-only">Email</span>
+            <Button asChild size="icon" className="rounded-full w-12 h-12 md:w-14 md:h-14 bg-red-600 hover:bg-red-700 text-white shadow-lg transition-transform duration-300 ease-in-out hover:scale-110">
+                <Link href={`mailto:${email}`} aria-label="Email">
+                    <Mail className="h-6 w-6 md:h-7 md:w-7" />
                 </Link>
             </Button>
         </div>
