@@ -6,7 +6,7 @@ import { content } from '@/lib/content';
 export default function ProjectsPage() {
   const { language } = useLanguage();
   const pageContent = content[language].projects;
-  const behanceProfileUrl = "https://www.behance.net/TNDVKenn203";
+  const behanceProfileUrl = "https://www.behance.net/TNDVKenn";
 
   return (
     <div className="container mx-auto px-4 py-16 md:py-24 flex flex-col h-[calc(100vh-4rem)]">
