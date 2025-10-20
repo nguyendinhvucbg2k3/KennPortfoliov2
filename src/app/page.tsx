@@ -50,9 +50,6 @@ export default function Home() {
              <div className="h-20 bg-muted/50 rounded-md animate-pulse w-3/4 mx-auto" />
           ) : (
             <>
-              <div className="flex justify-center mb-4">
-                <NeonBloomLogo />
-              </div>
               <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl font-bold text-glow">
                 {personalInfo?.fullName || "Thac Nguyen Dinh Vu"}
               </h1>
