@@ -11,6 +11,7 @@ import { useLanguage } from "@/context/language-context";
 import { content } from "@/lib/content";
 import { useState, useEffect } from "react";
 import { personalInfo as placeholderPersonalInfo } from "@/lib/placeholder-data";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const BehanceIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg viewBox="0 0 24 24" fill="currentColor" {...props}><path d="M7.333 12.667h2.534c.828 0 1.5-.597 1.5-1.334s-.672-1.333-1.5-1.333H7.333v2.667zM14.667 12V9h2.667v3h-2.667zm-7.334 5.333h3.034c.96 0 1.733-.716 1.733-1.6s-.773-1.6-1.733-1.6H7.333v3.2zM2.667 2.667h6.666v1.333H2.667V2.667zM20 7c0-2.209-1.791-4-4-4H4c-1.105 0-2 .895-2 2v14c0 1.105.895 2 2 2h12c2.209 0 4-1.791 4-4v-7zm-4.234 1.333H13.1v1.334h2.441c.65 0 1.176.47 1.176 1.053 0 .582-.526 1.053-1.176 1.053H13.1v1.554h2.724c.903 0 1.643.66 1.643 1.48s-.74 1.48-1.643 1.48H13.1v3.293c-3.333 0-3.333-1.474-3.333-3.333S11.233 8.333 15.766 8.333z"/></svg>
@@ -33,7 +34,7 @@ const TwitterIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg viewBox="0 0 24 24" fill="currentColor" {...props}><path d="M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153a4.908 4.908 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122s-.013 3.056-.06 4.122c-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 0 1-1.153 1.772 4.915 4.915 0 0 1-1.772 1.153c-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06s-3.056-.013-4.122-.06c-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 0 1-1.772-1.153 4.904 4.904 0 0 1-1.153-1.772c-.247-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12s.013-3.056.06-4.122c.05-1.065.218-1.79.465-2.428a4.88 4.88 0 0 1 1.153-1.772A4.915 4.915 0 0 1 5.45 2.525c.638-.247 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2zm0 1.8c-2.68 0-3.01.01-4.05.057-.975.045-1.505.207-1.957.387-.473.187-.85.42-1.22.79-.37.37-.604.747-.79 1.22-.18.452-.342.982-.387 1.957-.047 1.04-.057 1.37-.057 4.05s.01 1.01.057 4.05c.045.975.207 1.505.387 1.957.187.473.42.85.79 1.22.37.37.747.604 1.22.79.452.18 1.107.342 1.957.387 1.04.047 1.37.057 4.05.057s3.01-.01 4.05-.057c.975-.045 1.505-.207 1.957-.387.473-.187.85-.42 1.22-.79.37-.37.604-.747.79-1.22.18-.452.342-.982.387-1.957.047-1.04.057-1.37.057-4.05s-.01-1.01-.057-4.05c-.045-.975-.207-1.505-.387-1.957-.187-.473-.42-.85-.79-1.22-.37-.37-.747-.604-1.22-.79-.452-.18-1.107-.342-1.957-.387-1.04-.047-1.37-.057-4.05-.057zm0 4.632c-2.905 0-5.268 2.363-5.268 5.268s2.363 5.268 5.268 5.268 5.268-2.363 5.268-5.268-2.363-5.268-5.268-5.268zm0 8.732c-1.91 0-3.464-1.554-3.464-3.464s1.554-3.464 3.464-3.464 3.464 1.554 3.464 3.464-1.554 3.464-3.464 3.464zm5.838-8.4c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}><path d="M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153a4.908 4.908 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122s-.013 3.056-.06 4.122c-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 0 1-1.153 1.772 4.915 4.915 0 0 1-1.772 1.153c-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06s-3.056-.013-4.122-.06c-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 0 1-1.772-1.153 4.904 4.904 0 0 1-1.153-1.772c-.247-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12s.013-3.056.06-4.122c.05-1.065.218-1.79.465-2.428a4.88 4.88 0 0 1 1.153-1.772A4.915 4.915 0 0 1 5.45 2.525c.638-.247 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2zm0 1.8c-2.68 0-3.01.01-4.05.057-.975.045-1.505.207-1.957.387-.473.187-.85.42-1.22.79-.37.37-.604.747-.79 1.22-.18.452-.342.982-.387 1.957-.047 1.04-.057 1.37-.057 4.05s.01 1.01.057 4.05c.045.975.207 1.505.387 1.957.187.473.42.85.79 1.22.37.37.747.604 1.22.79.452.18 1.107.342 1.957.387 1.04.047 1.37.057 4.05.057s3.01-.01 4.05-.057c.975-.045 1.505-.207 1.957-.387.473-.187.85-.42 1.22-.79.37-.37-.604-.747-.79-1.22.18-.452-.342-.982-.387-1.957.047-1.04.057-1.37.057-4.05s-.01-1.01-.057-4.05c-.045-.975-.207-1.505-.387-1.957-.187-.473-.42-.85-.79-1.22-.37-.37-.747-.604-1.22-.79-.452-.18-1.107-.342-1.957-.387-1.04-.047-1.37-.057-4.05-.057zm0 4.632c-2.905 0-5.268 2.363-5.268 5.268s2.363 5.268 5.268 5.268 5.268-2.363 5.268-5.268-2.363-5.268-5.268-5.268zm0 8.732c-1.91 0-3.464-1.554-3.464-3.464s1.554-3.464 3.464-3.464 3.464 1.554 3.464 3.464-1.554 3.464-3.464 3.464zm5.838-8.4c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
 );
 
 const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -90,43 +91,80 @@ export default function ContactPage() {
                 </div>
             )}
              <h2 className="font-headline text-3xl font-bold mt-12 mb-6">{pageContent.followMe}</h2>
+             <TooltipProvider>
              <div className="flex items-center gap-2 flex-wrap">
-                 <Button variant="outline" size="icon" className="hover:text-primary hover:border-primary" asChild>
-                    <Link href="https://www.facebook.com/TNDVKenn203" target="_blank" aria-label="Facebook">
-                        <FacebookIcon className="h-5 w-5" />
-                    </Link>
-                </Button>
-                <Button variant="outline" size="icon" className="hover:text-primary hover:border-primary" asChild>
-                    <Link href="https://twitter.com/anhvubg999" target="_blank" aria-label="Twitter">
-                        <TwitterIcon className="h-5 w-5" />
-                    </Link>
-                </Button>
-                <Button variant="outline" size="icon" className="hover:text-primary hover:border-primary" asChild>
-                    <Link href="https://www.instagram.com/nguyendinhvu_" target="_blank" aria-label="Instagram">
-                        <InstagramIcon className="h-5 w-5" />
-                    </Link>
-                </Button>
-                 <Button variant="outline" size="icon" className="hover:text-primary hover:border-primary" asChild>
-                    <Link href="https://www.tiktok.com/@nguyendinhvu_kenn" target="_blank" aria-label="TikTok">
-                        <TiktokIcon className="h-5 w-5" />
-                    </Link>
-                </Button>
-                 <Button variant="outline" size="icon" className="hover:text-primary hover:border-primary" asChild>
-                    <Link href="https://www.pinterest.com/TNDVKenn203" target="_blank" aria-label="Pinterest">
-                        <PinterestIcon className="h-5 w-5" />
-                    </Link>
-                </Button>
-                 <Button variant="outline" size="icon" className="hover:text-primary hover:border-primary" asChild>
-                    <Link href="https://www.behance.net/TNDVKenn" target="_blank" aria-label="Behance">
-                        <BehanceIcon className="h-5 w-5" />
-                    </Link>
-                </Button>
-                <Button variant="outline" size="icon" className="hover:text-primary hover:border-primary" asChild>
-                    <Link href="https://www.linkedin.com/in/tndvkenn5207" target="_blank" aria-label="LinkedIn">
-                        <LinkedinIcon className="h-5 w-5" />
-                    </Link>
-                </Button>
+                 <Tooltip>
+                    <TooltipTrigger asChild>
+                        <Button variant="outline" size="icon" className="hover:text-primary hover:border-primary" asChild>
+                            <Link href="https://www.facebook.com/TNDVKenn203" target="_blank" aria-label="Facebook">
+                                <FacebookIcon className="h-5 w-5" />
+                            </Link>
+                        </Button>
+                    </TooltipTrigger>
+                    <TooltipContent><p>Facebook</p></TooltipContent>
+                 </Tooltip>
+                 <Tooltip>
+                    <TooltipTrigger asChild>
+                        <Button variant="outline" size="icon" className="hover:text-primary hover:border-primary" asChild>
+                            <Link href="https://twitter.com/anhvubg999" target="_blank" aria-label="Twitter">
+                                <TwitterIcon className="h-5 w-5" />
+                            </Link>
+                        </Button>
+                    </TooltipTrigger>
+                    <TooltipContent><p>Twitter</p></TooltipContent>
+                </Tooltip>
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <Button variant="outline" size="icon" className="hover:text-primary hover:border-primary" asChild>
+                            <Link href="https://www.instagram.com/nguyendinhvu_" target="_blank" aria-label="Instagram">
+                                <InstagramIcon className="h-5 w-5" />
+                            </Link>
+                        </Button>
+                    </TooltipTrigger>
+                    <TooltipContent><p>Instagram</p></TooltipContent>
+                </Tooltip>
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <Button variant="outline" size="icon" className="hover:text-primary hover:border-primary" asChild>
+                            <Link href="https://www.tiktok.com/@nguyendinhvu_kenn" target="_blank" aria-label="TikTok">
+                                <TiktokIcon className="h-5 w-5" />
+                            </Link>
+                        </Button>
+                    </TooltipTrigger>
+                    <TooltipContent><p>TikTok</p></TooltipContent>
+                </Tooltip>
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <Button variant="outline" size="icon" className="hover:text-primary hover:border-primary" asChild>
+                            <Link href="https://www.pinterest.com/TNDVKenn203" target="_blank" aria-label="Pinterest">
+                                <PinterestIcon className="h-5 w-5" />
+                            </Link>
+                        </Button>
+                    </TooltipTrigger>
+                    <TooltipContent><p>Pinterest</p></TooltipContent>
+                </Tooltip>
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <Button variant="outline" size="icon" className="hover:text-primary hover:border-primary" asChild>
+                            <Link href="https://www.behance.net/TNDVKenn" target="_blank" aria-label="Behance">
+                                <BehanceIcon className="h-5 w-5" />
+                            </Link>
+                        </Button>
+                    </TooltipTrigger>
+                    <TooltipContent><p>Behance</p></TooltipContent>
+                </Tooltip>
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <Button variant="outline" size="icon" className="hover:text-primary hover:border-primary" asChild>
+                            <Link href="https://www.linkedin.com/in/tndvkenn5207" target="_blank" aria-label="LinkedIn">
+                                <LinkedinIcon className="h-5 w-5" />
+                            </Link>
+                        </Button>
+                    </TooltipTrigger>
+                    <TooltipContent><p>LinkedIn</p></TooltipContent>
+                </Tooltip>
             </div>
+            </TooltipProvider>
         </div>
         <div>
            <Card className="bg-card/50 border-border/50">
