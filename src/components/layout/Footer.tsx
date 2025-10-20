@@ -4,11 +4,10 @@ import { Linkedin, Twitter, Instagram, Facebook } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { NeonBloomLogo } from "../icons/NeonBloomLogo";
-import { useDoc, useFirestore, useMemoFirebase } from "@/firebase";
-import { doc } from "firebase/firestore";
 import { PersonalInfo } from "@/lib/types";
 import { useLanguage } from "@/context/language-context";
 import { content } from "@/lib/content";
+import { useEffect, useState } from "react";
 
 const BehanceIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg
@@ -47,13 +46,29 @@ const PinterestIcon = (props: React.SVGProps<SVGSVGElement>) => (
     </svg>
 );
 
+const staticPersonalInfo: PersonalInfo = {
+    fullName: "Thac Nguyen Dinh Vu",
+    footerName: "Thac Nguyen Dinh Vu",
+    title: "Intern Graphic Designer",
+    fieldOfStudy: "Information Technology",
+    dateOfBirth: "20/07/2003",
+    email: "thacnguyendinhvu.esports@gmail.com",
+    phone: "0964664117",
+    phoneHref: "tel:+84964664117",
+    address: "Ha Dong, Hanoi",
+};
+
 
 export function Footer() {
     const { language } = useLanguage();
     const pageContent = content[language].footer;
-    const firestore = useFirestore();
-    const personalInfoDoc = useMemoFirebase(() => firestore ? doc(firestore, 'personalInfo', 'main') : null, [firestore]);
-    const { data: personalInfo, isLoading } = useDoc<PersonalInfo>(personalInfoDoc);
+    const [personalInfo, setPersonalInfo] = useState<PersonalInfo | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        setPersonalInfo(staticPersonalInfo);
+        setIsLoading(false);
+    }, []);
 
   return (
     <footer className="w-full border-t border-border/40">

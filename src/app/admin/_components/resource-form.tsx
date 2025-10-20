@@ -7,8 +7,6 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { useFirestore, addDocumentNonBlocking, setDocumentNonBlocking } from '@/firebase';
-import { doc, collection } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
 import { Resource } from '@/lib/types';
 import { useLanguage } from '@/context/language-context';
@@ -29,7 +27,6 @@ interface ResourceFormProps {
 export function ResourceForm({ resource, onSave }: ResourceFormProps) {
   const { language } = useLanguage();
   const formContent = content[language].admin.resources.form;
-  const firestore = useFirestore();
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof resourceSchema>>({
@@ -43,19 +40,12 @@ export function ResourceForm({ resource, onSave }: ResourceFormProps) {
   });
 
   const onSubmit = (values: z.infer<typeof resourceSchema>) => {
-    if (!firestore) return;
-
-    if (resource) {
-      // Update existing resource
-      const docRef = doc(firestore, 'resources', resource.id);
-      setDocumentNonBlocking(docRef, values, { merge: true });
-      toast({ title: 'Resource Updated' });
-    } else {
-      // Add new resource
-      const collectionRef = collection(firestore, 'resources');
-      addDocumentNonBlocking(collectionRef, values);
-      toast({ title: 'Resource Added' });
-    }
+    // Firestore writing is disabled.
+    console.log('Form submitted. Firestore writing is currently disabled.', values);
+    toast({
+      title: 'Submit Disabled',
+      description: 'Resource data has been logged to the console. Database writing is disabled.',
+    });
     onSave();
   };
 

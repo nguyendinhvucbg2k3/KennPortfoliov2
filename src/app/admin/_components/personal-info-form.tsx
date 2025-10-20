@@ -7,8 +7,6 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useFirestore, setDocumentNonBlocking } from '@/firebase';
-import { doc } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
 import { PersonalInfo } from '@/lib/types';
 import { useLanguage } from '@/context/language-context';
@@ -33,7 +31,6 @@ interface PersonalInfoFormProps {
 export function PersonalInfoForm({ initialData }: PersonalInfoFormProps) {
   const { language } = useLanguage();
   const adminContent = content[language].admin;
-  const firestore = useFirestore();
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof personalInfoSchema>>({
@@ -52,12 +49,11 @@ export function PersonalInfoForm({ initialData }: PersonalInfoFormProps) {
   });
 
   const onSubmit = (values: z.infer<typeof personalInfoSchema>) => {
-    if (!firestore) return;
-    const docRef = doc(firestore, 'personalInfo', 'main');
-    setDocumentNonBlocking(docRef, values, { merge: true });
+    // Firestore writing is disabled.
+    console.log('Form submitted. Firestore writing is currently disabled.', values);
     toast({
-      title: 'Personal Info Updated',
-      description: 'Your personal information has been successfully saved.',
+      title: 'Submit Disabled',
+      description: 'Your information has been logged to the console. Database writing is disabled.',
     });
   };
 

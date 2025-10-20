@@ -12,9 +12,6 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Skill } from '@/lib/types';
 import { Progress } from '@/components/ui/progress';
-import { useFirestore } from '@/firebase';
-import { doc } from 'firebase/firestore';
-import { deleteDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 import { SkillForm } from './skill-form';
 import {
   Dialog,
@@ -37,6 +34,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
+import { useToast } from '@/hooks/use-toast';
 
 export const columns: ColumnDef<Skill>[] = [
   {
@@ -83,13 +81,16 @@ export const columns: ColumnDef<Skill>[] = [
       const skill = row.original;
       const { language } = useLanguage();
       const adminContent = content[language].admin;
-      const firestore = useFirestore();
+      const { toast } = useToast();
       const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
       const handleDelete = () => {
-        if (!firestore) return;
-        const docRef = doc(firestore, 'skills', skill.id);
-        deleteDocumentNonBlocking(docRef);
+        // Firestore writing is disabled.
+        console.log('Delete action triggered. Firestore writing is currently disabled for skill:', skill.id);
+        toast({
+          title: 'Delete Disabled',
+          description: `Skill "${skill.name}" delete action logged to console.`,
+        });
       };
 
       return (

@@ -7,19 +7,24 @@ import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Download } from "lucide-react";
-import { useCollection, useFirestore, useMemoFirebase } from "@/firebase";
-import { collection } from "firebase/firestore";
 import type { Skill } from "@/lib/types";
 import { useLanguage } from "@/context/language-context";
 import { content } from "@/lib/content";
+import { skills as staticSkills } from '@/lib/placeholder-data';
+import { useEffect, useState } from "react";
 
 export default function AboutPage() {
   const { language } = useLanguage();
   const pageContent = content[language].about;
   const aboutImage = PlaceHolderImages.find((img) => img.id === "about-image");
-  const firestore = useFirestore();
-  const skillsCollection = useMemoFirebase(() => firestore ? collection(firestore, 'skills') : null, [firestore]);
-  const { data: skills, isLoading: skillsLoading } = useCollection<Skill>(skillsCollection);
+
+  const [skills, setSkills] = useState<Skill[]>([]);
+  const [skillsLoading, setSkillsLoading] = useState(true);
+
+  useEffect(() => {
+    setSkills(staticSkills);
+    setSkillsLoading(false);
+  }, []);
 
   return (
     <div className="container mx-auto px-4 py-16 md:py-24">
@@ -87,8 +92,8 @@ export default function AboutPage() {
                 </CardContent>
               </Card>
             ))
-          ) : (skills || []).map((skill) => (
-            <Card key={skill.id} className="bg-card/50 backdrop-blur-sm border-border/50">
+          ) : (skills || []).map((skill, index) => (
+            <Card key={index} className="bg-card/50 backdrop-blur-sm border-border/50">
               <CardHeader>
                 <CardTitle className="text-xl font-headline">{skill.name}</CardTitle>
               </CardHeader>

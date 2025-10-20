@@ -7,8 +7,6 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { useFirestore, addDocumentNonBlocking, setDocumentNonBlocking } from '@/firebase';
-import { doc, collection } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
 import { Skill } from '@/lib/types';
 import { Slider } from '@/components/ui/slider';
@@ -29,7 +27,6 @@ interface SkillFormProps {
 export function SkillForm({ skill, onSave }: SkillFormProps) {
   const { language } = useLanguage();
   const formContent = content[language].admin.skills.form;
-  const firestore = useFirestore();
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof skillSchema>>({
@@ -42,19 +39,12 @@ export function SkillForm({ skill, onSave }: SkillFormProps) {
   });
 
   const onSubmit = (values: z.infer<typeof skillSchema>) => {
-    if (!firestore) return;
-
-    if (skill) {
-      // Update existing skill
-      const docRef = doc(firestore, 'skills', skill.id);
-      setDocumentNonBlocking(docRef, values, { merge: true });
-      toast({ title: 'Skill Updated' });
-    } else {
-      // Add new skill
-      const collectionRef = collection(firestore, 'skills');
-      addDocumentNonBlocking(collectionRef, values);
-      toast({ title: 'Skill Added' });
-    }
+    // Firestore writing is disabled.
+    console.log('Form submitted. Firestore writing is currently disabled.', values);
+    toast({
+      title: 'Submit Disabled',
+      description: 'Skill data has been logged to the console. Database writing is disabled.',
+    });
     onSave();
   };
 

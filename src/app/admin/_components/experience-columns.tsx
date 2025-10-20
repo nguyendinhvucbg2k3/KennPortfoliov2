@@ -11,9 +11,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Experience } from '@/lib/types';
-import { useFirestore } from '@/firebase';
-import { doc } from 'firebase/firestore';
-import { deleteDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 import { ExperienceForm } from './experience-form';
 import {
   Dialog,
@@ -36,6 +33,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
+import { useToast } from '@/hooks/use-toast';
 
 
 export const columns: ColumnDef<Experience>[] = [
@@ -76,13 +74,16 @@ export const columns: ColumnDef<Experience>[] = [
       const experience = row.original;
       const { language } = useLanguage();
       const adminContent = content[language].admin;
-      const firestore = useFirestore();
+      const { toast } = useToast();
       const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
       const handleDelete = () => {
-        if (!firestore) return;
-        const docRef = doc(firestore, 'experience', experience.id);
-        deleteDocumentNonBlocking(docRef);
+        // Firestore writing is disabled.
+        console.log('Delete action triggered. Firestore writing is currently disabled for experience:', experience.id);
+        toast({
+          title: 'Delete Disabled',
+          description: `Experience "${experience.title}" delete action logged to console.`,
+        });
       };
 
       return (

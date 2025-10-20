@@ -8,11 +8,10 @@ import { CritiqueForm } from '../critique-form';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-import { useFirestore } from '@/firebase';
-import { getDocs, collection, query, where, limit } from 'firebase/firestore';
 import type { Project } from '@/lib/types';
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
+import { projects as staticProjects } from '@/lib/placeholder-data';
 
 type ProjectPageProps = {
   params: {
@@ -20,53 +19,26 @@ type ProjectPageProps = {
   };
 };
 
-async function getProjectBySlug(slug: string, db: any): Promise<Project | null> {
-  if (!db) return null;
-  const projectsRef = collection(db, 'projects');
-  const q = query(projectsRef, where('slug', '==', slug), limit(1));
-  try {
-    const querySnapshot = await getDocs(q);
-    if (querySnapshot.empty) {
-      return null;
-    }
-    const projectDoc = querySnapshot.docs[0];
-    return { id: projectDoc.id, ...projectDoc.data() } as Project;
-  } catch (error) {
-    console.error("Error fetching project by slug:", error);
-    // This could be a permissions error if rules are not set up for server-side access
-    // For now, we'll return null and let it 404.
-    return null;
-  }
+function getProjectBySlug(slug: string): Project | null {
+  const project = staticProjects.find(p => p.slug === slug);
+  return project || null;
 }
 
 export default function ProjectPage({ params }: ProjectPageProps) {
   const { language } = useLanguage();
   const pageContent = content[language].projectDetail;
-  const firestore = useFirestore();
   const [project, setProject] = React.useState<Project | null>(null);
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
-    if (firestore) {
-      getProjectBySlug(params.slug, firestore).then(p => {
-        if (!p) {
-          // Explicitly handle not found case after fetch
-          notFound();
-        } else {
-          setProject(p);
-        }
-      }).catch(() => {
-        notFound();
-      }).finally(() => {
-        setLoading(false);
-      });
+    const foundProject = getProjectBySlug(params.slug);
+    if (!foundProject) {
+      notFound();
+    } else {
+      setProject(foundProject);
+      setLoading(false);
     }
-  }, [firestore, params.slug]);
-
-  // This will never be true if firestore is not available, but it's good practice
-  if (!firestore && !loading) {
-    return <div className="flex items-center justify-center h-screen">Firebase not available.</div>;
-  }
+  }, [params.slug]);
 
   if (loading) {
     return <div className="flex items-center justify-center h-screen">Loading project...</div>;

@@ -7,8 +7,6 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { useFirestore, addDocumentNonBlocking, setDocumentNonBlocking } from '@/firebase';
-import { doc, collection } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
 import { Experience } from '@/lib/types';
 import { useLanguage } from '@/context/language-context';
@@ -29,7 +27,6 @@ interface ExperienceFormProps {
 export function ExperienceForm({ experience, onSave }: ExperienceFormProps) {
   const { language } = useLanguage();
   const formContent = content[language].admin.experience.form;
-  const firestore = useFirestore();
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof experienceSchema>>({
@@ -43,19 +40,12 @@ export function ExperienceForm({ experience, onSave }: ExperienceFormProps) {
   });
 
   const onSubmit = (values: z.infer<typeof experienceSchema>) => {
-    if (!firestore) return;
-
-    if (experience) {
-      // Update existing experience
-      const docRef = doc(firestore, 'experience', experience.id);
-      setDocumentNonBlocking(docRef, values, { merge: true });
-      toast({ title: 'Experience Updated' });
-    } else {
-      // Add new experience
-      const collectionRef = collection(firestore, 'experience');
-      addDocumentNonBlocking(collectionRef, values);
-      toast({ title: 'Experience Added' });
-    }
+    // Firestore writing is disabled.
+    console.log('Form submitted. Firestore writing is currently disabled.', values);
+    toast({
+      title: 'Submit Disabled',
+      description: 'Experience data has been logged to the console. Database writing is disabled.',
+    });
     onSave();
   };
 

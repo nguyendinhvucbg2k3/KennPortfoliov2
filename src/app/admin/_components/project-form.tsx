@@ -7,8 +7,6 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { useFirestore, addDocumentNonBlocking, setDocumentNonBlocking } from '@/firebase';
-import { doc, collection } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
 import { Project } from '@/lib/types';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -39,7 +37,6 @@ interface ProjectFormProps {
 export function ProjectForm({ project, onSave }: ProjectFormProps) {
   const { language } = useLanguage();
   const formContent = content[language].admin.projects.form;
-  const firestore = useFirestore();
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof projectSchema>>({
@@ -58,19 +55,12 @@ export function ProjectForm({ project, onSave }: ProjectFormProps) {
   });
 
   const onSubmit = (values: z.infer<typeof projectSchema>) => {
-    if (!firestore) return;
-
-    if (project) {
-      // Update existing project
-      const docRef = doc(firestore, 'projects', project.id);
-      setDocumentNonBlocking(docRef, values, { merge: true });
-      toast({ title: 'Project Updated' });
-    } else {
-      // Add new project
-      const collectionRef = collection(firestore, 'projects');
-      addDocumentNonBlocking(collectionRef, values);
-      toast({ title: 'Project Added' });
-    }
+    // Firestore writing is disabled.
+    console.log('Form submitted. Firestore writing is currently disabled.', values);
+    toast({
+      title: 'Submit Disabled',
+      description: 'Project data has been logged to the console. Database writing is disabled.',
+    });
     onSave();
   };
 

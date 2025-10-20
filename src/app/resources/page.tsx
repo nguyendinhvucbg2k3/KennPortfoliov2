@@ -1,7 +1,5 @@
 'use client';
 
-import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
-import { collection } from 'firebase/firestore';
 import {
   Accordion,
   AccordionContent,
@@ -11,19 +9,22 @@ import {
 import Link from 'next/link';
 import { ExternalLink } from 'lucide-react';
 import type { Resource } from '@/lib/types';
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
+import { resources as staticResources } from '@/lib/placeholder-data';
 
 export default function ResourcesPage() {
   const { language } = useLanguage();
   const pageContent = content[language].resources;
-  const firestore = useFirestore();
-  const resourcesCollection = useMemoFirebase(
-    () => (firestore ? collection(firestore, 'resources') : null),
-    [firestore]
-  );
-  const { data: resources, isLoading } = useCollection<Resource>(resourcesCollection);
+
+  const [resources, setResources] = useState<Resource[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setResources(staticResources);
+    setIsLoading(false);
+  }, []);
 
   const resourcesByCategory = useMemo(() => {
     if (!resources) return {};
@@ -72,9 +73,9 @@ export default function ResourcesPage() {
               </AccordionTrigger>
               <AccordionContent>
                 <div className="space-y-4 pt-2">
-                  {resourcesInCategory.map((resource) => (
+                  {resourcesInCategory.map((resource, index) => (
                     <Link
-                      key={resource.id}
+                      key={resource.id || index}
                       href={resource.url}
                       target="_blank"
                       rel="noopener noreferrer"

@@ -1,16 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
-import { collection } from 'firebase/firestore';
 import type { Project } from '@/lib/types';
-import { projectCategories } from '@/lib/placeholder-data'; // Keep this for category buttons
+import { projectCategories, projects as staticProjects } from '@/lib/placeholder-data'; 
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
 
@@ -18,10 +16,14 @@ export default function ProjectsPage() {
   const { language } = useLanguage();
   const pageContent = content[language].projects;
   const [activeCategory, setActiveCategory] = useState('All');
-  const firestore = useFirestore();
 
-  const projectsCollection = useMemoFirebase(() => firestore ? collection(firestore, 'projects') : null, [firestore]);
-  const { data: projects, isLoading } = useCollection<Project>(projectsCollection);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setProjects(staticProjects);
+    setIsLoading(false);
+  }, []);
 
   const filteredProjects =
     !isLoading && projects

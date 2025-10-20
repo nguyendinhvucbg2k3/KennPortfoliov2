@@ -4,13 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useDoc, useFirestore, useMemoFirebase } from "@/firebase";
 import { PersonalInfo } from "@/lib/types";
-import { doc } from "firebase/firestore";
 import { Linkedin, Twitter, Instagram, Facebook, Mail, Phone, MapPin } from "lucide-react";
 import Link from "next/link";
 import { useLanguage } from "@/context/language-context";
 import { content } from "@/lib/content";
+import { useEffect, useState } from "react";
 
 const BehanceIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg
@@ -49,12 +48,28 @@ const PinterestIcon = (props: React.SVGProps<SVGSVGElement>) => (
     </svg>
 );
 
+const staticPersonalInfo: PersonalInfo = {
+    fullName: "Thac Nguyen Dinh Vu",
+    footerName: "Thac Nguyen Dinh Vu",
+    title: "Intern Graphic Designer",
+    fieldOfStudy: "Information Technology",
+    dateOfBirth: "20/07/2003",
+    email: "thacnguyendinhvu.esports@gmail.com",
+    phone: "0964664117",
+    phoneHref: "tel:+84964664117",
+    address: "Ha Dong, Hanoi",
+};
+
 export default function ContactPage() {
     const { language } = useLanguage();
     const pageContent = content[language].contact;
-    const firestore = useFirestore();
-    const personalInfoDoc = useMemoFirebase(() => firestore ? doc(firestore, 'personalInfo', 'main') : null, [firestore]);
-    const { data: personalInfo, isLoading } = useDoc<PersonalInfo>(personalInfoDoc);
+    const [personalInfo, setPersonalInfo] = useState<PersonalInfo | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        setPersonalInfo(staticPersonalInfo);
+        setIsLoading(false);
+    }, []);
 
   return (
     <div className="container mx-auto px-4 py-16 md:py-24">
@@ -138,7 +153,7 @@ export default function ContactPage() {
                     <CardTitle className="font-headline text-2xl">{pageContent.formTitle}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <form className="space-y-4">
+                    <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
                         <Input placeholder={pageContent.formName} />
                         <Input type="email" placeholder={pageContent.formEmail} />
                         <Textarea placeholder={pageContent.formMessage} rows={5} />

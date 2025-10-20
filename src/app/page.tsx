@@ -7,24 +7,38 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { ArrowRight } from 'lucide-react';
 import { Mail, Phone, MapPin, Briefcase, GraduationCap, Cake } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useCollection, useDoc, useFirestore, useMemoFirebase } from '@/firebase';
-import { collection, doc } from 'firebase/firestore';
 import type { Experience, PersonalInfo } from '@/lib/types';
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
+import { experiences as staticExperiences } from '@/lib/placeholder-data';
+import { useEffect, useState } from 'react';
+
+const staticPersonalInfo: PersonalInfo = {
+    fullName: "Thac Nguyen Dinh Vu",
+    footerName: "Thac Nguyen Dinh Vu",
+    title: "Intern Graphic Designer",
+    fieldOfStudy: "Information Technology",
+    dateOfBirth: "20/07/2003",
+    email: "thacnguyendinhvu.esports@gmail.com",
+    phone: "0964664117",
+    phoneHref: "tel:+84964664117",
+    address: "Ha Dong, Hanoi",
+};
 
 export default function Home() {
   const { language } = useLanguage();
   const heroImage = PlaceHolderImages.find((img) => img.id === 'hero-background');
-  const firestore = useFirestore();
-
-  const personalInfoDoc = useMemoFirebase(() => firestore ? doc(firestore, 'personalInfo', 'main') : null, [firestore]);
-  const { data: personalInfo, isLoading: personalInfoLoading } = useDoc<PersonalInfo>(personalInfoDoc);
-
-  const experienceCollection = useMemoFirebase(() => firestore ? collection(firestore, 'experience') : null, [firestore]);
-  const { data: experiences, isLoading: experiencesLoading } = useCollection<Experience>(experienceCollection);
   
-  const isLoading = personalInfoLoading || experiencesLoading;
+  const [personalInfo, setPersonalInfo] = useState<PersonalInfo | null>(null);
+  const [experiences, setExperiences] = useState<Experience[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setPersonalInfo(staticPersonalInfo);
+    setExperiences(staticExperiences);
+    setIsLoading(false);
+  }, []);
+  
   const pageContent = content[language].home;
 
   return (
@@ -139,7 +153,7 @@ export default function Home() {
             {isLoading ? (
               <p>Loading experiences...</p>
             ) : (experiences || []).map((exp, index) => (
-              <div key={exp.id} className="relative mb-12">
+              <div key={index} className="relative mb-12">
                 <div className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2 w-4 h-4 rounded-full bg-primary box-glow-primary"></div>
                 <div className={`flex items-center ${index % 2 === 0 ? 'md:flex-row-reverse' : ''} w-full`}>
                   <div className="w-full md:w-5/12">
