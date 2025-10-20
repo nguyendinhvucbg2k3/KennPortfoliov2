@@ -18,7 +18,7 @@ const softwareIcons = [
     { name: "Illustrator", src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/illustrator/illustrator-original.svg" },
     { name: "Figma", src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" },
     { name: "Canva", src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/canva/canva-original.svg" },
-    { name: "Capcut", src: "https://www.capcut.com/favicon.ico" }, // Note: Capcut doesn't have a devicon, using favicon as a placeholder.
+    { name: "Capcut", src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/capcut/capcut-original.svg" },
 ];
 
 
