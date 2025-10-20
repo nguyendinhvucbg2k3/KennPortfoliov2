@@ -20,6 +20,8 @@ import {
 import { Button } from '@/components/ui/button';
 import React from 'react';
 import { PlusCircle } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { ResourceForm } from './resource-form';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -31,6 +33,7 @@ export function ResourcesDataTable<TData, TValue>({
   data,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [isAddDialogOpen, setIsAddDialogOpen] = React.useState(false);
   const table = useReactTable({
     data,
     columns,
@@ -45,12 +48,15 @@ export function ResourcesDataTable<TData, TValue>({
 
   return (
     <div className="w-full">
+      <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
         <div className="flex items-center justify-between py-4">
             <h2 className="text-2xl font-bold font-headline">Manage Resources</h2>
-            <Button>
-                <PlusCircle className="mr-2 h-4 w-4" />
-                Add New Resource
-            </Button>
+            <DialogTrigger asChild>
+              <Button>
+                  <PlusCircle className="mr-2 h-4 w-4" />
+                  Add New Resource
+              </Button>
+            </DialogTrigger>
         </div>
         <div className="rounded-md border">
         <Table>
@@ -114,6 +120,13 @@ export function ResourcesDataTable<TData, TValue>({
           Next
         </Button>
         </div>
+        <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+                <DialogTitle>Add New Resource</DialogTitle>
+            </DialogHeader>
+            <ResourceForm onSave={() => setIsAddDialogOpen(false)} />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
