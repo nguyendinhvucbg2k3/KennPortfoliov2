@@ -23,9 +23,9 @@ interface AdminDashboardProps {
 export function AdminDashboard({ projects, resources, experiences, skills, personalInfo }: AdminDashboardProps) {
   return (
     <div className="container mx-auto py-10">
-      <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
-      <Tabs defaultValue="projects">
-        <TabsList>
+      <h1 className="text-3xl font-bold mb-6 font-headline">Admin Dashboard</h1>
+      <Tabs defaultValue="personal-info">
+        <TabsList className="grid w-full grid-cols-2 md:grid-cols-5">
           <TabsTrigger value="personal-info">Personal Info</TabsTrigger>
           <TabsTrigger value="projects">Projects</TabsTrigger>
           <TabsTrigger value="resources">Resources</TabsTrigger>

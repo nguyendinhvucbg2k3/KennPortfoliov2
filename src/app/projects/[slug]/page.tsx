@@ -1,4 +1,6 @@
-import { projects } from '@/lib/placeholder-data';
+'use client';
+
+import React from 'react';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
@@ -6,6 +8,9 @@ import { CritiqueForm } from '../critique-form';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
+import { useFirestore } from '@/firebase';
+import { getDocs, collection, query, where, limit } from 'firebase/firestore';
+import type { Project } from '@/lib/types';
 
 type ProjectPageProps = {
   params: {
@@ -13,10 +18,58 @@ type ProjectPageProps = {
   };
 };
 
-export default function ProjectPage({ params }: ProjectPageProps) {
-  const project = projects.find((p) => p.slug === params.slug);
+async function getProjectBySlug(slug: string, db: any): Promise<Project | null> {
+  if (!db) return null;
+  const projectsRef = collection(db, 'projects');
+  const q = query(projectsRef, where('slug', '==', slug), limit(1));
+  try {
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot.empty) {
+      return null;
+    }
+    const projectDoc = querySnapshot.docs[0];
+    return { id: projectDoc.id, ...projectDoc.data() } as Project;
+  } catch (error) {
+    console.error("Error fetching project by slug:", error);
+    // This could be a permissions error if rules are not set up for server-side access
+    // For now, we'll return null and let it 404.
+    return null;
+  }
+}
 
+export default function ProjectPage({ params }: ProjectPageProps) {
+  const firestore = useFirestore();
+  const [project, setProject] = React.useState<Project | null>(null);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    if (firestore) {
+      getProjectBySlug(params.slug, firestore).then(p => {
+        if (!p) {
+          // Explicitly handle not found case after fetch
+          notFound();
+        } else {
+          setProject(p);
+        }
+      }).catch(() => {
+        notFound();
+      }).finally(() => {
+        setLoading(false);
+      });
+    }
+  }, [firestore, params.slug]);
+
+  // This will never be true if firestore is not available, but it's good practice
+  if (!firestore && !loading) {
+    return <div className="flex items-center justify-center h-screen">Firebase not available.</div>;
+  }
+
+  if (loading) {
+    return <div className="flex items-center justify-center h-screen">Loading project...</div>;
+  }
+  
   if (!project) {
+    // This will be caught by the notFound() in useEffect, but as a fallback
     notFound();
   }
 
@@ -63,10 +116,4 @@ export default function ProjectPage({ params }: ProjectPageProps) {
       </div>
     </div>
   );
-}
-
-export async function generateStaticParams() {
-  return projects.map((project) => ({
-    slug: project.slug,
-  }));
 }

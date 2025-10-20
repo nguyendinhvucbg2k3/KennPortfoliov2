@@ -1,14 +1,21 @@
+'use client';
+
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { skills } from "@/lib/placeholder-data";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Download } from "lucide-react";
+import { useCollection, useFirestore, useMemoFirebase } from "@/firebase";
+import { collection } from "firebase/firestore";
+import type { Skill } from "@/lib/types";
 
 export default function AboutPage() {
   const aboutImage = PlaceHolderImages.find((img) => img.id === "about-image");
+  const firestore = useFirestore();
+  const skillsCollection = useMemoFirebase(() => firestore ? collection(firestore, 'skills') : null, [firestore]);
+  const { data: skills, isLoading: skillsLoading } = useCollection<Skill>(skillsCollection);
 
   return (
     <div className="container mx-auto px-4 py-16 md:py-24">
@@ -64,8 +71,20 @@ export default function AboutPage() {
           My <span className="text-primary text-glow">Skills</span>
         </h2>
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
-          {skills.map((skill) => (
-            <Card key={skill.name} className="bg-card/50 backdrop-blur-sm border-border/50">
+          {skillsLoading ? (
+            Array.from({ length: 4 }).map((_, i) => (
+              <Card key={i} className="bg-card/50 backdrop-blur-sm border-border/50">
+                <CardHeader>
+                  <div className="h-6 w-3/4 bg-muted/50 rounded animate-pulse" />
+                </CardHeader>
+                <CardContent>
+                  <div className="h-4 w-full bg-muted/50 rounded animate-pulse mb-3" />
+                  <div className="h-2 w-full bg-muted/50 rounded animate-pulse" />
+                </CardContent>
+              </Card>
+            ))
+          ) : (skills || []).map((skill) => (
+            <Card key={skill.id} className="bg-card/50 backdrop-blur-sm border-border/50">
               <CardHeader>
                 <CardTitle className="text-xl font-headline">{skill.name}</CardTitle>
               </CardHeader>

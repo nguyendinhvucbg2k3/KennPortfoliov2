@@ -1,20 +1,30 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { projects, projectCategories } from "@/lib/placeholder-data";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { AnimatePresence, motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { AnimatePresence, motion } from 'framer-motion';
+import { cn } from '@/lib/utils';
+import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
+import { collection } from 'firebase/firestore';
+import type { Project } from '@/lib/types';
+import { projectCategories } from '@/lib/placeholder-data'; // Keep this for category buttons
 
 export default function ProjectsPage() {
-  const [activeCategory, setActiveCategory] = useState("All");
+  const [activeCategory, setActiveCategory] = useState('All');
+  const firestore = useFirestore();
 
-  const filteredProjects = activeCategory === "All"
-    ? projects
-    : projects.filter((p) => p.category === activeCategory);
+  const projectsCollection = useMemoFirebase(() => firestore ? collection(firestore, 'projects') : null, [firestore]);
+  const { data: projects, isLoading } = useCollection<Project>(projectsCollection);
+
+  const filteredProjects =
+    !isLoading && projects
+      ? activeCategory === 'All'
+        ? projects
+        : projects.filter((p) => p.category === activeCategory)
+      : [];
 
   return (
     <div className="container mx-auto px-4 py-16 md:py-24">
@@ -31,50 +41,86 @@ export default function ProjectsPage() {
         {projectCategories.map((category) => (
           <Button
             key={category}
-            variant={activeCategory === category ? "default" : "secondary"}
+            variant={activeCategory === category ? 'default' : 'secondary'}
             onClick={() => setActiveCategory(category)}
-            className={cn("transition-colors", activeCategory === category && "box-glow-primary")}
+            className={cn(
+              'transition-colors',
+              activeCategory === category && 'box-glow-primary'
+            )}
           >
             {category}
           </Button>
         ))}
       </div>
 
-      <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+      <motion.div
+        layout
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12"
+      >
         <AnimatePresence>
-          {filteredProjects.map((project) => (
-            <motion.div
-              key={project.id}
-              layout
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Card className="h-full overflow-hidden group transition-all duration-300 ease-in-out hover:border-primary hover:shadow-lg hover:shadow-primary/20">
-                <Link href={`/projects/${project.slug}`} className="block h-full">
-                  <div className="relative aspect-video overflow-hidden">
-                    <Image
-                      src={project.image.src}
-                      alt={project.image.alt}
-                      fill
-                      data-ai-hint={project.image.aiHint}
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
-                    />
-                  </div>
-                  <CardHeader>
-                    <CardTitle className="font-headline text-xl">{project.name}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground">{project.shortDescription}</p>
-                    <div className="text-sm text-primary mt-4 group-hover:text-glow transition-all">
-                      View Project &rarr;
+          {isLoading ? (
+             Array.from({ length: 6 }).map((_, i) => (
+                <motion.div
+                    key={`skeleton-${i}`}
+                    layout
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                >
+                    <Card className="h-full overflow-hidden">
+                        <div className="relative aspect-video bg-muted/50 animate-pulse" />
+                        <CardHeader>
+                            <div className="h-6 w-3/4 bg-muted/50 rounded animate-pulse" />
+                        </CardHeader>
+                        <CardContent>
+                            <div className="h-4 w-full bg-muted/50 rounded animate-pulse mb-2" />
+                            <div className="h-4 w-2/3 bg-muted/50 rounded animate-pulse" />
+                        </CardContent>
+                    </Card>
+                </motion.div>
+             ))
+          ) : (
+            filteredProjects.map((project) => (
+              <motion.div
+                key={project.id}
+                layout
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Card className="h-full overflow-hidden group transition-all duration-300 ease-in-out hover:border-primary hover:shadow-lg hover:shadow-primary/20">
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    className="block h-full"
+                  >
+                    <div className="relative aspect-video overflow-hidden">
+                      <Image
+                        src={project.image.src}
+                        alt={project.image.alt}
+                        fill
+                        data-ai-hint={project.image.aiHint}
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
                     </div>
-                  </CardContent>
-                </Link>
-              </Card>
-            </motion.div>
-          ))}
+                    <CardHeader>
+                      <CardTitle className="font-headline text-xl">
+                        {project.name}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground">
+                        {project.shortDescription}
+                      </p>
+                      <div className="text-sm text-primary mt-4 group-hover:text-glow transition-all">
+                        View Project &rarr;
+                      </div>
+                    </CardContent>
+                  </Link>
+                </Card>
+              </motion.div>
+            ))
+          )}
         </AnimatePresence>
       </motion.div>
     </div>

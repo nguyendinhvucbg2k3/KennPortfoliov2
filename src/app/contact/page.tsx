@@ -1,7 +1,12 @@
+'use client';
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useDoc, useFirestore, useMemoFirebase } from "@/firebase";
+import { PersonalInfo } from "@/lib/types";
+import { doc } from "firebase/firestore";
 import { Linkedin, Twitter, Instagram, Facebook, Mail, Phone, MapPin } from "lucide-react";
 import Link from "next/link";
 
@@ -43,6 +48,10 @@ const PinterestIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 export default function ContactPage() {
+    const firestore = useFirestore();
+    const personalInfoDoc = useMemoFirebase(() => firestore ? doc(firestore, 'personalInfo', 'main') : null, [firestore]);
+    const { data: personalInfo, isLoading } = useDoc<PersonalInfo>(personalInfoDoc);
+
   return (
     <div className="container mx-auto px-4 py-16 md:py-24">
       <div className="text-center">
@@ -57,20 +66,28 @@ export default function ContactPage() {
       <div className="grid md:grid-cols-2 gap-16 mt-16 max-w-6xl mx-auto">
         <div>
             <h2 className="font-headline text-3xl font-bold mb-8">Get in Touch</h2>
-            <div className="space-y-6">
-                <div className="flex items-center gap-4">
-                    <Mail className="h-6 w-6 text-primary" />
-                    <a href="mailto:nguyendinhvu5207.des@gmail.com" className="hover:text-primary">nguyendinhvu5207.des@gmail.com</a>
+            {isLoading ? (
+                <div className="space-y-6">
+                    <div className="h-6 w-3/4 bg-muted/50 rounded animate-pulse" />
+                    <div className="h-6 w-2/3 bg-muted/50 rounded animate-pulse" />
+                    <div className="h-6 w-1/2 bg-muted/50 rounded animate-pulse" />
                 </div>
-                 <div className="flex items-center gap-4">
-                    <Phone className="h-6 w-6 text-primary" />
-                    <a href="tel:+84964664117" className="hover:text-primary">(+84) 96 466 4117</a>
+            ) : personalInfo && (
+                <div className="space-y-6">
+                    <div className="flex items-center gap-4">
+                        <Mail className="h-6 w-6 text-primary" />
+                        <a href={`mailto:${personalInfo.email}`} className="hover:text-primary">{personalInfo.email}</a>
+                    </div>
+                    <div className="flex items-center gap-4">
+                        <Phone className="h-6 w-6 text-primary" />
+                        <a href={personalInfo.phoneHref} className="hover:text-primary">{personalInfo.phone}</a>
+                    </div>
+                    <div className="flex items-center gap-4">
+                        <MapPin className="h-6 w-6 text-primary" />
+                        <p>{personalInfo.address}</p>
+                    </div>
                 </div>
-                 <div className="flex items-center gap-4">
-                    <MapPin className="h-6 w-6 text-primary" />
-                    <p>Ha Dong, Ha Noi, Viet Nam</p>
-                </div>
-            </div>
+            )}
              <h2 className="font-headline text-3xl font-bold mt-12 mb-8">Follow Me</h2>
              <div className="flex items-center gap-4">
                 <Button variant="ghost" size="icon" asChild>

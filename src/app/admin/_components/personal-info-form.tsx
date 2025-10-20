@@ -4,14 +4,13 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useFirestore } from '@/firebase';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { useFirestore, setDocumentNonBlocking } from '@/firebase';
 import { doc } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
 import { PersonalInfo } from '@/lib/types';
-import { setDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 
 const personalInfoSchema = z.object({
   fullName: z.string().min(1, 'Full name is required.'),
@@ -54,14 +53,15 @@ export function PersonalInfoForm({ initialData }: PersonalInfoFormProps) {
     setDocumentNonBlocking(docRef, values, { merge: true });
     toast({
       title: 'Personal Info Updated',
-      description: 'Your personal information has been saved.',
+      description: 'Your personal information has been successfully saved.',
     });
   };
 
   return (
-    <Card>
+    <Card className="w-full">
       <CardHeader>
-        <CardTitle>Personal Information</CardTitle>
+        <CardTitle className="font-headline text-2xl">Personal Information</CardTitle>
+        <CardDescription>Update your public profile information here. This will be visible on your main site.</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -75,7 +75,7 @@ export function PersonalInfoForm({ initialData }: PersonalInfoFormProps) {
             )} />
             <FormField control={form.control} name="footerName" render={({ field }) => (
               <FormItem>
-                <FormLabel>Footer Name (with accents)</FormLabel>
+                <FormLabel>Footer Name (e.g., with accents)</FormLabel>
                 <FormControl><Input {...field} /></FormControl>
                 <FormMessage />
               </FormItem>

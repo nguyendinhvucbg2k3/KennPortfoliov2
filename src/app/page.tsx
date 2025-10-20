@@ -1,14 +1,27 @@
+'use client';
+
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { ArrowRight, Briefcase as BriefcaseIcon, Building, Calendar, Star } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Mail, Phone, MapPin, Briefcase, GraduationCap, Cake } from 'lucide-react';
-import { experiences } from '@/lib/placeholder-data';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useCollection, useDoc, useFirestore, useMemoFirebase } from '@/firebase';
+import { collection, doc } from 'firebase/firestore';
+import type { Experience, PersonalInfo } from '@/lib/types';
 
 export default function Home() {
   const heroImage = PlaceHolderImages.find((img) => img.id === 'hero-background');
+  const firestore = useFirestore();
+
+  const personalInfoDoc = useMemoFirebase(() => firestore ? doc(firestore, 'personalInfo', 'main') : null, [firestore]);
+  const { data: personalInfo, isLoading: personalInfoLoading } = useDoc<PersonalInfo>(personalInfoDoc);
+
+  const experienceCollection = useMemoFirebase(() => firestore ? collection(firestore, 'experience') : null, [firestore]);
+  const { data: experiences, isLoading: experiencesLoading } = useCollection<Experience>(experienceCollection);
+  
+  const isLoading = personalInfoLoading || experiencesLoading;
 
   return (
     <div className="flex flex-col">
@@ -25,11 +38,15 @@ export default function Home() {
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
         <div className="relative z-10 p-4 max-w-4xl mx-auto">
-          <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl font-bold text-glow">
-            Thac Nguyen Dinh Vu
-          </h1>
-          <p className="mt-4 text-lg md:text-2xl text-foreground/80">
-            Intern Graphic Designer
+          {isLoading ? (
+             <div className="h-20 bg-muted/50 rounded-md animate-pulse w-3/4 mx-auto" />
+          ) : (
+            <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl font-bold text-glow">
+              {personalInfo?.fullName || "Thac Nguyen Dinh Vu"}
+            </h1>
+          )}
+           <p className="mt-4 text-lg md:text-2xl text-foreground/80">
+             {personalInfo?.title || "Intern Graphic Designer"}
           </p>
           <p className="mt-6 max-w-2xl mx-auto text-base md:text-lg text-foreground/70">
             Crafting compelling visual narratives that blend futuristic aesthetics with timeless design principles. Welcome to my neon garden of creativity.
@@ -47,50 +64,64 @@ export default function Home() {
             <h2 className="text-center font-headline text-3xl md:text-4xl font-bold mb-12">
               Thông tin <span className="text-primary text-glow">Cơ bản</span>
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              <div className="flex items-start gap-4">
-                <Briefcase className="h-6 w-6 mt-1 text-primary"/>
-                <div>
-                  <h3 className="font-semibold">Chức danh</h3>
-                  <p className="text-muted-foreground">Intern Graphic Designer</p>
+             {isLoading ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <div key={i} className="flex items-start gap-4">
+                    <div className="h-6 w-6 mt-1 bg-muted/50 rounded animate-pulse"/>
+                    <div className="w-full">
+                      <div className="h-5 w-1/3 bg-muted/50 rounded animate-pulse mb-2" />
+                      <div className="h-4 w-2/3 bg-muted/50 rounded animate-pulse" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+             ) : personalInfo && (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div className="flex items-start gap-4">
+                  <Briefcase className="h-6 w-6 mt-1 text-primary"/>
+                  <div>
+                    <h3 className="font-semibold">Chức danh</h3>
+                    <p className="text-muted-foreground">{personalInfo.title}</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <GraduationCap className="h-6 w-6 mt-1 text-primary"/>
+                  <div>
+                    <h3 className="font-semibold">Lĩnh vực học</h3>
+                    <p className="text-muted-foreground">{personalInfo.fieldOfStudy}</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <Cake className="h-6 w-6 mt-1 text-primary"/>
+                  <div>
+                    <h3 className="font-semibold">Ngày sinh</h3>
+                    <p className="text-muted-foreground">{personalInfo.dateOfBirth}</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <Mail className="h-6 w-6 mt-1 text-primary"/>
+                  <div>
+                    <h3 className="font-semibold">Email</h3>
+                    <p className="text-muted-foreground">{personalInfo.email}</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <Phone className="h-6 w-6 mt-1 text-primary"/>
+                  <div>
+                    <h3 className="font-semibold">Điện thoại</h3>
+                    <p className="text-muted-foreground">{personalInfo.phone}</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <MapPin className="h-6 w-6 mt-1 text-primary"/>
+                  <div>
+                    <h3 className="font-semibold">Địa chỉ</h3>
+                    <p className="text-muted-foreground">{personalInfo.address}</p>
+                  </div>
                 </div>
               </div>
-              <div className="flex items-start gap-4">
-                <GraduationCap className="h-6 w-6 mt-1 text-primary"/>
-                <div>
-                  <h3 className="font-semibold">Lĩnh vực học</h3>
-                  <p className="text-muted-foreground">Information Technology student (Third year, Phenikaa University)</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <Cake className="h-6 w-6 mt-1 text-primary"/>
-                <div>
-                  <h3 className="font-semibold">Ngày sinh</h3>
-                  <p className="text-muted-foreground">20 July 2003</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <Mail className="h-6 w-6 mt-1 text-primary"/>
-                <div>
-                  <h3 className="font-semibold">Email</h3>
-                  <p className="text-muted-foreground">nguyendinhvu5207.des@gmail.com</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <Phone className="h-6 w-6 mt-1 text-primary"/>
-                <div>
-                  <h3 className="font-semibold">Điện thoại</h3>
-                  <p className="text-muted-foreground">(+84)96 466 4117</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <MapPin className="h-6 w-6 mt-1 text-primary"/>
-                <div>
-                  <h3 className="font-semibold">Địa chỉ</h3>
-                  <p className="text-muted-foreground">Ha Dong, Ha Noi, Viet Nam</p>
-                </div>
-              </div>
-            </div>
+             )}
         </div>
       </section>
 
@@ -101,8 +132,10 @@ export default function Home() {
           </h2>
           <div className="relative max-w-4xl mx-auto">
             <div className="absolute left-1/2 -translate-x-1/2 w-0.5 h-full bg-border"></div>
-            {experiences.map((exp, index) => (
-              <div key={index} className="relative mb-12">
+            {isLoading ? (
+              <p>Loading experiences...</p>
+            ) : (experiences || []).map((exp, index) => (
+              <div key={exp.id} className="relative mb-12">
                 <div className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2 w-4 h-4 rounded-full bg-primary box-glow-primary"></div>
                 <div className={`flex items-center ${index % 2 === 0 ? 'md:flex-row-reverse' : ''} w-full`}>
                   <div className="w-full md:w-5/12">

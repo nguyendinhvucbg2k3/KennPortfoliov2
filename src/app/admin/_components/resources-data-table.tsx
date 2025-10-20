@@ -44,9 +44,9 @@ export function ResourcesDataTable<TData, TValue>({
   });
 
   return (
-    <div>
+    <div className="w-full">
         <div className="flex items-center justify-between py-4">
-            <h2 className="text-xl font-semibold">Manage Resources</h2>
+            <h2 className="text-2xl font-bold font-headline">Manage Resources</h2>
             <Button>
                 <PlusCircle className="mr-2 h-4 w-4" />
                 Add New Resource
@@ -89,7 +89,7 @@ export function ResourcesDataTable<TData, TValue>({
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-24 text-center">
-                  No results.
+                  No resources found.
                 </TableCell>
               </TableRow>
             )}
