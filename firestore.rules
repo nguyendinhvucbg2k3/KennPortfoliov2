@@ -1,56 +1,58 @@
 /**
- * @fileoverview Firestore Security Rules for Prototyping.
- *
- * Core Philosophy:
- * This ruleset enforces a strict user-ownership model for all data, ensuring that only the authenticated user who owns a document can read, write, update, or delete it. This is achieved through path-based access control.
+ * @file Firestore Security Rules
+ * @description This ruleset enforces a strict user-ownership model for projects and resources. All data is nested under /users/{userId}, ensuring that only the authenticated user can access their own data.
  *
  * Data Structure:
- * All data is nested under `/users/{userId}`, with projects located at `/users/{userId}/projects/{projectId}` and resources under `/users/{userId}/projects/{projectId}/resources/{resourceId}`.
+ * - /users/{userId}/projects/{projectId}: Stores project data, owned by the user identified by {userId}.
+ * - /users/{userId}/projects/{projectId}/resources/{resourceId}: Stores resources associated with a specific project, also owned by the user.
  *
  * Key Security Decisions:
- * - Listing of all Projects or Resources is disallowed at the root level to prevent unauthorized data exposure.
- * - Only authenticated users can access their own data.
- * - The rules do not enforce any data validation beyond ownership.
+ * - User listing is disallowed.
+ * - Read-only collections are not used in this data model.
+ * - Ambiguous relationships default to strict owner-only access.
  *
  * Denormalization for Authorization:
- * The `userId` is extracted from the path and used to enforce ownership. This avoids costly `get()` operations to retrieve user information.
+ *  - The data model relies on path-based ownership, eliminating the need for `get()` calls to check ownership.
+ *
+ * Structural Segregation:
+ *  - All project and resource data is stored under a user-specific path, ensuring that private data is not mixed with public data.
  */
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
     /**
-     * @description Checks if the requesting user is signed in.
-     * @return {boolean} True if the user is signed in, false otherwise.
+     * @description Checks if the request is authenticated.
+     * @return {bool} True if the user is signed in, false otherwise.
      */
     function isSignedIn() {
       return request.auth != null;
     }
 
     /**
-     * @description Checks if the requesting user is the owner of the document.
-     * @param {string} userId The user ID to check against.
-     * @return {boolean} True if the user is the owner, false otherwise.
+     * @description Checks if the authenticated user ID matches the provided user ID.
+     * @param {string} userId The user ID to compare against the authenticated user's UID.
+     * @return {bool} True if the user is the owner, false otherwise.
      */
     function isOwner(userId) {
       return isSignedIn() && request.auth.uid == userId;
     }
 
     /**
-     * @description Checks if the requesting user is the owner of an existing document.
-     * @param {string} userId The user ID to check against.
-     * @return {boolean} True if the user is the owner and the document exists, false otherwise.
+     * @description Checks if the authenticated user is the owner and the resource exists.
+     * @param {string} userId The user ID to compare against the authenticated user's UID.
+     * @return {bool} True if the user is the owner and the resource exists, false otherwise.
      */
     function isExistingOwner(userId) {
       return isOwner(userId) && resource != null;
     }
 
     /**
-     * @description Rules for the /users collection. Listing users is not allowed.
+     * @description Defines rules for the /users collection.
      * @path /users/{userId}
-     * @allow (create) User 'testUser' with ID 'testUser' can create their own document.
-     * @deny (create) User 'testUser' with ID 'otherUser' cannot create a document with a different ID.
-     * @principle Enforces self-creation: Only the authenticated user can create their own user document.
+     * @allow (create) - User 'testUID' can create their own user document if request.auth.uid == 'testUID'.
+     * @deny (create) - User 'testUID' cannot create a user document with a different userId 'otherUID'.
+     * @principle Enforces user-ownership for writes, ensures authenticated user can only create their own document, validates relational integrity.
      */
     match /users/{userId} {
       allow get: if false;
@@ -61,48 +63,35 @@ service cloud.firestore {
     }
 
     /**
-     * @description Rules for the /users/{userId}/projects collection.
+     * @description Defines rules for the /users/{userId}/projects collection.
      * @path /users/{userId}/projects/{projectId}
-     * @allow (create) User 'testUser' can create a new project under their user ID.
-     * @deny (create) User 'otherUser' cannot create a project under 'testUser's ID.
-     * @principle Enforces document ownership for writes.
+     * @allow (create) - User 'testUID' can create a project under /users/testUID/projects/testProject if request.auth.uid == 'testUID'.
+     * @allow (get) - User 'testUID' can read project under /users/testUID/projects/testProject if request.auth.uid == 'testUID'.
+     * @deny (update) - User 'otherUID' cannot update a project under /users/testUID/projects/testProject because they are not the owner.
+     * @principle Enforces document ownership for writes, restricts access to a user's own data tree, validates relational integrity between documents.
      */
     match /users/{userId}/projects/{projectId} {
       allow get: if isOwner(userId);
       allow list: if isOwner(userId);
-      allow create: if isOwner(userId);
-      allow update: if isExistingOwner(userId);
+      allow create: if isOwner(userId) && request.resource.data.id == projectId;
+      allow update: if isExistingOwner(userId) && request.resource.data.id == resource.data.id;
       allow delete: if isExistingOwner(userId);
     }
 
     /**
-     * @description Rules for the /users/{userId}/projects/{projectId}/resources collection.
+     * @description Defines rules for the /users/{userId}/projects/{projectId}/resources collection.
      * @path /users/{userId}/projects/{projectId}/resources/{resourceId}
-     * @allow (create) User 'testUser' can create a new resource under their project.
-     * @deny (create) User 'otherUser' cannot create a resource under 'testUser's project.
-     * @principle Enforces document ownership for writes.
+     * @allow (create) - User 'testUID' can create a resource under /users/testUID/projects/testProject/resources/testResource if request.auth.uid == 'testUID'.
+     * @allow (get) - User 'testUID' can read a resource under /users/testUID/projects/testProject/resources/testResource if request.auth.uid == 'testUID'.
+     * @deny (delete) - User 'otherUID' cannot delete a resource under /users/testUID/projects/testProject/resources/testResource because they are not the owner.
+     * @principle Enforces document ownership for writes, restricts access to a user's own data tree, validates relational integrity between documents.
      */
     match /users/{userId}/projects/{projectId}/resources/{resourceId} {
       allow get: if isOwner(userId);
       allow list: if isOwner(userId);
-      allow create: if isOwner(userId);
-      allow update: if isExistingOwner(userId);
+      allow create: if isOwner(userId) && request.resource.data.id == resourceId;
+      allow update: if isExistingOwner(userId) && request.resource.data.id == resource.data.id;
       allow delete: if isExistingOwner(userId);
-    }
-
-    /**
-     * @description Disallow listing all resources at the root level. The failing request in the error report tries to do this.
-     * @path /resources
-     * @allow (get) N/A - Listing is denied, so individual gets are irrelevant in this context.
-     * @deny (list) Any user, regardless of authentication, is denied listing. This matches the error reported by NextJS.
-     * @principle Root-level collections should be protected from listing to avoid exposing all documents.
-     */
-    match /resources {
-      allow get: if false;
-      allow list: if false;
-      allow create: if false;
-      allow update: if false;
-      allow delete: if false;
     }
   }
 }
