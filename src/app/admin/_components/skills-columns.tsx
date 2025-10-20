@@ -35,9 +35,6 @@ import {
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
 import { useToast } from '@/hooks/use-toast';
-import { useFirestore } from '@/firebase';
-import { doc } from 'firebase/firestore';
-import { deleteDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 
 export const columns: ColumnDef<Skill>[] = [
   {
@@ -86,14 +83,12 @@ export const columns: ColumnDef<Skill>[] = [
       const adminContent = content[language].admin;
       const { toast } = useToast();
       const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-      const firestore = useFirestore();
 
       const handleDelete = () => {
-        const docRef = doc(firestore, 'skills', skill.id);
-        deleteDocumentNonBlocking(docRef);
+        console.log(`Deleting skill: ${skill.name}`);
         toast({
-          title: 'Skill Deleted',
-          description: `Skill "${skill.name}" has been deleted.`,
+          title: 'Skill Deleted (Simulated)',
+          description: `Skill "${skill.name}" would have been deleted.`,
         });
       };
 

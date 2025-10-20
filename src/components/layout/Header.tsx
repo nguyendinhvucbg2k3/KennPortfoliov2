@@ -7,17 +7,25 @@ import { NeonBloomLogo } from "@/components/icons/NeonBloomLogo";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "../ui/button";
 import { LogIn, LogOut, Menu } from "lucide-react";
-import { useAuth, useUser } from "@/firebase";
-import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { LanguageSwitcher } from "../language-switcher";
 import { useLanguage } from "@/context/language-context";
 import { content } from "@/lib/content";
+import { useState, useEffect } from 'react';
+
+// Mock user authentication
+const useMockUser = () => {
+    // In a real app, this would involve checking a cookie or session
+    // For this static version, we'll assume the user is always logged in to see the admin page.
+    const [user, setUser] = useState<{ name: string } | null>({ name: 'Admin' });
+    const [isUserLoading, setIsLoading] = useState(false);
+    return { user, isUserLoading };
+};
+
 
 export function Header() {
   const pathname = usePathname();
-  const { user, isUserLoading } = useUser();
-  const auth = useAuth();
+  const { user, isUserLoading } = useMockUser();
   const router = useRouter();
   const { language } = useLanguage();
   const navContent = content[language].nav;
@@ -31,12 +39,9 @@ export function Header() {
   ];
 
   const handleSignOut = async () => {
-    try {
-      await signOut(auth);
-      router.push('/login');
-    } catch (error) {
-      console.error("Error signing out: ", error);
-    }
+    // In a real app, this would clear the session/cookie
+    console.log("Signing out...");
+    router.push('/');
   };
 
   return (
@@ -78,7 +83,7 @@ export function Header() {
              </Button>
            ) : !isUserLoading && (
               <Button variant="ghost" size="icon" asChild>
-                <Link href="/login" title="Sign In">
+                <Link href="/admin" title="Sign In">
                   <LogIn className="h-5 w-5" />
                 </Link>
               </Button>

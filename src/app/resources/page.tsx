@@ -9,19 +9,23 @@ import {
 import Link from 'next/link';
 import { ExternalLink } from 'lucide-react';
 import type { Resource } from '@/lib/types';
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
-import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
-import { collection } from 'firebase/firestore';
+import { resources as placeholderResources } from '@/lib/placeholder-data';
+
 
 export default function ResourcesPage() {
   const { language } = useLanguage();
   const pageContent = content[language].resources;
-  const firestore = useFirestore();
+  
+  const [resources, setResources] = useState<Resource[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const resourcesQuery = useMemoFirebase(() => collection(firestore, 'resources'), [firestore]);
-  const { data: resources, isLoading } = useCollection<Resource>(resourcesQuery);
+  useEffect(() => {
+    setResources(placeholderResources);
+    setIsLoading(false);
+  }, []);
 
   const resourcesByCategory = useMemo(() => {
     if (!resources) return {};

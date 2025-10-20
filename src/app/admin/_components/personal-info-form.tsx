@@ -11,9 +11,6 @@ import { useToast } from '@/hooks/use-toast';
 import { PersonalInfo } from '@/lib/types';
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
-import { useFirestore } from '@/firebase';
-import { doc } from 'firebase/firestore';
-import { setDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 
 const personalInfoSchema = z.object({
   fullName: z.string().min(1, 'Full name is required.'),
@@ -35,7 +32,6 @@ export function PersonalInfoForm({ initialData }: PersonalInfoFormProps) {
   const { language } = useLanguage();
   const adminContent = content[language].admin;
   const { toast } = useToast();
-  const firestore = useFirestore();
 
   const form = useForm<z.infer<typeof personalInfoSchema>>({
     resolver: zodResolver(personalInfoSchema),
@@ -53,11 +49,10 @@ export function PersonalInfoForm({ initialData }: PersonalInfoFormProps) {
   });
 
   const onSubmit = (values: z.infer<typeof personalInfoSchema>) => {
-    const docRef = doc(firestore, 'personalInfo', 'main');
-    setDocumentNonBlocking(docRef, values, { merge: true });
+    console.log('Form submitted. In a real app, this would save to a database.', values);
     toast({
-      title: 'Personal Info Saved',
-      description: 'Your information has been successfully updated.',
+      title: 'Personal Info Saved (Simulated)',
+      description: 'Your information has been logged to the console.',
     });
   };
 

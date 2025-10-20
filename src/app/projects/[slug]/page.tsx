@@ -11,8 +11,7 @@ import { ArrowRight } from 'lucide-react';
 import type { Project } from '@/lib/types';
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
-import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
-import { collection, query, where, limit } from 'firebase/firestore';
+import { projects as placeholderProjects } from '@/lib/placeholder-data';
 
 type ProjectPageProps = {
   params: {
@@ -23,27 +22,25 @@ type ProjectPageProps = {
 export default function ProjectPage({ params }: ProjectPageProps) {
   const { language } = useLanguage();
   const pageContent = content[language].projectDetail;
-  const firestore = useFirestore();
-
-  const projectQuery = useMemoFirebase(() => {
-    return query(collection(firestore, 'projects'), where('slug', '==', params.slug), limit(1));
-  }, [firestore, params.slug]);
-
-  const { data: projects, isLoading } = useCollection<Project>(projectQuery);
-  const project = projects?.[0];
+  const [project, setProject] = React.useState<Project | undefined>();
+  const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
-    if (!isLoading && !project) {
+    const foundProject = placeholderProjects.find(p => p.slug === params.slug);
+    if (foundProject) {
+      setProject(foundProject);
+    } else {
       notFound();
     }
-  }, [isLoading, project]);
-  
+    setIsLoading(false);
+  }, [params.slug]);
+
   if (isLoading) {
     return <div className="flex items-center justify-center h-screen">Loading project...</div>;
   }
   
   if (!project) {
-    return null; // or a not found component, useEffect will trigger notFound()
+    return null; // notFound() is called in useEffect
   }
 
   return (

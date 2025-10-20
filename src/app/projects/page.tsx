@@ -8,27 +8,31 @@ import { Button } from '@/components/ui/button';
 import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import type { Project } from '@/lib/types';
-import { projectCategories } from '@/lib/placeholder-data'; 
+import { projectCategories, projects as placeholderProjects } from '@/lib/placeholder-data'; 
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
-import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
-import { collection, query, where } from 'firebase/firestore';
 
 export default function ProjectsPage() {
   const { language } = useLanguage();
   const pageContent = content[language].projects;
   const [activeCategory, setActiveCategory] = useState('All');
-  const firestore = useFirestore();
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const projectsQuery = useMemoFirebase(() => {
-    const baseQuery = collection(firestore, 'projects');
+  useEffect(() => {
+    setProjects(placeholderProjects);
+    setIsLoading(false);
+  }, []);
+
+  useEffect(() => {
     if (activeCategory === 'All') {
-      return baseQuery;
+      setFilteredProjects(projects);
+    } else {
+      setFilteredProjects(projects.filter(p => p.category === activeCategory));
     }
-    return query(baseQuery, where('category', '==', activeCategory));
-  }, [firestore, activeCategory]);
+  }, [activeCategory, projects]);
 
-  const { data: projects, isLoading } = useCollection<Project>(projectsQuery);
 
   return (
     <div className="container mx-auto px-4 py-16 md:py-24">
@@ -84,7 +88,7 @@ export default function ProjectsPage() {
                 </motion.div>
              ))
           ) : (
-            (projects || []).map((project) => (
+            filteredProjects.map((project) => (
               <motion.div
                 key={project.id}
                 layout

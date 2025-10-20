@@ -34,10 +34,6 @@ import {
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
 import { useToast } from '@/hooks/use-toast';
-import { useFirestore } from '@/firebase';
-import { doc } from 'firebase/firestore';
-import { deleteDocumentNonBlocking } from '@/firebase/non-blocking-updates';
-
 
 export const columns: ColumnDef<Experience>[] = [
   {
@@ -79,14 +75,12 @@ export const columns: ColumnDef<Experience>[] = [
       const adminContent = content[language].admin;
       const { toast } = useToast();
       const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-      const firestore = useFirestore();
 
       const handleDelete = () => {
-        const docRef = doc(firestore, 'experience', experience.id);
-        deleteDocumentNonBlocking(docRef);
+        console.log(`Deleting experience: ${experience.title}`);
         toast({
-          title: 'Experience Deleted',
-          description: `Experience "${experience.title}" has been deleted.`,
+          title: 'Experience Deleted (Simulated)',
+          description: `Experience "${experience.title}" would have been deleted.`,
         });
       };
 

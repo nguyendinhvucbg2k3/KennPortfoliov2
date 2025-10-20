@@ -11,9 +11,6 @@ import { useToast } from '@/hooks/use-toast';
 import { Resource } from '@/lib/types';
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
-import { useFirestore } from '@/firebase';
-import { addDocumentNonBlocking, setDocumentNonBlocking } from '@/firebase/non-blocking-updates';
-import { collection, doc } from 'firebase/firestore';
 
 const resourceSchema = z.object({
   title: z.string().min(1, 'Title is required.'),
@@ -31,7 +28,6 @@ export function ResourceForm({ resource, onSave }: ResourceFormProps) {
   const { language } = useLanguage();
   const formContent = content[language].admin.resources.form;
   const { toast } = useToast();
-  const firestore = useFirestore();
 
   const form = useForm<z.infer<typeof resourceSchema>>({
     resolver: zodResolver(resourceSchema),
@@ -44,16 +40,10 @@ export function ResourceForm({ resource, onSave }: ResourceFormProps) {
   });
 
   const onSubmit = (values: z.infer<typeof resourceSchema>) => {
-    if (resource?.id) {
-      const docRef = doc(firestore, 'resources', resource.id);
-      setDocumentNonBlocking(docRef, values, { merge: true });
-    } else {
-      const colRef = collection(firestore, 'resources');
-      addDocumentNonBlocking(colRef, values);
-    }
+    console.log('Form submitted. In a real app, this would save to a database.', values);
     toast({
-      title: resource?.id ? 'Resource Updated' : 'Resource Added',
-      description: `Resource "${values.title}" has been saved.`,
+      title: resource?.id ? 'Resource Updated (Simulated)' : 'Resource Added (Simulated)',
+      description: `Resource "${values.title}" has been logged to the console.`,
     });
     onSave();
   };

@@ -7,24 +7,40 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { ArrowRight } from 'lucide-react';
 import { Mail, Phone, MapPin, Briefcase, GraduationCap, Cake } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import type { Experience, PersonalInfo } from '@/lib/types';
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
-import { useCollection, useDoc, useFirestore, useMemoFirebase } from '@/firebase';
-import { collection, doc } from 'firebase/firestore';
+import { experiences as placeholderExperiences } from '@/lib/placeholder-data';
+import type { PersonalInfo, Experience } from '@/lib/types';
+import { useState, useEffect } from 'react';
+
+// Mock data to simulate fetching since we are not using Firebase
+const placeholderPersonalInfo: PersonalInfo = {
+    fullName: "Thac Nguyen Dinh Vu",
+    footerName: "Thac Nguyen Dinh Vu",
+    title: "Intern Graphic Designer",
+    fieldOfStudy: "Information Technology",
+    dateOfBirth: "20/07/2003",
+    email: "thacnguyendinhvu.esports@gmail.com",
+    phone: "0964664117",
+    phoneHref: "tel:+84964664117",
+    address: "Hà Đông, Hà Nội",
+};
 
 export default function Home() {
   const { language } = useLanguage();
   const heroImage = PlaceHolderImages.find((img) => img.id === 'hero-background');
-  const firestore = useFirestore();
   
-  const personalInfoDoc = useMemoFirebase(() => doc(firestore, 'personalInfo', 'main'), [firestore]);
-  const experiencesQuery = useMemoFirebase(() => collection(firestore, 'experience'), [firestore]);
+  const [personalInfo, setPersonalInfo] = useState<PersonalInfo | null>(null);
+  const [experiences, setExperiences] = useState<Experience[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate fetching data
+    setPersonalInfo(placeholderPersonalInfo);
+    setExperiences(placeholderExperiences);
+    setIsLoading(false);
+  }, []);
   
-  const { data: personalInfo, isLoading: personalInfoLoading } = useDoc<PersonalInfo>(personalInfoDoc);
-  const { data: experiences, isLoading: experiencesLoading } = useCollection<Experience>(experiencesQuery);
-  
-  const isLoading = personalInfoLoading || experiencesLoading;
   const pageContent = content[language].home;
 
   return (
