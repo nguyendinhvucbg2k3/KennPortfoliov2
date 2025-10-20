@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { NeonBloomLogo } from "@/components/icons/NeonBloomLogo";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "../ui/button";
-import { LogOut, Menu } from "lucide-react";
+import { LogIn, LogOut, Menu } from "lucide-react";
 import { useAuth, useUser } from "@/firebase";
 import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
@@ -66,10 +66,16 @@ export function Header() {
           )}
         </nav>
         <div className="flex items-center gap-2">
-           {!isUserLoading && user && (
+           {!isUserLoading && user ? (
              <Button variant="ghost" size="icon" onClick={handleSignOut} title="Sign Out">
                 <LogOut className="h-5 w-5" />
              </Button>
+           ) : !isUserLoading && (
+              <Button variant="ghost" size="icon" asChild>
+                <Link href="/login" title="Sign In">
+                  <LogIn className="h-5 w-5" />
+                </Link>
+              </Button>
            )}
           <div className="md:hidden">
             <Sheet>
