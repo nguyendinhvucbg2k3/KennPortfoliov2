@@ -6,7 +6,6 @@ export const content = {
       projects: "Dự án",
       resources: "Tài nguyên",
       contact: "Liên hệ",
-      admin: "Quản trị",
     },
     home: {
       title: "Nhà thiết kế đồ họa tập sự",
@@ -92,108 +91,6 @@ export const content = {
         goHome: "Trở về trang chủ",
         contactSupport: "Liên hệ hỗ trợ",
     },
-    admin: {
-        dashboard: {
-            title: "Bảng điều khiển quản trị",
-            personalInfo: "Thông tin cá nhân",
-            projects: "Dự án",
-            resources: "Tài nguyên",
-            experience: "Kinh nghiệm",
-            skills: "Kỹ năng"
-        },
-        personalInfo: {
-            title: "Thông tin cá nhân",
-            description: "Cập nhật thông tin hồ sơ công khai của bạn tại đây. Thông tin này sẽ hiển thị trên trang web chính của bạn.",
-            fullName: "Họ và tên",
-            footerName: "Tên ở chân trang (ví dụ: có dấu)",
-            jobTitle: "Chức danh",
-            fieldOfStudy: "Lĩnh vực học",
-            dob: "Ngày sinh",
-            email: "Email",
-            phone: "Điện thoại",
-            phoneHref: "Href điện thoại (ví dụ: tel:+84123456789)",
-            address: "Địa chỉ",
-            save: "Lưu thay đổi"
-        },
-        projects: {
-            manage: "Quản lý dự án",
-            add: "Thêm dự án mới",
-            noData: "Không tìm thấy dự án nào.",
-            edit: "Chỉnh sửa dự án",
-            form: {
-                name: "Tên",
-                slug: "Slug",
-                category: "Danh mục",
-                selectCategory: "Chọn một danh mục",
-                year: "Năm",
-                shortDesc: "Mô tả ngắn",
-                description: "Mô tả",
-                principles: "Nguyên tắc thiết kế",
-                imgUrl: "URL hình ảnh",
-                imgAlt: "Văn bản thay thế hình ảnh",
-                imgAiHint: "Gợi ý AI cho hình ảnh",
-                behanceUrl: "URL Behance",
-                save: "Lưu"
-            }
-        },
-        resources: {
-            manage: "Quản lý tài nguyên",
-            add: "Thêm tài nguyên mới",
-            noData: "Không tìm thấy tài nguyên nào.",
-            edit: "Chỉnh sửa tài nguyên",
-            form: {
-                title: "Tiêu đề",
-                category: "Danh mục",
-                url: "URL",
-                description: "Mô tả",
-                save: "Lưu"
-            }
-        },
-        experience: {
-            manage: "Quản lý kinh nghiệm",
-            add: "Thêm kinh nghiệm mới",
-            noData: "Không tìm thấy mục kinh nghiệm nào.",
-            edit: "Chỉnh sửa kinh nghiệm",
-            form: {
-                title: "Chức danh",
-                organization: "Tổ chức",
-                date: "Ngày",
-                description: "Mô tả",
-                save: "Lưu"
-            }
-        },
-        skills: {
-            manage: "Quản lý kỹ năng",
-            add: "Thêm kỹ năng mới",
-            noData: "Không tìm thấy kỹ năng nào.",
-            edit: "Chỉnh sửa kỹ năng",
-            form: {
-                name: "Tên",
-                description: "Mô tả",
-                level: "Cấp độ",
-                save: "Lưu"
-            }
-        },
-        shared: {
-            title: "Tiêu đề",
-            category: "Danh mục",
-            organization: "Tổ chức",
-            date: "Ngày",
-            name: "Tên",
-            description: "Mô tả",
-            level: "Cấp độ",
-            url: "URL",
-            actions: "Hành động",
-            edit: "Sửa",
-            delete: "Xóa",
-            areYouSure: "Bạn có chắc chắn không?",
-            deleteWarning: "Hành động này không thể hoàn tác. Thao tác này sẽ xóa vĩnh viễn dữ liệu khỏi máy chủ của chúng tôi.",
-            cancel: "Hủy",
-            continue: "Tiếp tục",
-            previous: "Trước",
-            next: "Sau"
-        }
-    }
   },
   en: {
     nav: {
@@ -202,7 +99,6 @@ export const content = {
       projects: "Projects",
       resources: "Resources",
       contact: "Contact",
-      admin: "Admin",
     },
     home: {
       title: "Intern Graphic Designer",
@@ -288,107 +184,5 @@ export const content = {
         goHome: "Go back home",
         contactSupport: "Contact support",
     },
-    admin: {
-        dashboard: {
-            title: "Admin Dashboard",
-            personalInfo: "Personal Info",
-            projects: "Projects",
-            resources: "Resources",
-            experience: "Experience",
-            skills: "Skills"
-        },
-        personalInfo: {
-            title: "Personal Information",
-            description: "Update your public profile information here. This will be visible on your main site.",
-            fullName: "Full Name",
-            footerName: "Footer Name (e.g., with accents)",
-            jobTitle: "Title",
-            fieldOfStudy: "Field of Study",
-            dob: "Date of Birth",
-            email: "Email",
-            phone: "Phone",
-            phoneHref: "Phone Href (e.g., tel:+84123456789)",
-            address: "Address",
-            save: "Save Changes"
-        },
-        projects: {
-            manage: "Manage Projects",
-            add: "Add New Project",
-            noData: "No projects found.",
-            edit: "Edit Project",
-            form: {
-                name: "Name",
-                slug: "Slug",
-                category: "Category",
-                selectCategory: "Select a category",
-                year: "Year",
-                shortDesc: "Short Description",
-                description: "Description",
-                principles: "Design Principles",
-                imgUrl: "Image URL",
-                imgAlt: "Image Alt Text",
-                imgAiHint: "Image AI Hint",
-                behanceUrl: "Behance URL",
-                save: "Save"
-            }
-        },
-        resources: {
-            manage: "Manage Resources",
-            add: "Add New Resource",
-            noData: "No resources found.",
-            edit: "Edit Resource",
-            form: {
-                title: "Title",
-                category: "Category",
-                url: "URL",
-                description: "Description",
-                save: "Save"
-            }
-        },
-        experience: {
-            manage: "Manage Experience",
-            add: "Add New Experience",
-            noData: "No experience entries found.",
-            edit: "Edit Experience",
-            form: {
-                title: "Title",
-                organization: "Organization",
-                date: "Date",
-                description: "Description",
-                save: "Save"
-            }
-        },
-        skills: {
-            manage: "Manage Skills",
-            add: "Add New Skill",
-            noData: "No skills found.",
-            edit: "Edit Skill",
-            form: {
-                name: "Name",
-                description: "Description",
-                level: "Level",
-                save: "Save"
-            }
-        },
-        shared: {
-            title: "Title",
-            category: "Category",
-            organization: "Organization",
-            date: "Date",
-            name: "Name",
-            description: "Description",
-            level: "Level",
-            url: "URL",
-            actions: "Actions",
-            edit: "Edit",
-            delete: "Delete",
-            areYouSure: "Are you absolutely sure?",
-            deleteWarning: "This action cannot be undone. This will permanently delete the data from our servers.",
-            cancel: "Cancel",
-            continue: "Continue",
-            previous: "Previous",
-            next: "Next"
-        }
-    }
   },
 };
