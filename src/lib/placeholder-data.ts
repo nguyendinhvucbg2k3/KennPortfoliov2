@@ -1,3 +1,4 @@
+
 import { PlaceHolderImages } from "./placeholder-images";
 import type { Skill, Project, Resource, Experience, PersonalInfo } from "./types";
 
