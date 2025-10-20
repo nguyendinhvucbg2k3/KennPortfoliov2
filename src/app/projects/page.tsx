@@ -11,8 +11,12 @@ import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
 import { collection } from 'firebase/firestore';
 import type { Project } from '@/lib/types';
 import { projectCategories } from '@/lib/placeholder-data'; // Keep this for category buttons
+import { useLanguage } from '@/context/language-context';
+import { content } from '@/lib/content';
 
 export default function ProjectsPage() {
+  const { language } = useLanguage();
+  const pageContent = content[language].projects;
   const [activeCategory, setActiveCategory] = useState('All');
   const firestore = useFirestore();
 
@@ -30,10 +34,10 @@ export default function ProjectsPage() {
     <div className="container mx-auto px-4 py-16 md:py-24">
       <div className="text-center">
         <h1 className="font-headline text-4xl md:text-6xl font-bold text-glow">
-          My Work
+          {pageContent.title}
         </h1>
         <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-          A selection of projects that showcase my passion for branding, illustration, and art direction.
+          {pageContent.description}
         </p>
       </div>
 
@@ -113,7 +117,7 @@ export default function ProjectsPage() {
                         {project.shortDescription}
                       </p>
                       <div className="text-sm text-primary mt-4 group-hover:text-glow transition-all">
-                        View Project &rarr;
+                        {pageContent.viewProject} &rarr;
                       </div>
                     </CardContent>
                   </Link>

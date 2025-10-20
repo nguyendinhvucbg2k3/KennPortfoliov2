@@ -12,8 +12,12 @@ import Link from 'next/link';
 import { ExternalLink } from 'lucide-react';
 import type { Resource } from '@/lib/types';
 import { useMemo } from 'react';
+import { useLanguage } from '@/context/language-context';
+import { content } from '@/lib/content';
 
 export default function ResourcesPage() {
+  const { language } = useLanguage();
+  const pageContent = content[language].resources;
   const firestore = useFirestore();
   const resourcesCollection = useMemoFirebase(
     () => (firestore ? collection(firestore, 'resources') : null),
@@ -38,10 +42,10 @@ export default function ResourcesPage() {
         <div className="container mx-auto px-4 py-16 md:py-24">
             <div className="text-center">
                 <h1 className="font-headline text-4xl md:text-6xl font-bold text-glow">
-                    Resource Hub
+                    {pageContent.title}
                 </h1>
                 <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-                    Loading resources...
+                    {pageContent.loading}
                 </p>
             </div>
         </div>
@@ -52,10 +56,10 @@ export default function ResourcesPage() {
     <div className="container mx-auto px-4 py-16 md:py-24">
       <div className="text-center">
         <h1 className="font-headline text-4xl md:text-6xl font-bold text-glow">
-          Resource Hub
+          {pageContent.title}
         </h1>
         <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-          A curated collection of my favorite tools, websites, and resources for design and creativity.
+          {pageContent.description}
         </p>
       </div>
 

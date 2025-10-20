@@ -9,7 +9,6 @@ import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -20,6 +19,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Loader2, Wand2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Input } from '@/components/ui/input';
+import { useLanguage } from '@/context/language-context';
+import { content } from '@/lib/content';
 
 const formSchema = z.object({
   projectName: z.string().min(1, 'Project name is required.'),
@@ -34,6 +35,8 @@ type ProjectData = {
 };
 
 export function CritiqueForm({ project }: { project: ProjectData }) {
+  const { language } = useLanguage();
+  const pageContent = content[language].projectDetail;
   const [critique, setCritique] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
@@ -70,10 +73,10 @@ export function CritiqueForm({ project }: { project: ProjectData }) {
       <CardHeader>
         <CardTitle className="font-headline text-2xl flex items-center gap-2">
           <Wand2 className="text-accent" />
-          AI Design Critique
+          {pageContent.critiqueTitle}
         </CardTitle>
         <CardDescription>
-          Get an AI-generated critique of this project. You can edit the details below to refine the critique.
+          {pageContent.critiqueDescription}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -84,7 +87,7 @@ export function CritiqueForm({ project }: { project: ProjectData }) {
               name="projectName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Project Name</FormLabel>
+                  <FormLabel>{pageContent.critiqueForm.nameLabel}</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -97,7 +100,7 @@ export function CritiqueForm({ project }: { project: ProjectData }) {
               name="projectDescription"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Project Description</FormLabel>
+                  <FormLabel>{pageContent.critiqueForm.descriptionLabel}</FormLabel>
                   <FormControl>
                     <Textarea rows={5} {...field} />
                   </FormControl>
@@ -110,7 +113,7 @@ export function CritiqueForm({ project }: { project: ProjectData }) {
               name="designPrinciples"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Design Principles</FormLabel>
+                  <FormLabel>{pageContent.critiqueForm.principlesLabel}</FormLabel>
                   <FormControl>
                     <Textarea rows={3} {...field} />
                   </FormControl>
@@ -122,12 +125,12 @@ export function CritiqueForm({ project }: { project: ProjectData }) {
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Generating...
+                  {pageContent.critiqueForm.generatingButton}
                 </>
               ) : (
                 <>
                   <Wand2 className="mr-2 h-4 w-4" />
-                  Generate Critique
+                  {pageContent.critiqueForm.generateButton}
                 </>
               )}
             </Button>
@@ -136,7 +139,7 @@ export function CritiqueForm({ project }: { project: ProjectData }) {
 
         {(isLoading || critique) && (
           <div className="mt-8">
-            <h3 className="font-headline text-xl mb-4 text-glow">Critique Result</h3>
+            <h3 className="font-headline text-xl mb-4 text-glow">{pageContent.critiqueForm.resultTitle}</h3>
             <Card className="bg-background">
               <CardContent className="p-6">
                 {isLoading && (

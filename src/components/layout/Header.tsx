@@ -11,20 +11,24 @@ import { useAuth, useUser } from "@/firebase";
 import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { LanguageSwitcher } from "../language-switcher";
-
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/projects", label: "Projects" },
-  { href: "/resources", label: "Resources" },
-  { href: "/contact", label: "Contact" },
-];
+import { useLanguage } from "@/context/language-context";
+import { content } from "@/lib/content";
 
 export function Header() {
   const pathname = usePathname();
   const { user, isUserLoading } = useUser();
   const auth = useAuth();
   const router = useRouter();
+  const { language } = useLanguage();
+  const navContent = content[language].nav;
+
+  const navLinks = [
+    { href: "/", label: navContent.home },
+    { href: "/about", label: navContent.about },
+    { href: "/projects", label: navContent.projects },
+    { href: "/resources", label: navContent.resources },
+    { href: "/contact", label: navContent.contact },
+  ];
 
   const handleSignOut = async () => {
     try {
@@ -62,7 +66,7 @@ export function Header() {
                 pathname.startsWith('/admin') ? "text-primary" : "text-foreground/60"
               )}
             >
-              Admin
+              {navContent.admin}
             </Link>
           )}
         </nav>
@@ -112,7 +116,7 @@ export function Header() {
                         pathname.startsWith('/admin') ? "text-primary" : "text-foreground/80"
                       )}
                     >
-                      Admin
+                      {navContent.admin}
                     </Link>
                   )}
                 </nav>

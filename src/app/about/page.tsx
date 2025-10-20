@@ -10,8 +10,12 @@ import { Download } from "lucide-react";
 import { useCollection, useFirestore, useMemoFirebase } from "@/firebase";
 import { collection } from "firebase/firestore";
 import type { Skill } from "@/lib/types";
+import { useLanguage } from "@/context/language-context";
+import { content } from "@/lib/content";
 
 export default function AboutPage() {
+  const { language } = useLanguage();
+  const pageContent = content[language].about;
   const aboutImage = PlaceHolderImages.find((img) => img.id === "about-image");
   const firestore = useFirestore();
   const skillsCollection = useMemoFirebase(() => firestore ? collection(firestore, 'skills') : null, [firestore]);
@@ -35,24 +39,24 @@ export default function AboutPage() {
         </div>
         <div className="md:col-span-2">
           <h1 className="font-headline text-4xl md:text-6xl font-bold text-glow">
-            My Design Philosophy
+            {pageContent.philosophyTitle}
           </h1>
           <p className="mt-6 text-lg text-foreground/80 leading-relaxed">
-            I believe design is a powerful tool for communication and problem-solving. My work is driven by a passion for creating experiences that are not only visually stunning but also intuitive, meaningful, and accessible to everyone. I thrive on the challenge of transforming complex ideas into simple, elegant solutions.
+            {pageContent.philosophyP1}
           </p>
           <p className="mt-4 text-lg text-foreground/80 leading-relaxed">
-            Inspired by the vibrant energy of cyberpunk and the delicate beauty of nature, I aim to create a unique 'neon garden' aesthetic. This fusion of the synthetic and the organic allows me to explore themes of growth, technology, and the future of visual communication.
+            {pageContent.philosophyP2}
           </p>
           <Button size="lg" className="mt-8">
             <Download className="mr-2 h-5 w-5" />
-            Download My Resume
+            {pageContent.downloadResume}
           </Button>
         </div>
       </section>
 
       <section className="mt-24">
         <h2 className="text-center font-headline text-3xl md:text-4xl font-bold">
-          Học <span className="text-primary text-glow">vấn</span>
+          {pageContent.educationTitle} <span className="text-primary text-glow">{pageContent.educationHighlight}</span>
         </h2>
         <div className="mt-12 max-w-2xl mx-auto space-y-8">
             <div className="p-6 bg-card/50 backdrop-blur-sm border-border/50 rounded-lg">
@@ -68,7 +72,7 @@ export default function AboutPage() {
 
       <section className="mt-24">
         <h2 className="text-center font-headline text-3xl md:text-4xl font-bold">
-          My <span className="text-primary text-glow">Skills</span>
+          {pageContent.skillsTitle} <span className="text-primary text-glow">{pageContent.skillsHighlight}</span>
         </h2>
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
           {skillsLoading ? (
@@ -102,14 +106,14 @@ export default function AboutPage() {
 
       <section id="contact" className="mt-24 text-center bg-card p-8 md:p-16 rounded-lg">
         <h2 className="font-headline text-3xl md:text-4xl font-bold">
-          Let's Build the <span className="text-accent text-glow-accent">Future</span> Together
+          {pageContent.contactTitle} <span className="text-accent text-glow-accent">{pageContent.contactHighlight}</span> Together
         </h2>
         <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-          I'm currently available for freelance projects and full-time opportunities. If you have an idea you'd like to discuss, I'd love to hear from you.
+          {pageContent.contactDescription}
         </p>
         <Button asChild size="lg" className="mt-8">
           <Link href="/contact">
-            Contact Me
+            {pageContent.contactButton}
           </Link>
         </Button>
       </section>

@@ -11,6 +11,8 @@ import { ArrowRight } from 'lucide-react';
 import { useFirestore } from '@/firebase';
 import { getDocs, collection, query, where, limit } from 'firebase/firestore';
 import type { Project } from '@/lib/types';
+import { useLanguage } from '@/context/language-context';
+import { content } from '@/lib/content';
 
 type ProjectPageProps = {
   params: {
@@ -38,6 +40,8 @@ async function getProjectBySlug(slug: string, db: any): Promise<Project | null> 
 }
 
 export default function ProjectPage({ params }: ProjectPageProps) {
+  const { language } = useLanguage();
+  const pageContent = content[language].projectDetail;
   const firestore = useFirestore();
   const [project, setProject] = React.useState<Project | null>(null);
   const [loading, setLoading] = React.useState(true);
@@ -95,16 +99,16 @@ export default function ProjectPage({ params }: ProjectPageProps) {
         </div>
 
         <div className="prose prose-invert prose-lg max-w-none mx-auto">
-            <h2 className="font-headline text-3xl text-primary text-glow">About the Project</h2>
+            <h2 className="font-headline text-3xl text-primary text-glow">{pageContent.aboutTitle}</h2>
             <p>{project.description}</p>
-            <h2 className="font-headline text-3xl text-primary text-glow">Design Principles</h2>
+            <h2 className="font-headline text-3xl text-primary text-glow">{pageContent.principlesTitle}</h2>
             <p>{project.designPrinciples}</p>
         </div>
         
         <div className="mt-12 text-center">
             <Button asChild size="lg" className="group transition-all duration-300 ease-in-out hover:box-glow-accent">
                 <Link href={project.behanceUrl} target="_blank" rel="noopener noreferrer">
-                    View on Behance <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                    {pageContent.behanceButton} <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Link>
             </Button>
         </div>

@@ -9,6 +9,8 @@ import { PersonalInfo } from "@/lib/types";
 import { doc } from "firebase/firestore";
 import { Linkedin, Twitter, Instagram, Facebook, Mail, Phone, MapPin } from "lucide-react";
 import Link from "next/link";
+import { useLanguage } from "@/context/language-context";
+import { content } from "@/lib/content";
 
 const BehanceIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg
@@ -48,6 +50,8 @@ const PinterestIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 export default function ContactPage() {
+    const { language } = useLanguage();
+    const pageContent = content[language].contact;
     const firestore = useFirestore();
     const personalInfoDoc = useMemoFirebase(() => firestore ? doc(firestore, 'personalInfo', 'main') : null, [firestore]);
     const { data: personalInfo, isLoading } = useDoc<PersonalInfo>(personalInfoDoc);
@@ -56,16 +60,16 @@ export default function ContactPage() {
     <div className="container mx-auto px-4 py-16 md:py-24">
       <div className="text-center">
         <h1 className="font-headline text-4xl md:text-6xl font-bold text-glow">
-          Contact Me
+          {pageContent.title}
         </h1>
         <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-          I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
+          {pageContent.description}
         </p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-16 mt-16 max-w-6xl mx-auto">
         <div>
-            <h2 className="font-headline text-3xl font-bold mb-8">Get in Touch</h2>
+            <h2 className="font-headline text-3xl font-bold mb-8">{pageContent.getInTouch}</h2>
             {isLoading ? (
                 <div className="space-y-6">
                     <div className="h-6 w-3/4 bg-muted/50 rounded animate-pulse" />
@@ -88,7 +92,7 @@ export default function ContactPage() {
                     </div>
                 </div>
             )}
-             <h2 className="font-headline text-3xl font-bold mt-12 mb-8">Follow Me</h2>
+             <h2 className="font-headline text-3xl font-bold mt-12 mb-8">{pageContent.followMe}</h2>
              <div className="flex items-center gap-4">
                 <Button variant="ghost" size="icon" asChild>
                     <Link href="https://www.facebook.com/TNDVKenn203" target="_blank">
@@ -131,14 +135,14 @@ export default function ContactPage() {
         <div>
            <Card className="bg-card/50 border-border/50">
                 <CardHeader>
-                    <CardTitle className="font-headline text-2xl">Send me a message</CardTitle>
+                    <CardTitle className="font-headline text-2xl">{pageContent.formTitle}</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <form className="space-y-4">
-                        <Input placeholder="Your Name" />
-                        <Input type="email" placeholder="Your Email" />
-                        <Textarea placeholder="Your Message" rows={5} />
-                        <Button type="submit" size="lg" className="w-full">Send Message</Button>
+                        <Input placeholder={pageContent.formName} />
+                        <Input type="email" placeholder={pageContent.formEmail} />
+                        <Textarea placeholder={pageContent.formMessage} rows={5} />
+                        <Button type="submit" size="lg" className="w-full">{pageContent.formSend}</Button>
                     </form>
                 </CardContent>
             </Card>

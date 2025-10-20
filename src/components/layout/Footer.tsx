@@ -7,6 +7,8 @@ import { NeonBloomLogo } from "../icons/NeonBloomLogo";
 import { useDoc, useFirestore, useMemoFirebase } from "@/firebase";
 import { doc } from "firebase/firestore";
 import { PersonalInfo } from "@/lib/types";
+import { useLanguage } from "@/context/language-context";
+import { content } from "@/lib/content";
 
 const BehanceIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg
@@ -47,6 +49,8 @@ const PinterestIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 
 export function Footer() {
+    const { language } = useLanguage();
+    const pageContent = content[language].footer;
     const firestore = useFirestore();
     const personalInfoDoc = useMemoFirebase(() => firestore ? doc(firestore, 'personalInfo', 'main') : null, [firestore]);
     const { data: personalInfo, isLoading } = useDoc<PersonalInfo>(personalInfoDoc);
@@ -57,7 +61,7 @@ export function Footer() {
         <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
           <NeonBloomLogo />
           <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
-            Built by {isLoading ? '...' : (personalInfo?.footerName || 'Thac Nguyen Dinh Vu')}. &copy; {new Date().getFullYear()}. All rights reserved.
+            {pageContent.builtBy} {isLoading ? '...' : (personalInfo?.footerName || 'Thac Nguyen Dinh Vu')}. &copy; {new Date().getFullYear()}. {pageContent.reserved}
           </p>
         </div>
         <div className="flex items-center gap-2">
