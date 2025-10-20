@@ -9,20 +9,31 @@ import {
 import Link from 'next/link';
 import { ExternalLink } from 'lucide-react';
 import type { Resource } from '@/lib/types';
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
-import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
-import { collection } from 'firebase/firestore';
+import { resources as placeholderResources } from '@/lib/placeholder-data';
+// import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
+// import { collection } from 'firebase/firestore';
 
 
 export default function ResourcesPage() {
   const { language } = useLanguage();
   const pageContent = content[language].resources;
-  const firestore = useFirestore();
+  // const firestore = useFirestore();
 
-  const resourcesQuery = useMemoFirebase(() => firestore ? collection(firestore, 'resources') : null, [firestore]);
-  const { data: resources, isLoading } = useCollection<Resource>(resourcesQuery);
+  // const resourcesQuery = useMemoFirebase(() => firestore ? collection(firestore, 'resources') : null, [firestore]);
+  // const { data: resourcesData, isLoading } = useCollection<Resource>(resourcesQuery);
+  const [resources, setResources] = useState<Resource[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(true);
+    setTimeout(() => {
+        setResources(placeholderResources);
+        setIsLoading(false);
+    }, 500);
+  }, []);
 
   const resourcesByCategory = useMemo(() => {
     if (!resources) return {};
@@ -52,6 +63,11 @@ export default function ResourcesPage() {
                 <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
                     {pageContent.loading}
                 </p>
+            </div>
+             <div className="max-w-3xl mx-auto mt-12 space-y-4">
+                <div className="h-12 bg-muted/50 rounded-md animate-pulse"></div>
+                <div className="h-12 bg-muted/50 rounded-md animate-pulse"></div>
+                <div className="h-12 bg-muted/50 rounded-md animate-pulse"></div>
             </div>
         </div>
     )

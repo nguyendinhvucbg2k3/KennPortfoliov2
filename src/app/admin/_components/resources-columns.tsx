@@ -34,9 +34,9 @@ import {
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
 import { useToast } from '@/hooks/use-toast';
-import { useFirestore } from '@/firebase';
-import { doc } from 'firebase/firestore';
-import { deleteDocumentNonBlocking } from '@/firebase/non-blocking-updates';
+// import { useFirestore } from '@/firebase';
+// import { doc } from 'firebase/firestore';
+// import { deleteDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 
 export const columns: ColumnDef<Resource>[] = [
   {
@@ -82,14 +82,15 @@ export const columns: ColumnDef<Resource>[] = [
       const adminContent = content[language].admin;
       const { toast } = useToast();
       const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-      const firestore = useFirestore();
+      // const firestore = useFirestore();
 
       const handleDelete = () => {
-        const docRef = doc(firestore, 'resources', resource.id);
-        deleteDocumentNonBlocking(docRef);
+        // const docRef = doc(firestore, 'resources', resource.id);
+        // deleteDocumentNonBlocking(docRef);
+        console.log(`Deleting resource: ${resource.title}`);
         toast({
-          title: 'Resource Deleted',
-          description: `Resource "${resource.title}" has been deleted.`,
+          title: 'Resource Deleted (Simulated)',
+          description: `Resource "${resource.title}" would have been deleted.`,
         });
       };
 

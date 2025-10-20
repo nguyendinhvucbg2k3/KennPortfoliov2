@@ -11,15 +11,30 @@ import { useRouter } from "next/navigation";
 import { LanguageSwitcher } from "../language-switcher";
 import { useLanguage } from "@/context/language-context";
 import { content } from "@/lib/content";
-import { useAuth, useUser } from "@/firebase";
+import { useState, useEffect } from "react";
+// import { useAuth, useUser } from "@/firebase";
 
 export function Header() {
   const pathname = usePathname();
-  const { user, isUserLoading } = useUser();
-  const auth = useAuth();
+  // const { user, isUserLoading } = useUser();
+  // const auth = useAuth();
+  const [user, setUser] = useState<any>(null);
+  const [isUserLoading, setIsUserLoading] = useState(true);
+
   const router = useRouter();
   const { language } = useLanguage();
   const navContent = content[language].nav;
+
+  useEffect(() => {
+    // Simulate user check
+    setTimeout(() => {
+      // Set to a mock user object if you want to test the logged-in state
+      // setUser({ uid: 'mock-user' }); 
+      setUser(null);
+      setIsUserLoading(false);
+    }, 500);
+  }, []);
+
 
   const navLinks = [
     { href: "/", label: navContent.home },
@@ -30,9 +45,10 @@ export function Header() {
   ];
 
   const handleSignOut = async () => {
-    if (auth) {
-      await auth.signOut();
-    }
+    // if (auth) {
+    //   await auth.signOut();
+    // }
+    setUser(null); // Simulate sign out
     router.push('/');
   };
 

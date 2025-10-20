@@ -11,8 +11,9 @@ import { ArrowRight } from 'lucide-react';
 import type { Project } from '@/lib/types';
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
-import { useDoc, useFirestore, useMemoFirebase } from '@/firebase';
-import { doc } from 'firebase/firestore';
+import { projects as placeholderProjects } from '@/lib/placeholder-data';
+// import { useDoc, useFirestore, useMemoFirebase } from '@/firebase';
+// import { doc } from 'firebase/firestore';
 
 
 export default function ProjectPage() {
@@ -21,19 +22,21 @@ export default function ProjectPage() {
   
   const { language } = useLanguage();
   const pageContent = content[language].projectDetail;
-  const firestore = useFirestore();
+  // const firestore = useFirestore();
 
-  // We can't query by slug directly, so we assume the document ID is the slug for simplicity.
-  // In a real app, you might query where "slug" === slug.
-  const projectRef = useMemoFirebase(() => firestore && slug ? doc(firestore, 'projects', slug) : null, [firestore, slug]);
-  
-  // NOTE: This implementation fetches a single project by its ID, which we are assuming is the slug.
-  // If you need to find a project by a `slug` field, you would use `useCollection` with a `where` clause,
-  // and then select the first result.
-  const { data: project, isLoading, error } = useDoc<Project>(projectRef);
+  const [project, setProject] = React.useState<Project | undefined>();
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  // const projectRef = useMemoFirebase(() => firestore && slug ? doc(firestore, 'projects', slug) : null, [firestore, slug]);
+  // const { data: project, isLoading, error } = useDoc<Project>(projectRef);
+  React.useEffect(() => {
+    setIsLoading(true);
+    const foundProject = placeholderProjects.find(p => p.slug === slug || p.id === slug);
+    setProject(foundProject);
+    setIsLoading(false);
+  }, [slug]);
 
   React.useEffect(() => {
-    // If not loading and no data is found, trigger a 404
     if (!isLoading && !project) {
       notFound();
     }
@@ -44,7 +47,6 @@ export default function ProjectPage() {
   }
   
   if (!project) {
-    // This is handled by the useEffect above, but as a safeguard.
     return null;
   }
 

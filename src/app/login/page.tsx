@@ -1,17 +1,32 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Chrome } from 'lucide-react';
-import { useAuth, useUser } from '@/firebase';
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+// import { useAuth, useUser } from '@/firebase';
+// import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 export default function LoginPage() {
-  const { user, isUserLoading } = useUser();
-  const auth = useAuth();
+  // const { user, isUserLoading } = useUser();
+  // const auth = useAuth();
   const router = useRouter();
+  
+  const [user, setUser] = useState<any>(null);
+  const [isUserLoading, setIsUserLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate user loading
+     setTimeout(() => {
+      // To test the logged-out state, set this to null
+      // To test the logged-in state, set it to a mock user object
+      // setUser({ uid: 'mock-user' }); 
+      setUser(null);
+      setIsUserLoading(false);
+    }, 500);
+  }, []);
+
 
   useEffect(() => {
     if (!isUserLoading && user) {
@@ -20,14 +35,19 @@ export default function LoginPage() {
   }, [user, isUserLoading, router]);
 
   const handleSignIn = async () => {
-    if (!auth) return;
-    const provider = new GoogleAuthProvider();
-    try {
-      await signInWithPopup(auth, provider);
-      // The onAuthStateChanged listener in the provider will handle the redirect
-    } catch (error) {
-      console.error("Error signing in with Google", error);
-    }
+    // if (!auth) return;
+    // const provider = new GoogleAuthProvider();
+    // try {
+    //   await signInWithPopup(auth, provider);
+    //   // The onAuthStateChanged listener in the provider will handle the redirect
+    // } catch (error) {
+    //   console.error("Error signing in with Google", error);
+    // }
+    setIsUserLoading(true);
+    setTimeout(() => {
+      setUser({ uid: 'mock-user', name: 'Mock User' });
+      setIsUserLoading(false);
+    }, 1000);
   };
   
   if (isUserLoading || user) {

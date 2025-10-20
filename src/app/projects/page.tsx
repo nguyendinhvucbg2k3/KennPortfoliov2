@@ -8,33 +8,51 @@ import { Button } from '@/components/ui/button';
 import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import type { Project } from '@/lib/types';
-import { projectCategories as staticCategories } from '@/lib/placeholder-data'; 
+import { projectCategories as staticCategories, projects as placeholderProjects } from '@/lib/placeholder-data'; 
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
-import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
-import { collection, query, where } from 'firebase/firestore';
+// import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
+// import { collection, query, where } from 'firebase/firestore';
 
 
 export default function ProjectsPage() {
   const { language } = useLanguage();
   const pageContent = content[language].projects;
   const [activeCategory, setActiveCategory] = useState('All');
-  const firestore = useFirestore();
+  // const firestore = useFirestore();
 
-  const projectsQuery = useMemoFirebase(() => {
-    if (!firestore) return null;
-    if (activeCategory === 'All') {
-      return collection(firestore, 'projects');
-    } else {
-      return query(collection(firestore, 'projects'), where('category', '==', activeCategory));
-    }
-  }, [firestore, activeCategory]);
+  // const projectsQuery = useMemoFirebase(() => {
+  //   if (!firestore) return null;
+  //   if (activeCategory === 'All') {
+  //     return collection(firestore, 'projects');
+  //   } else {
+  //     return query(collection(firestore, 'projects'), where('category', '==', activeCategory));
+  //   }
+  // }, [firestore, activeCategory]);
 
-  const { data: projects, isLoading } = useCollection<Project>(projectsQuery);
+  // const { data: projectsData, isLoading } = useCollection<Project>(projectsQuery);
+
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const projectCategories = useMemo(() => {
-    // Using static categories for the filter buttons to avoid complexity
     return staticCategories;
+  }, []);
+  
+  const filteredProjects = useMemo(() => {
+    if (activeCategory === 'All') {
+        return projects;
+    }
+    return projects.filter(p => p.category === activeCategory);
+  }, [activeCategory, projects]);
+
+  useEffect(() => {
+    setIsLoading(true);
+    // Simulate fetching data
+    setTimeout(() => {
+        setProjects(placeholderProjects);
+        setIsLoading(false);
+    }, 500);
   }, []);
 
   return (
@@ -91,7 +109,7 @@ export default function ProjectsPage() {
                 </motion.div>
              ))
           ) : (
-            (projects || []).map((project) => (
+            filteredProjects.map((project) => (
               <motion.div
                 key={project.id}
                 layout
@@ -102,7 +120,7 @@ export default function ProjectsPage() {
               >
                 <Card className="h-full overflow-hidden group transition-all duration-300 ease-in-out hover:border-primary hover:shadow-lg hover:shadow-primary/20">
                   <Link
-                    href={`/projects/${project.id}`}
+                    href={`/projects/${project.slug}`}
                     className="block h-full"
                   >
                     <div className="relative aspect-video overflow-hidden">
