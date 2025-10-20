@@ -27,10 +27,6 @@
           "type": "string",
           "description": "Category the project belongs to (e.g., Branding, Web Design)."
         },
-        "aiCritique": {
-          "type": "string",
-          "description": "The AI-generated critique for this project."
-        },
         "resourceIds": {
           "type": "array",
           "description": "References to Resources. (Relationship: Project 1:N Resource)",

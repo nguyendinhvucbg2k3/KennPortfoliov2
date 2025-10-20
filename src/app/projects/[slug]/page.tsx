@@ -4,7 +4,6 @@ import React from 'react';
 import { notFound, useParams } from 'next/navigation';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
-import { CritiqueForm } from '../critique-form';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
@@ -85,11 +84,6 @@ export default function ProjectPage() {
                 </Link>
             </Button>
         </div>
-
-        <div className="mt-16">
-          <CritiqueForm project={project} />
-        </div>
-
       </div>
     </div>
   );
