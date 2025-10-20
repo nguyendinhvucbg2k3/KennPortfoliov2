@@ -1,0 +1,48 @@
+===============================================
+HƯỚNG DẪN CẬP NHẬT THÔNG TIN CÁ NHÂN
+===============================================
+
+Để thay đổi thông tin cá nhân của bạn như tên, chức danh, email, điện thoại, địa chỉ, bạn cần chỉnh sửa các tệp sau:
+
+---------------------------------
+1. Tệp trang Liên hệ (`src/app/contact/page.tsx`)
+---------------------------------
+Mở tệp này và tìm đến đối tượng `placeholderPersonalInfo`. Đây là nơi bạn cập nhật thông tin liên lạc chính.
+
+Ví dụ:
+```javascript
+const placeholderPersonalInfo: PersonalInfo = {
+    fullName: "Tên đầy đủ của bạn",
+    footerName: "Tên hiển thị ở chân trang",
+    title: "Chức danh của bạn (ví dụ: Graphic Designer)",
+    fieldOfStudy: "Ngành học của bạn",
+    dateOfBirth: "Ngày/Tháng/Năm sinh",
+    email: "emailcuaban@example.com",
+    phone: "Số điện thoại của bạn",
+    phoneHref: "tel:+84123456789", // Giữ nguyên định dạng tel:+...
+    address: "Địa chỉ của bạn",
+};
+```
+
+---------------------------------
+2. Tệp chân trang (`src/components/layout/Footer.tsx`)
+---------------------------------
+Tệp này cũng sử dụng thông tin cá nhân. Hãy tìm đối tượng `placeholderPersonalInfo` và cập nhật tương tự như trên để đảm bảo tính đồng nhất.
+
+Ví dụ:
+```javascript
+const placeholderPersonalInfo: PersonalInfo = {
+    fullName: "Tên đầy đủ của bạn",
+    footerName: "Tên hiển thị ở chân trang",
+    // ... các thông tin khác
+};
+```
+
+---------------------------------
+3. Tệp trang chủ (`src/app/page.tsx`)
+---------------------------------
+Tương tự, hãy tìm đối tượng `placeholderPersonalInfo` trong tệp này và thay đổi thông tin cho phù hợp.
+
+LƯU Ý QUAN TRỌNG:
+- Hãy đảm bảo bạn cập nhật thông tin ở CẢ BA tệp trên để trang web hiển thị đồng bộ.
+- Giữ nguyên cấu trúc của các đối tượng, chỉ thay đổi phần nội dung trong dấu ngoặc kép `""`.

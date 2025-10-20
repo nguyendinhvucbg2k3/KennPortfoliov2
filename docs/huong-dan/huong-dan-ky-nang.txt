@@ -1,0 +1,41 @@
+=======================================
+HƯỚNG DẪN CẬP NHẬT KỸ NĂNG
+=======================================
+
+Tất cả các kỹ năng của bạn được quản lý tập trung trong một tệp duy nhất để dễ dàng chỉnh sửa.
+
+---------------------------------
+Tệp dữ liệu (`src/lib/placeholder-data.ts`)
+---------------------------------
+Mở tệp này và tìm đến mảng (array) có tên là `skills`. Mỗi kỹ năng là một đối tượng (object) nằm trong mảng này.
+
+Trang "Giới thiệu" (`/about`) sẽ tự động hiển thị các kỹ năng từ đây.
+
+**Để thêm một kỹ năng mới:**
+Sao chép một khối đối tượng `{...}` có sẵn, dán nó vào cuối danh sách và thay đổi nội dung.
+
+**Để sửa hoặc xóa:**
+Tìm đến kỹ năng bạn muốn chỉnh sửa và thay đổi nội dung, hoặc xóa toàn bộ khối đối tượng đó.
+
+
+**Cấu trúc của một đối tượng kỹ năng:**
+
+```javascript
+{
+  name: "Tên kỹ năng (ví dụ: ADOBE PHOTOSHOP)",
+  level: 75, // Mức độ thành thạo, là một con số từ 0 đến 100
+  description: "Mô tả ngắn về kỹ năng của bạn.",
+},
+```
+
+**Ví dụ:**
+
+```javascript
+export const skills: Skill[] = [
+  { name: "ADOBE PHOTOSHOP / ILLUSTRATOR / ...", level: 75, description: "Advanced proficiency in Adobe Creative Suite." },
+  { name: "GRAPHIC DESIGNER", level: 75, description: "Comprehensive skills in graphic design principles." },
+  // Thêm các kỹ năng khác của bạn ở đây
+];
+```
+
+Sau khi bạn lưu tệp, trang Giới thiệu sẽ tự động cập nhật danh sách kỹ năng và thanh tiến trình tương ứng.

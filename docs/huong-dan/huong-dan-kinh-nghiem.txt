@@ -1,0 +1,50 @@
+=========================================
+HƯỚNG DẪN CẬP NHẬT KINH NGHIỆM
+=========================================
+
+Toàn bộ kinh nghiệm làm việc của bạn được quản lý tại một nơi duy nhất để dễ dàng chỉnh sửa.
+
+---------------------------------
+Tệp dữ liệu (`src/lib/placeholder-data.ts`)
+---------------------------------
+Mở tệp này và tìm đến mảng (array) có tên là `experiences`. Mỗi kinh nghiệm là một đối tượng (object) trong mảng này.
+
+**Để thêm một kinh nghiệm mới:**
+Sao chép một khối đối tượng `{...}` có sẵn, dán nó vào cuối danh sách và thay đổi nội dung.
+
+**Để sửa hoặc xóa:**
+Tìm đến kinh nghiệm bạn muốn chỉnh sửa và thay đổi nội dung, hoặc xóa toàn bộ khối đối tượng đó.
+
+
+**Cấu trúc của một đối tượng kinh nghiệm:**
+
+```javascript
+{
+  title: "Vị trí công việc của bạn (ví dụ: LEADER DESIGNER)",
+  organization: "Tên công ty/tổ chức",
+  date: "Thời gian làm việc (ví dụ: 06/2022 — 06/2022)",
+  description: "Mô tả ngắn gọn về công việc và những gì bạn đã làm.",
+},
+```
+
+**Ví dụ:**
+
+```javascript
+export const experiences: Experience[] = [
+    {
+      title: "LEADER DESIGNER",
+      organization: "TÊN TỔ CHỨC",
+      date: "06/2022 — 06/2022",
+      description: "Chịu trách nhiệm thiết kế và ban hành hầu hết các ấn phẩm của giải đấu. Trong một tháng đã cho ra gần 20 ấn phẩm.",
+    },
+    {
+      title: "GRAPHIC DESIGNER",
+      organization: "MEDIA 2WIN",
+      date: "03/2024 — 05/2024",
+      description: "Phụ trách hình ảnh sản phẩm trên các sàn thương mại điện tử; thống nhất brand asset giữa các shop. Làm việc cho 10 shop với số lượng sản phẩm trên 20 sản phẩm/shop; 5 banner đã được xuất bản.",
+    },
+    // Thêm các kinh nghiệm khác của bạn ở đây...
+];
+```
+
+Sau khi chỉnh sửa và lưu tệp, trang chủ sẽ tự động cập nhật lại dòng thời gian kinh nghiệm của bạn.
