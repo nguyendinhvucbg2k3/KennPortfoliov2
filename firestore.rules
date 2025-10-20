@@ -1,128 +1,166 @@
 /**
- * @fileoverview Firestore Security Rules for NeonBloom Portfolio.
+ * @file Firestore Security Rules
+ * @version 2
  *
- * Core Philosophy:
- * This ruleset enforces role-based access control for admin users, allowing them to manage their profiles, projects, and resource links.
+ * @description This ruleset enforces a role-based access control model, with public read access for certain collections and restricted write access to authorized administrators.
  *
- * Data Structure:
- * - /admin_profiles/{adminId}: Stores admin user profiles.
- * - /projects/{projectId}: Stores project details.
- * - /resource_links/{resourceLinkId}: Stores resource links.
- * - /roles_admin/{adminId}: Used to confer admin privileges based on document existence.
+ * @dataStructure
+ * - /projects/{projectId}: Stores project details; publicly readable.
+ * - /resources/{resourceId}: Stores resource links; publicly readable.
+ * - /experience/{experienceId}: Stores experience entries; publicly readable.
+ * - /skills/{skillId}: Stores skill data; publicly readable.
+ * - /personalInfo/main: Stores personal information; publicly readable.
+ * - /admins/{uid}: Stores admin profiles; only accessible by the corresponding authenticated user (self-ownership).
  *
- * Key Security Decisions:
- * - Only authenticated admins can create, read, update, or delete projects and resource links.
- * - Admin profiles can only be accessed by the owning admin user.
- * - The existence of a document in `/roles_admin/{adminId}` grants admin privileges.
- * - `list` operations are restricted to prevent unauthorized data exposure.
+ * @keySecurityDecisions
+ * - Public Read Access: The 'projects', 'resources', 'experience', 'skills', and 'personalInfo' collections are publicly readable.
+ * - Admin Role: Write access to the 'projects', 'resources', 'experience', 'skills', and 'personalInfo' collections is restricted to authenticated users who have a corresponding document in the 'admins' collection. This represents an admin role.
+ * - No User Listing: Listing of users (admins) is explicitly denied.
  *
- * Denormalization for Authorization:
- * Admin status is determined by the existence of a document in `/roles_admin/{adminId}`, avoiding costly `get()` calls in other rules.
+ * @denormalizationForAuthorization
+ * - Admin Check: The rules use a `get()` call to the `/admins/{uid}` document to determine if a user is an administrator.  While `get()` calls can be costly, in this case, it's acceptable because the number of admins is expected to be small and the data is not frequently accessed.  If admin status were checked more often, consider denormalizing an `isAdmin` claim onto the user's auth token instead.
+ *
+ * @structuralSegregation
+ * - Public vs. Private: Publicly readable data (projects, resources, experience, skills, personalInfo) is stored in top-level collections.  Admin profiles are stored in a separate collection with restricted access.
  */
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
     /**
-     * @description Allows admins to manage their own profiles.
-     * @path /admin_profiles/{adminId}
-     * @allow (get, create, update, delete) if the user is signed in and the adminId matches the user's UID.
-     * @deny (get, create, update, delete) if the user is not signed in or the adminId does not match the user's UID.
-     * @principle Enforces document ownership for admin profile management.
+     * @description Checks if the user is signed in.
+     * @param userId The user's ID.
+     * @return True if the user is signed in, false otherwise.
      */
-    match /admin_profiles/{adminId} {
-      // Helper function to check if the user is signed in and owns the document.
-      function isAdminOwner(adminId) {
-        return isSignedIn() && request.auth.uid == adminId && exists(/databases/$(database)/documents/roles_admin/$(adminId));
-      }
-      
-      // Helper function to check if the user is signed in, owns the document, and the document exists.
-      function isExistingAdminOwner(adminId) {
-        return isAdminOwner(adminId) && resource != null;
-      }
-      
-      allow get: if isAdminOwner(adminId);
-      allow list: if false;
-      allow create: if isAdminOwner(adminId) && request.resource.data.id == request.auth.uid;
-      allow update: if isExistingAdminOwner(adminId) && request.resource.data.id == resource.data.id;
-      allow delete: if isExistingAdminOwner(adminId);
+    function isSignedIn() {
+      return request.auth != null;
     }
 
     /**
-     * @description Allows admins to manage projects.
+     * @description Checks if the user is an administrator by verifying the existence of their admin profile.
+     * @return True if the user is an admin, false otherwise.
+     */
+    function isAdmin() {
+      return isSignedIn() && exists(/databases/(default)/documents/admins/$(request.auth.uid));
+    }
+
+    /**
+     * @description Allows anyone to read data.
+     * @return True if the operation is a read.
+     */
+    function allowPublicRead() {
+        return true;
+    }
+
+    /**
+     * @description Allows only admins to create, update, and delete data.
+     * @return True if the user is an admin, false otherwise.
+     */
+    function allowAdminWrite() {
+        return isAdmin();
+    }
+
+    /**
+     * @description
      * @path /projects/{projectId}
-     * @allow (get, create, update, delete) if the user is an authenticated admin.
-     * @deny (get, create, update, delete) if the user is not an authenticated admin.
-     * @principle Restricts project management to authenticated admins.
+     * @allow (get, list) - Any user can read project details.
+     * @allow (create, update, delete) - An admin can create, update, or delete project details.
+     * @deny (create, update, delete) - A non-admin user cannot create, update, or delete project details.
+     * @principle Public read, admin-only write access.
      */
     match /projects/{projectId} {
-        // Helper function to check if the user is an admin.
-        function isAdmin() {
-            return isSignedIn() && exists(/databases/$(database)/documents/roles_admin/$(request.auth.uid));
-        }
-
-        // Helper function to check if the user is an admin and the document exists.
-        function isExistingAdmin() {
-            return isAdmin() && resource != null;
-        }
-
-        allow get: if isAdmin();
-        allow list: if isAdmin();
-        allow create: if isAdmin();
-        allow update: if isExistingAdmin();
-        allow delete: if isExistingAdmin();
+      allow get, list: if allowPublicRead();
+      allow create, update, delete: if allowAdminWrite();
     }
 
     /**
-     * @description Allows admins to manage resource links.
-     * @path /resource_links/{resourceLinkId}
-     * @allow (get, create, update, delete) if the user is an authenticated admin.
-     * @deny (get, create, update, delete) if the user is not an authenticated admin.
-     * @principle Restricts resource link management to authenticated admins.
+     * @description
+     * @path /resources/{resourceId}
+     * @allow (get, list) - Any user can read resource links.
+     * @allow (create, update, delete) - An admin can create, update, or delete resource links.
+     * @deny (create, update, delete) - A non-admin user cannot create, update, or delete resource links.
+     * @principle Public read, admin-only write access.
      */
-    match /resource_links/{resourceLinkId} {
-        // Helper function to check if the user is an admin.
-        function isAdmin() {
-            return isSignedIn() && exists(/databases/$(database)/documents/roles_admin/$(request.auth.uid));
-        }
-
-        // Helper function to check if the user is an admin and the document exists.
-        function isExistingAdmin() {
-            return isAdmin() && resource != null;
-        }
-
-        allow get: if isAdmin();
-        allow list: if isAdmin();
-        allow create: if isAdmin();
-        allow update: if isExistingAdmin();
-        allow delete: if isExistingAdmin();
+    match /resources/{resourceId} {
+      allow get, list: if allowPublicRead();
+      allow create, update, delete: if allowAdminWrite();
     }
 
     /**
-     * @description Used to verify that the user is an administrator of the system. The existence of this document confers admin privileges.
-     * @path /roles_admin/{adminId}
+     * @description
+     * @path /experience/{experienceId}
+     * @allow (get, list) - Any user can read experience entries.
+     * @allow (create, update, delete) - An admin can create, update, or delete experience entries.
+     * @deny (create, update, delete) - A non-admin user cannot create, update, or delete experience entries.
+     * @principle Public read, admin-only write access.
      */
-    match /roles_admin/{adminId} {
-        // Helper function to check if the user is an admin.
-        function isAdminOwner(adminId) {
-            return isSignedIn() && request.auth.uid == adminId;
-        }
-        
-        // Helper function to check if the user is signed in, owns the document, and the document exists.
-        function isExistingAdminOwner(adminId) {
-            return isAdminOwner(adminId) && resource != null;
-        }
-
-        allow get: if isAdminOwner(adminId);
-        allow list: if false;
-        allow create: if isAdminOwner(adminId);
-        allow update: if isExistingAdminOwner(adminId);
-        allow delete: if isExistingAdminOwner(adminId);
+    match /experience/{experienceId} {
+      allow get, list: if allowPublicRead();
+      allow create, update, delete: if allowAdminWrite();
     }
-  }
 
-  // Helper function to check if the user is signed in.
-  function isSignedIn() {
-    return request.auth != null;
+    /**
+     * @description
+     * @path /skills/{skillId}
+     * @allow (get, list) - Any user can read skill data.
+     * @allow (create, update, delete) - An admin can create, update, or delete skill data.
+     * @deny (create, update, delete) - A non-admin user cannot create, update, or delete skill data.
+     * @principle Public read, admin-only write access.
+     */
+    match /skills/{skillId} {
+      allow get, list: if allowPublicRead();
+      allow create, update, delete: if allowAdminWrite();
+    }
+
+    /**
+     * @description
+     * @path /personalInfo/main
+     * @allow (get) - Any user can read personal information.
+     * @allow (create, update, delete) - An admin can create, update, or delete personal information.
+     * @deny (create, update, delete) - A non-admin user cannot create, update, or delete personal information.
+     * @principle Public read, admin-only write access.
+     */
+    match /personalInfo/main {
+      allow get: if allowPublicRead();
+      allow list: if false;
+      allow create, update, delete: if allowAdminWrite();
+    }
+
+    /**
+     * @description
+     * @path /admins/{uid}
+     * @allow (get) - Only the admin user can read their own profile.
+     * @allow (create) - A user can create their own admin profile (self-registration).
+     * @allow (update, delete) - Only the admin user can update or delete their own profile.
+     * @deny (list) - Listing admins is not allowed.
+     * @deny (create, update, delete) - Other users cannot create, update, or delete admin profiles.
+     * @principle Enforces document ownership for admins and prevents listing.
+     */
+    match /admins/{userId} {
+
+      /**
+       * @description Checks if the requested user ID matches the authenticated user ID.
+       * @param userId The user's ID.
+       * @return True if the user ID matches, false otherwise.
+       */
+      function isOwner(userId) {
+        return isSignedIn() && request.auth.uid == userId;
+      }
+
+      /**
+       * @description Checks if the requested user is an existing owner
+       * @param userId The user's ID.
+       * @return True if the user ID matches and the document exists, false otherwise.
+       */
+      function isExistingOwner(userId) {
+        return isOwner(userId) && resource != null;
+      }
+      
+      allow get: if isOwner(userId);
+      allow list: if false;
+      allow create: if isOwner(userId);
+      allow update: if isExistingOwner(userId);
+      allow delete: if isExistingOwner(userId);
+    }
   }
 }
