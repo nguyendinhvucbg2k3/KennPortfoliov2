@@ -3,6 +3,9 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { CritiqueForm } from '../critique-form';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
 type ProjectPageProps = {
   params: {
@@ -45,6 +48,14 @@ export default function ProjectPage({ params }: ProjectPageProps) {
             <p>{project.designPrinciples}</p>
         </div>
         
+        <div className="mt-12 text-center">
+            <Button asChild size="lg" className="group transition-all duration-300 ease-in-out hover:box-glow-accent">
+                <Link href={project.behanceUrl} target="_blank" rel="noopener noreferrer">
+                    View on Behance <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                </Link>
+            </Button>
+        </div>
+
         <div className="mt-16">
           <CritiqueForm project={project} />
         </div>

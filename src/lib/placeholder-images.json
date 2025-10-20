@@ -13,40 +13,64 @@
       "imageHint": "abstract portrait"
     },
     {
-      "id": "project-aurora-branding",
-      "description": "Logo and branding materials for 'Aurora', featuring vibrant gradients and flowing lines.",
-      "imageUrl": "https://images.unsplash.com/photo-1634578196187-d8ef70aaf7e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxsb2dvJTIwYnJhbmRpbmd8ZW58MHx8fHwxNzYwOTI3ODQyfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "logo branding"
+      "id": "project-fpt-art-show",
+      "description": "A vibrant and dynamic poster for an art show event, with bold typography and graphic elements.",
+      "imageUrl": "https://images.unsplash.com/photo-1758426637768-2d5fa2ab2403?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxldmVudCUyMHBvc3RlciUyMGRlc2lnbnxlbnwwfHx8fDE3NjA5OTA5MjN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "event poster design"
     },
     {
-      "id": "project-cyber-flora",
-      "description": "A series of digital illustrations depicting futuristic, robotic flowers with glowing neon elements.",
-      "imageUrl": "https://images.unsplash.com/photo-1739391565679-f7f165c23ae5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxkaWdpdGFsJTIwaWxsdXN0cmF0aW9ufGVufDB8fHx8MTc2MDk0MDAyOHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "digital illustration"
+      "id": "project-chop-con-lam",
+      "description": "Modern branding for a media company, featuring a strong logo in red and black.",
+      "imageUrl": "https://images.unsplash.com/photo-1684579657554-99c11e684c57?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxtZWRpYSUyMGJyYW5kaW5nJTIwcmVkfGVufDB8fHx8MTc2MDk5MDkyMnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "media branding red"
     },
     {
-      "id": "project-retro-synth",
-      "description": "Album art for a synth-wave band, with classic 80s retro-futuristic grid lines and a neon sunset.",
-      "imageUrl": "https://images.unsplash.com/photo-1509114397022-ed747cca3f65?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxhbGJ1bSUyMGFydHxlbnwwfHx8fDE3NjA5NTU4OTV8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "album art"
+      "id": "project-fpt-flash-logo",
+      "description": "A redesigned logo for an e-sports team, with a dynamic lightning bolt mascot.",
+      "imageUrl": "https://images.unsplash.com/photo-1640677139278-14f133cb4a3f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxlc3BvcnRzJTIwbG9nbyUyMGxpZ2h0bmluZ3xlbnwwfHx8fDE3NjA5OTA5MjJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "esports logo lightning"
     },
     {
-      "id": "project-neo-tokyo",
-      "description": "Concept art for a video game set in a futuristic Tokyo, with towering neon-lit skyscrapers.",
-      "imageUrl": "https://images.unsplash.com/photo-1630921863029-b3abdbf5758b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxjb25jZXB0JTIwYXJ0fGVufDB8fHx8MTc2MDk4MjExOXww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "concept art"
+      "id": "project-logo-folio",
+      "description": "A grid showcasing a diverse collection of modern and creative logos.",
+      "imageUrl": "https://images.unsplash.com/photo-1759724369762-376e0a29478b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxsb2dvJTIwY29sbGVjdGlvbiUyMGdyaWR8ZW58MHx8fHwxNzYwOTkwOTIzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "logo collection grid"
     },
     {
-      "id": "project-quantum-poster",
-      "description": "A poster for a science conference about quantum physics, using abstract particle-like visuals.",
-      "imageUrl": "https://images.unsplash.com/photo-1543487945-139a97f387d5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwb3N0ZXIlMjBkZXNpZ258ZW58MHx8fHwxNzYwOTMxNDcwfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "poster design"
+      "id": "project-team-flash-artwork",
+      "description": "An impressive illustration of an e-sports player, full of action and energy.",
+      "imageUrl": "https://images.unsplash.com/photo-1584448141569-69f342da535c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxlc3BvcnRzJTIwcGxheWVyJTIwaWxsdXN0cmF0aW9ufGVufDB8fHx8MTc2MDk5MDkyMnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "esports player illustration"
     },
     {
-      "id": "project-eco-packaging",
-      "description": "Packaging design for an eco-friendly product, with leaf motifs and a clean, modern aesthetic.",
-      "imageUrl": "https://images.unsplash.com/photo-1610963349673-3d94501d569a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cGFja2FnaW5nJTIwZGVzaWdufGVufDB8fHx8MTc2MDk0ODYwMnww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "packaging design"
+      "id": "project-poster-collection",
+      "description": "A collection of posters with strong typography and layout design.",
+      "imageUrl": "https://images.unsplash.com/photo-1619839769929-49455e6b780b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxncmFwaGljJTIwZGVzaWduJTIwcG9zdGVyc3xlbnwwfHx8fDE3NjA5OTA5MjJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "graphic design posters"
+    },
+    {
+      "id": "project-quan-an",
+      "description": "A charming and traditional logo for a Vietnamese restaurant.",
+      "imageUrl": "https://images.unsplash.com/photo-1708658223534-f4a3db0ec7ce?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxyZXN0YXVyYW50JTIwbG9nbyUyMHRyYWRpdGlvbmFsfGVufDB8fHx8MTc2MDk5MDkyNHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "restaurant logo traditional"
+    },
+    {
+      "id": "project-fpt-landing-page",
+      "description": "The user interface design for a modern and clean university website.",
+      "imageUrl": "https://images.unsplash.com/photo-1649442279006-8bccb4cc63e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx1bml2ZXJzaXR5JTIwd2Vic2l0ZSUyMGRlc2lnbnxlbnwwfHx8fDE3NjA5OTA5MjV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "university website design"
+    },
+    {
+      "id": "project-web-game-ui",
+      "description": "The user interface for a web game, featuring buttons, menus, and game elements.",
+      "imageUrl": "https://images.unsplash.com/photo-1641707795031-e806e90e88ce?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxnYW1lJTIwdWklMjBpbnRlcmZhY2V8ZW58MHx8fHwxNzYwOTkwOTIyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "game ui interface"
+    },
+    {
+      "id": "project-illustration-collection",
+      "description": "A detailed and stylistic digital artwork showcasing an artist's personal style.",
+      "imageUrl": "https://images.unsplash.com/photo-1758782362280-1925766b99ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxkaWdpdGFsJTIwYXJ0JTIwZGV0YWlsZWR8ZW58MHx8fHwxNzYwOTkwOTIzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "digital art detailed"
     }
   ]
 }
