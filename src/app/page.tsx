@@ -10,8 +10,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useCollection, useDoc, useFirestore, useMemoFirebase } from '@/firebase';
 import { collection, doc } from 'firebase/firestore';
 import type { Experience, PersonalInfo } from '@/lib/types';
+import { useLanguage } from '@/context/language-context';
+import { content } from '@/lib/content';
 
 export default function Home() {
+  const { language } = useLanguage();
   const heroImage = PlaceHolderImages.find((img) => img.id === 'hero-background');
   const firestore = useFirestore();
 
@@ -22,6 +25,7 @@ export default function Home() {
   const { data: experiences, isLoading: experiencesLoading } = useCollection<Experience>(experienceCollection);
   
   const isLoading = personalInfoLoading || experiencesLoading;
+  const pageContent = content[language].home;
 
   return (
     <div className="flex flex-col">
@@ -46,14 +50,14 @@ export default function Home() {
             </h1>
           )}
            <p className="mt-4 text-lg md:text-2xl text-foreground/80">
-             {personalInfo?.title || "Intern Graphic Designer"}
+             {personalInfo?.title || pageContent.title}
           </p>
           <p className="mt-6 max-w-2xl mx-auto text-base md:text-lg text-foreground/70">
-            Crafting compelling visual narratives that blend futuristic aesthetics with timeless design principles. Welcome to my neon garden of creativity.
+            {pageContent.introduction}
           </p>
           <Button asChild size="lg" className="mt-8 group transition-all duration-300 ease-in-out hover:box-glow-accent">
             <Link href="/projects">
-              Explore My Work <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+              {pageContent.exploreWork} <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Link>
           </Button>
         </div>
@@ -62,7 +66,7 @@ export default function Home() {
       <section className="py-16 md:py-24 bg-background/50">
         <div className="container mx-auto px-4">
             <h2 className="text-center font-headline text-3xl md:text-4xl font-bold mb-12">
-              Thông tin <span className="text-primary text-glow">Cơ bản</span>
+              {pageContent.basicInfo.title} <span className="text-primary text-glow">{pageContent.basicInfo.highlight}</span>
             </h2>
              {isLoading ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -81,21 +85,21 @@ export default function Home() {
                 <div className="flex items-start gap-4">
                   <Briefcase className="h-6 w-6 mt-1 text-primary"/>
                   <div>
-                    <h3 className="font-semibold">Chức danh</h3>
+                    <h3 className="font-semibold">{pageContent.basicInfo.jobTitle}</h3>
                     <p className="text-muted-foreground">{personalInfo.title}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <GraduationCap className="h-6 w-6 mt-1 text-primary"/>
                   <div>
-                    <h3 className="font-semibold">Lĩnh vực học</h3>
+                    <h3 className="font-semibold">{pageContent.basicInfo.fieldOfStudy}</h3>
                     <p className="text-muted-foreground">{personalInfo.fieldOfStudy}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <Cake className="h-6 w-6 mt-1 text-primary"/>
                   <div>
-                    <h3 className="font-semibold">Ngày sinh</h3>
+                    <h3 className="font-semibold">{pageContent.basicInfo.dateOfBirth}</h3>
                     <p className="text-muted-foreground">{personalInfo.dateOfBirth}</p>
                   </div>
                 </div>
@@ -109,14 +113,14 @@ export default function Home() {
                 <div className="flex items-start gap-4">
                   <Phone className="h-6 w-6 mt-1 text-primary"/>
                   <div>
-                    <h3 className="font-semibold">Điện thoại</h3>
+                    <h3 className="font-semibold">{pageContent.basicInfo.phone}</h3>
                     <p className="text-muted-foreground">{personalInfo.phone}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <MapPin className="h-6 w-6 mt-1 text-primary"/>
                   <div>
-                    <h3 className="font-semibold">Địa chỉ</h3>
+                    <h3 className="font-semibold">{pageContent.basicInfo.address}</h3>
                     <p className="text-muted-foreground">{personalInfo.address}</p>
                   </div>
                 </div>
@@ -128,7 +132,7 @@ export default function Home() {
       <section className="py-16 md:py-24 bg-background">
         <div className="container mx-auto px-4">
           <h2 className="text-center font-headline text-3xl md:text-4xl font-bold mb-12">
-            Kinh <span className="text-primary text-glow">nghiệm</span>
+            {pageContent.experience.title} <span className="text-primary text-glow">{pageContent.experience.highlight}</span>
           </h2>
           <div className="relative max-w-4xl mx-auto">
             <div className="absolute left-1/2 -translate-x-1/2 w-0.5 h-full bg-border"></div>
@@ -163,13 +167,13 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="text-center">
             <h2 className="font-headline text-3xl md:text-4xl font-bold">
-              Let's Create Something <span className="text-primary text-glow">Extraordinary</span>
+              {pageContent.callToAction.title} <span className="text-primary text-glow">{pageContent.callToAction.highlight}</span>
             </h2>
             <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-              Have a project in mind? I'm always open to new collaborations and exciting challenges.
+              {pageContent.callToAction.description}
             </p>
             <Button asChild variant="outline" size="lg" className="mt-8">
-              <Link href="/contact">Get in Touch</Link>
+              <Link href="/contact">{pageContent.callToAction.button}</Link>
             </Button>
           </div>
         </div>

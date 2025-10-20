@@ -10,6 +10,7 @@ import { LogIn, LogOut, Menu } from "lucide-react";
 import { useAuth, useUser } from "@/firebase";
 import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
+import { LanguageSwitcher } from "../language-switcher";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -66,6 +67,7 @@ export function Header() {
           )}
         </nav>
         <div className="flex items-center gap-2">
+           <LanguageSwitcher />
            {!isUserLoading && user ? (
              <Button variant="ghost" size="icon" onClick={handleSignOut} title="Sign Out">
                 <LogOut className="h-5 w-5" />
