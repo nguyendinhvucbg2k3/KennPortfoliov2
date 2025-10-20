@@ -63,14 +63,17 @@ export default function AboutPage() {
         <h2 className="text-center font-headline text-3xl md:text-4xl font-bold">
           My <span className="text-primary text-glow">Skills</span>
         </h2>
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
           {skills.map((skill) => (
             <Card key={skill.name} className="bg-card/50 backdrop-blur-sm border-border/50">
               <CardHeader>
                 <CardTitle className="text-xl font-headline">{skill.name}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground mb-4">{skill.description}</p>
+                <div className="flex justify-between items-center mb-2">
+                  <p className="text-muted-foreground">{skill.description}</p>
+                  <span className="text-primary font-semibold">{skill.level}%</span>
+                </div>
                 <Progress value={skill.level} className="h-2" />
               </CardContent>
             </Card>

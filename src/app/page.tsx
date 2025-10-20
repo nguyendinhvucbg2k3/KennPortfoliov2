@@ -2,8 +2,10 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Briefcase as BriefcaseIcon, Building, Calendar, Star } from 'lucide-react';
 import { Mail, Phone, MapPin, Briefcase, GraduationCap, Cake } from 'lucide-react';
+import { experiences } from '@/lib/placeholder-data';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function Home() {
   const heroImage = PlaceHolderImages.find((img) => img.id === 'hero-background');
@@ -93,6 +95,38 @@ export default function Home() {
       </section>
 
       <section className="py-16 md:py-24 bg-background">
+        <div className="container mx-auto px-4">
+          <h2 className="text-center font-headline text-3xl md:text-4xl font-bold mb-12">
+            Kinh <span className="text-primary text-glow">nghiệm</span>
+          </h2>
+          <div className="relative max-w-4xl mx-auto">
+            <div className="absolute left-1/2 -translate-x-1/2 w-0.5 h-full bg-border"></div>
+            {experiences.map((exp, index) => (
+              <div key={index} className="relative mb-12">
+                <div className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2 w-4 h-4 rounded-full bg-primary box-glow-primary"></div>
+                <div className={`flex items-center ${index % 2 === 0 ? 'md:flex-row-reverse' : ''} w-full`}>
+                  <div className="w-full md:w-5/12">
+                    <Card className={`bg-card/50 border-border/50 ${index % 2 === 0 ? 'md:mr-auto' : 'md:ml-auto'}`}>
+                      <CardHeader>
+                        <CardTitle className="font-headline text-xl flex justify-between items-center">
+                          <span>{exp.title}</span>
+                          <span className="text-sm font-normal text-muted-foreground">{exp.date}</span>
+                        </CardTitle>
+                        <p className="text-primary font-semibold">{exp.organization}</p>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-muted-foreground">{exp.description}</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-24 bg-background/50">
         <div className="container mx-auto px-4">
           <div className="text-center">
             <h2 className="font-headline text-3xl md:text-4xl font-bold">

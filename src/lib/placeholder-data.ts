@@ -7,12 +7,10 @@ export type Skill = {
 };
 
 export const skills: Skill[] = [
-  { name: "UI/UX Design", level: 95, description: "Creating intuitive and beautiful user interfaces." },
-  { name: "Branding", level: 90, description: "Developing strong and consistent brand identities." },
-  { name: "Illustration", level: 85, description: "Crafting unique and expressive digital illustrations." },
-  { name: "Motion Graphics", level: 75, description: "Bringing designs to life with animation." },
-  { name: "Figma", level: 98, description: "Prototyping and designing in Figma." },
-  { name: "Adobe Suite", level: 92, description: "Photoshop, Illustrator, After Effects." },
+  { name: "ADOBE PHOTOSHOP / ILLUSTRATOR / ...", level: 75, description: "Advanced proficiency in Adobe Creative Suite." },
+  { name: "GRAPHIC DESIGNER", level: 75, description: "Comprehensive skills in graphic design principles." },
+  { name: "WORKING GROUP", level: 60, description: "Experienced in collaborative team environments." },
+  { name: "OFFICE INFORMATION", level: 55, description: "Proficient with standard office software." },
 ];
 
 export type Project = {
@@ -170,4 +168,51 @@ export const resources: ResourceCategory[] = [
       { title: "Icon-Icons", description: "Free Icons, PNG, ICO, ICNS.", url: "#" },
     ],
   },
+];
+
+
+export type Experience = {
+  title: string;
+  organization: string;
+  date: string;
+  description: string;
+};
+
+export const experiences: Experience[] = [
+    {
+      title: "LEADER DESIGNER",
+      organization: "ORGANIZATION",
+      date: "06/2022 — 06/2022",
+      description: "Responsible for designing and publishing most of the tournament's materials. In one month, nearly 20 publications were produced.",
+    },
+    {
+      title: "LEADER DESIGNER",
+      organization: "ORGANIZATION",
+      date: "03/2022 — 04/2022",
+      description: "Designed and published synchronized materials. In two months, nearly 50 publications were produced.",
+    },
+    {
+      title: "LEADER DESIGNER",
+      organization: "ORGANIZATION",
+      date: "11/2023 — 12/2023",
+      description: "In two months, nearly 80 publications and designs were produced.",
+    },
+    {
+      title: "LEADER DESIGNER",
+      organization: "ORGANIZATION",
+      date: "11/2023 — 11/2023",
+      description: "In one month, 12 publications and design images were published.",
+    },
+     {
+      title: "LEADER DESIGNER",
+      organization: "ORGANIZATION",
+      date: "03/2024 — 03/2024",
+      description: "In one month, nearly 30 publications and design images were published.",
+    },
+    {
+      title: "GRAPHIC DESIGNER",
+      organization: "MEDIA 2WIN",
+      date: "03/2024 — 05/2024",
+      description: "In charge of product images on e-commerce platforms; unified brand assets across shops. Worked for 10 shops with over 20 products per shop; 5 banners were published.",
+    },
 ];
