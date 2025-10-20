@@ -1,6 +1,7 @@
 import { PlaceHolderImages } from "./placeholder-images";
 
 export type Skill = {
+  id?: string;
   name: string;
   level: number;
   description: string;
@@ -37,7 +38,7 @@ export const projects: Project[] = [
     name: "FPT UNIVERSITY ART SHOW 2024",
     category: "Art Direction",
     shortDescription: "Dự án thiết kế cho sự kiện Art Show 2024 của Đại học FPT.",
-    description: "Dự án thiết kế cho sự kiện Art Show 2024 của Đại học FPT, bao gồm chỉ đạo nghệ thuật, xây dựng thương hiệu và minh họa.",
+    description: "Dự án thiết kế cho sự kiện Art Show 2024 của Đại học FPT, bao gồm chỉ đạo nghệ thuật, xây dựng thương hiệu và minh họa. Sử dụng các yếu tố đồ họa và typography nổi bật để tạo ra một poster chính thức cho sự kiện.",
     designPrinciples: "Sử dụng các yếu tố đồ họa và typography nổi bật để tạo ra một poster chính thức cho sự kiện.",
     image: {
       src: PlaceHolderImages.find(p => p.id === 'project-fpt-art-show')?.imageUrl || '',
@@ -53,7 +54,7 @@ export const projects: Project[] = [
     name: "CHOP CON LAM MEDIA PROJECT",
     category: "Branding",
     shortDescription: "Dự án thiết kế thương hiệu cho 'Chớp con làm Media'.",
-    description: "Dự án thiết kế thương hiệu cho 'Chớp con làm Media', tập trung vào chỉ đạo nghệ thuật và thiết kế đồ họa.",
+    description: "Dự án thiết kế thương hiệu cho 'Chớp con làm Media', tập trung vào chỉ đạo nghệ thuật và thiết kế đồ họa. Logo và các ấn phẩm thương hiệu sử dụng tông màu đỏ và đen đặc trưng để tạo sự nổi bật.",
     designPrinciples: "Logo và các ấn phẩm thương hiệu sử dụng tông màu đỏ và đen đặc trưng để tạo sự nổi bật.",
     image: {
       src: PlaceHolderImages.find(p => p.id === 'project-chop-con-lam')?.imageUrl || '',
@@ -69,7 +70,7 @@ export const projects: Project[] = [
     name: "FPT FLASH LOGO REDESIGN - CONCEPT",
     category: "Branding",
     shortDescription: "Ý tưởng thiết kế lại logo cho đội tuyển FPT Flash.",
-    description: "Một concept thiết kế lại logo cho đội tuyển FPT Flash, kết hợp giữa xây dựng thương hiệu, thiết kế đồ họa và minh họa.",
+    description: "Một concept thiết kế lại logo cho đội tuyển FPT Flash, kết hợp giữa xây dựng thương hiệu, thiết kế đồ họa và minh họa. Logo được thiết kế lại tập trung vào biểu tượng tia chớp hoặc linh vật để thể hiện tinh thần của đội.",
     designPrinciples: "Logo được thiết kế lại tập trung vào biểu tượng tia chớp hoặc linh vật để thể hiện tinh thần của đội.",
     image: {
       src: PlaceHolderImages.find(p => p.id === 'project-fpt-flash-logo')?.imageUrl || '',
@@ -85,7 +86,7 @@ export const projects: Project[] = [
     name: "LOGO FOLIO",
     category: "Branding",
     shortDescription: "Một bộ sưu tập các thiết kế logo (logo portfolio).",
-    description: "Một bộ sưu tập các thiết kế logo đa dạng, thể hiện khả năng xây dựng thương hiệu và thiết kế đồ họa.",
+    description: "Một bộ sưu tập các thiết kế logo đa dạng, thể hiện khả năng xây dựng thương hiệu và thiết kế đồ họa. Một lưới hiển thị nhiều mẫu logo khác nhau, thể hiện sự đa dạng trong phong cách thiết kế.",
     designPrinciples: "Một lưới hiển thị nhiều mẫu logo khác nhau, thể hiện sự đa dạng trong phong cách thiết kế.",
     image: {
       src: PlaceHolderImages.find(p => p.id === 'project-logo-folio')?.imageUrl || '',
@@ -101,7 +102,7 @@ export const projects: Project[] = [
     name: "ARTWORK FOR TEAM FLASH",
     category: "Illustration",
     shortDescription: "Các tác phẩm artwork (minh họa, thiết kế) dành cho Team Flash.",
-    description: "Các tác phẩm artwork dành cho Team Flash, bao gồm chỉ đạo nghệ thuật, thiết kế đồ họa và minh họa.",
+    description: "Các tác phẩm artwork dành cho Team Flash, bao gồm chỉ đạo nghệ thuật, thiết kế đồ họa và minh họa. Các tác phẩm minh họa và thiết kế đồ họa ấn tượng liên quan đến tuyển thủ hoặc thương hiệu Team Flash.",
     designPrinciples: "Các tác phẩm minh họa và thiết kế đồ họa ấn tượng liên quan đến tuyển thủ hoặc thương hiệu Team Flash.",
     image: {
       src: PlaceHolderImages.find(p => p.id === 'project-team-flash-artwork')?.imageUrl || '',
@@ -117,7 +118,7 @@ export const projects: Project[] = [
     name: "POSTER COLLECTION",
     category: "Graphic Design",
     shortDescription: "Bộ sưu tập các thiết kế poster.",
-    description: "Một bộ sưu tập các thiết kế poster, thể hiện kỹ năng về xây dựng thương hiệu và thiết kế đồ họa.",
+    description: "Một bộ sưu tập các thiết kế poster, thể hiện kỹ năng về xây dựng thương hiệu và thiết kế đồ họa. Một thiết kế poster nổi bật từ bộ sưu tập, thể hiện kỹ năng về bố cục và typography.",
     designPrinciples: "Một thiết kế poster nổi bật từ bộ sưu tập, thể hiện kỹ năng về bố cục và typography.",
     image: {
       src: PlaceHolderImages.find(p => p.id === 'project-poster-collection')?.imageUrl || '',
@@ -133,7 +134,7 @@ export const projects: Project[] = [
     name: "PROJECT. QUAN AN CUA ME",
     category: "Branding",
     shortDescription: "Dự án thiết kế cho 'Quán Ăn Của Mẹ'.",
-    description: "Dự án thiết kế cho 'Quán Ăn Của Mẹ', tập trung vào xây dựng thương hiệu, thiết kế đồ họa và minh họa.",
+    description: "Dự án thiết kế cho 'Quán Ăn Của Mẹ', tập trung vào xây dựng thương hiệu, thiết kế đồ họa và minh họa. Logo và bộ nhận diện thương hiệu mang phong cách gần gũi, truyền thống, phù hợp với một quán ăn gia đình.",
     designPrinciples: "Logo và bộ nhận diện thương hiệu mang phong cách gần gũi, truyền thống, phù hợp với một quán ăn gia đình.",
     image: {
       src: PlaceHolderImages.find(p => p.id === 'project-quan-an')?.imageUrl || '',
@@ -149,7 +150,7 @@ export const projects: Project[] = [
     name: "Landing Page FPT University",
     category: "UI/UX",
     shortDescription: "Thiết kế Landing Page (trang đích) cho Đại học FPT.",
-    description: "Thiết kế Landing Page cho Đại học FPT, tập trung vào UI/UX, thiết kế web và đồ họa.",
+    description: "Thiết kế Landing Page cho Đại học FPT, tập trung vào UI/UX, thiết kế web và đồ họa. Giao diện trang web có bố cục và thiết kế UI/UX hiện đại, thu hút người dùng.",
     designPrinciples: "Giao diện trang web có bố cục và thiết kế UI/UX hiện đại, thu hút người dùng.",
     image: {
       src: PlaceHolderImages.find(p => p.id === 'project-fpt-landing-page')?.imageUrl || '',
@@ -165,7 +166,7 @@ export const projects: Project[] = [
     name: "UI/UX FOR WEB GAME",
     category: "UI/UX",
     shortDescription: "Thiết kế giao diện người dùng và trải nghiệm người dùng (UI/UX) cho một Web Game.",
-    description: "Thiết kế UI/UX cho một Web Game, kết hợp giữa thiết kế game, đồ họa và UI/UX.",
+    description: "Thiết kế UI/UX cho một Web Game, kết hợp giữa thiết kế game, đồ họa và UI/UX. Các màn hình và thành phần giao diện được thiết kế để mang lại trải nghiệm người dùng tốt nhất cho người chơi.",
     designPrinciples: "Các màn hình và thành phần giao diện được thiết kế để mang lại trải nghiệm người dùng tốt nhất cho người chơi.",
     image: {
       src: PlaceHolderImages.find(p => p.id === 'project-web-game-ui')?.imageUrl || '',
@@ -181,7 +182,7 @@ export const projects: Project[] = [
     name: "ILLUSTRATION",
     category: "Illustration",
     shortDescription: "Một dự án hoặc bộ sưu tập về minh họa.",
-    description: "Một bộ sưu tập các tác phẩm minh họa, thể hiện kỹ năng chỉ đạo nghệ thuật và thiết kế đồ họa.",
+    description: "Một bộ sưu tập các tác phẩm minh họa, thể hiện kỹ năng chỉ đạo nghệ thuật và thiết kế đồ họa. Một tác phẩm minh họa kỹ thuật số chi tiết, thể hiện phong cách vẽ cá nhân.",
     designPrinciples: "Một tác phẩm minh họa kỹ thuật số chi tiết, thể hiện phong cách vẽ cá nhân.",
     image: {
       src: PlaceHolderImages.find(p => p.id === 'project-illustration-collection')?.imageUrl || '',
@@ -196,47 +197,55 @@ export const projects: Project[] = [
 export const projectCategories = ["All", ...Array.from(new Set(projects.map(p => p.category)))];
 
 export type Resource = {
+  id?: string;
   title: string;
   description: string;
   url: string;
-};
-
-export type ResourceCategory = {
   category: string;
-  resources: Resource[];
 };
 
-export const resources: ResourceCategory[] = [
-  {
-    category: "Nguồn website tham khảo",
-    resources: [
-      { title: "Behance", description: "Showcase and discover the latest work from top creatives.", url: "https://www.behance.net/" },
-      { title: "Dribbble", description: "A community for creatives to share their work.", url: "https://dribbble.com/" },
-      { title: "Awwwards", description: "The best of web design and development.", url: "https://www.awwwards.com/" },
-    ],
-  },
-  {
-    category: "Link Drive sưu tầm",
-    resources: [
-      { title: "My Collected Resources", description: "A personal collection of design assets and inspiration.", url: "#" },
-    ],
-  },
-  {
-    category: "Link driver design community",
-    resources: [
-      { title: "Community Design Drive", description: "Shared resources from the design community.", url: "#" },
-    ],
-  },
-  {
-    category: "Link drive cho editor",
-    resources: [
-      { title: "Editor's Asset Drive", description: "A collection of assets for video and photo editors.", url: "#" },
-    ],
-  },
+export const resources: Resource[] = [
+    {
+      category: "Nguồn website tham khảo",
+      title: "Behance",
+      description: "Showcase and discover the latest work from top creatives.",
+      url: "https://www.behance.net/",
+    },
+    {
+      category: "Nguồn website tham khảo",
+      title: "Dribbble",
+      description: "A community for creatives to share their work.",
+      url: "https://dribbble.com/",
+    },
+    {
+      category: "Nguồn website tham khảo",
+      title: "Awwwards",
+      description: "The best of web design and development.",
+      url: "https://www.awwwards.com/",
+    },
+    {
+      category: "Link Drive sưu tầm",
+      title: "My Collected Resources",
+      description: "A personal collection of design assets and inspiration.",
+      url: "#",
+    },
+    {
+      category: "Link driver design community",
+      title: "Community Design Drive",
+      description: "Shared resources from the design community.",
+      url: "#",
+    },
+    {
+      category: "Link drive cho editor",
+      title: "Editor's Asset Drive",
+      description: "A collection of assets for video and photo editors.",
+      url: "#",
+    },
 ];
 
 
 export type Experience = {
+  id?: string;
   title: string;
   organization: string;
   date: string;
