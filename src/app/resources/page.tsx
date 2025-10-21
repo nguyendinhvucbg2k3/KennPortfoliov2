@@ -13,17 +13,12 @@ import { useMemo, useState, useEffect } from 'react';
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
 import { resources as placeholderResources } from '@/lib/placeholder-data';
-// import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
-// import { collection } from 'firebase/firestore';
-
+import { motion } from 'framer-motion';
 
 export default function ResourcesPage() {
   const { language } = useLanguage();
   const pageContent = content[language].resources;
-  // const firestore = useFirestore();
-
-  // const resourcesQuery = useMemoFirebase(() => firestore ? collection(firestore, 'resources') : null, [firestore]);
-  // const { data: resourcesData, isLoading } = useCollection<Resource>(resourcesQuery);
+  
   const [resources, setResources] = useState<Resource[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -49,9 +44,26 @@ export default function ResourcesPage() {
 
   const defaultAccordionValue = useMemo(() => {
     const keys = Object.keys(resourcesByCategory);
-    return keys.length > 0 ? keys[0] : undefined;
+    return keys.length > 0 ? [keys[0]] : [];
   }, [resourcesByCategory]);
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { x: -20, opacity: 0 },
+    visible: {
+      x: 0,
+      opacity: 1
+    }
+  };
 
   if (isLoading) {
     return (
@@ -65,9 +77,9 @@ export default function ResourcesPage() {
                 </p>
             </div>
              <div className="max-w-3xl mx-auto mt-12 space-y-4">
-                <div className="h-12 bg-muted/50 rounded-md animate-pulse"></div>
-                <div className="h-12 bg-muted/50 rounded-md animate-pulse"></div>
-                <div className="h-12 bg-muted/50 rounded-md animate-pulse"></div>
+                <div className="h-16 bg-card/50 rounded-lg animate-pulse"></div>
+                <div className="h-16 bg-card/50 rounded-lg animate-pulse"></div>
+                <div className="h-16 bg-card/50 rounded-lg animate-pulse"></div>
             </div>
         </div>
     )
@@ -85,37 +97,45 @@ export default function ResourcesPage() {
       </div>
 
       <div className="max-w-3xl mx-auto mt-12">
-        {defaultAccordionValue && (
-            <Accordion type="single" collapsible className="w-full" defaultValue={defaultAccordionValue}>
-            {Object.entries(resourcesByCategory).map(([category, resourcesInCategory]) => (
-                <AccordionItem key={category} value={category}>
-                <AccordionTrigger className="text-xl font-headline hover:text-primary">
-                    {category}
-                </AccordionTrigger>
-                <AccordionContent>
-                    <div className="space-y-4 pt-2">
-                    {resourcesInCategory.map((resource) => (
-                        <Link
-                        key={resource.id}
-                        href={resource.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="block p-4 rounded-lg bg-card/50 hover:bg-card transition-colors group"
-                        >
-                        <div className="flex justify-between items-center">
-                            <div>
-                            <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">{resource.title}</h3>
-                            <p className="text-sm text-muted-foreground">{resource.description}</p>
-                            </div>
-                            <ExternalLink className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
-                        </div>
-                        </Link>
-                    ))}
-                    </div>
-                </AccordionContent>
-                </AccordionItem>
-            ))}
-            </Accordion>
+        {defaultAccordionValue.length > 0 && (
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              <Accordion type="multiple" className="w-full space-y-4" defaultValue={defaultAccordionValue}>
+              {Object.entries(resourcesByCategory).map(([category, resourcesInCategory]) => (
+                  <motion.div key={category} variants={itemVariants}>
+                    <AccordionItem value={category} className="bg-card/50 border border-border/50 backdrop-blur-sm rounded-lg px-4">
+                      <AccordionTrigger className="text-xl font-headline hover:text-primary hover:no-underline">
+                          {category}
+                      </AccordionTrigger>
+                      <AccordionContent>
+                          <div className="space-y-4 pt-2">
+                          {resourcesInCategory.map((resource) => (
+                              <Link
+                              key={resource.id}
+                              href={resource.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block p-4 rounded-md bg-background/50 hover:bg-background transition-colors group"
+                              >
+                              <div className="flex justify-between items-center">
+                                  <div>
+                                  <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">{resource.title}</h3>
+                                  <p className="text-sm text-muted-foreground">{resource.description}</p>
+                                  </div>
+                                  <ExternalLink className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                              </div>
+                              </Link>
+                          ))}
+                          </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  </motion.div>
+              ))}
+              </Accordion>
+            </motion.div>
         )}
       </div>
     </div>

@@ -11,6 +11,7 @@ import type { Project } from '@/lib/types';
 import { projects as placeholderProjects } from '@/lib/placeholder-data';
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
+import { motion } from 'framer-motion';
 
 export default function ProjectsPage() {
   const { language } = useLanguage();
@@ -27,6 +28,24 @@ export default function ProjectsPage() {
 
   const behanceProfileUrl = "https://www.behance.net/TNDVKenn";
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1
+    }
+  };
+
   return (
     <div className="container mx-auto px-4 py-16 md:py-24">
       <div className="text-center">
@@ -36,17 +55,22 @@ export default function ProjectsPage() {
         <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
           {pageContent.description}
         </p>
-         <Button asChild size="lg" className="mt-8 group transition-all duration-300 ease-in-out hover:box-glow-accent">
+         <Button asChild size="lg" className="mt-8 group transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-accent/30">
             <Link href={behanceProfileUrl} target="_blank" rel="noopener noreferrer">
                 Xem toàn bộ trên Behance <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Link>
         </Button>
       </div>
 
-      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <motion.div 
+        className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
         {isLoading ? (
           Array.from({ length: 6 }).map((_, i) => (
-            <Card key={i} className="overflow-hidden bg-card/50">
+            <Card key={i} className="overflow-hidden">
               <div className="aspect-video bg-muted/50 animate-pulse" />
               <CardHeader>
                 <div className="h-6 w-3/4 bg-muted/50 rounded animate-pulse" />
@@ -62,36 +86,36 @@ export default function ProjectsPage() {
           ))
         ) : (
           projects.map(project => (
-            <Card key={project.id} className="overflow-hidden bg-card/50 flex flex-col">
-              <div className="relative aspect-video">
-                <Image
-                  src={project.image.src}
-                  alt={project.image.alt}
-                  fill
-                  className="object-cover"
-                  data-ai-hint={project.image.aiHint}
-                />
-              </div>
-              <div className="flex flex-col flex-grow">
-                <CardHeader>
-                  <CardTitle className="font-headline text-xl">{project.name}</CardTitle>
-                  <Badge variant="secondary" className="w-fit">{project.category}</Badge>
-                </CardHeader>
-                <CardContent className="flex-grow">
-                  <p className="text-muted-foreground line-clamp-2">{project.shortDescription}</p>
-                </CardContent>
-                <CardFooter>
-                  <Button asChild variant="link" className="p-0">
-                    <Link href={`/projects/${project.slug}`}>
-                      {pageContent.viewProject} <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </Button>
-                </CardFooter>
-              </div>
-            </Card>
+            <motion.div key={project.id} variants={itemVariants}>
+              <Card className="overflow-hidden flex flex-col h-full group">
+                <div className="relative aspect-video overflow-hidden">
+                  <Image
+                    src={project.image.src}
+                    alt={project.image.alt}
+                    fill
+                    className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+                    data-ai-hint={project.image.aiHint}
+                  />
+                </div>
+                <div className="flex flex-col flex-grow p-6">
+                  <div className="flex-grow">
+                    <Badge variant="secondary" className="mb-2">{project.category}</Badge>
+                    <CardTitle className="font-headline text-xl mb-2">{project.name}</CardTitle>
+                    <p className="text-muted-foreground line-clamp-2">{project.shortDescription}</p>
+                  </div>
+                  <div className="mt-4">
+                    <Button asChild variant="link" className="p-0 text-base">
+                      <Link href={`/projects/${project.slug}`}>
+                        {pageContent.viewProject} <ArrowRight className="ml-2 h-4 w-4" />
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
+              </Card>
+            </motion.div>
           ))
         )}
-      </div>
+      </motion.div>
     </div>
   );
 }

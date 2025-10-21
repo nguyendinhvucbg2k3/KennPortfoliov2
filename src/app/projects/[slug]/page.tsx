@@ -6,14 +6,12 @@ import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ArrowLeft } from 'lucide-react';
 import type { Project } from '@/lib/types';
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
 import { projects as placeholderProjects } from '@/lib/placeholder-data';
-// import { useDoc, useFirestore, useMemoFirebase } from '@/firebase';
-// import { doc } from 'firebase/firestore';
-
+import { motion } from 'framer-motion';
 
 export default function ProjectPage() {
   const params = useParams();
@@ -21,13 +19,10 @@ export default function ProjectPage() {
   
   const { language } = useLanguage();
   const pageContent = content[language].projectDetail;
-  // const firestore = useFirestore();
 
   const [project, setProject] = React.useState<Project | undefined>();
   const [isLoading, setIsLoading] = React.useState(true);
 
-  // const projectRef = useMemoFirebase(() => firestore && slug ? doc(firestore, 'projects', slug) : null, [firestore, slug]);
-  // const { data: project, isLoading, error } = useDoc<Project>(projectRef);
   React.useEffect(() => {
     setIsLoading(true);
     const foundProject = placeholderProjects.find(p => p.slug === slug || p.id === slug);
@@ -49,9 +44,31 @@ export default function ProjectPage() {
     return null;
   }
 
+  const proseStyles = `
+    prose-p:text-foreground/80
+    prose-headings:text-foreground 
+    prose-strong:text-foreground
+    prose-a:text-primary hover:prose-a:text-primary/90
+    prose-blockquote:border-l-primary
+  `;
+
   return (
     <div className="container mx-auto px-4 py-16 md:py-24">
       <div className="max-w-4xl mx-auto">
+        <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mb-8"
+        >
+            <Button asChild variant="ghost" className="pl-0">
+              <Link href="/projects">
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Back to Projects
+              </Link>
+            </Button>
+        </motion.div>
+
         <div className="text-center mb-12">
           <Badge variant="secondary" className="mb-4">{project.category}</Badge>
           <h1 className="font-headline text-4xl md:text-6xl font-bold text-glow">
@@ -60,7 +77,12 @@ export default function ProjectPage() {
           <p className="text-muted-foreground mt-2 text-lg">{project.year}</p>
         </div>
 
-        <div className="relative aspect-video rounded-lg overflow-hidden mb-12">
+        <motion.div 
+          className="relative aspect-video rounded-lg overflow-hidden mb-12 shadow-2xl shadow-black/30"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
           <Image
             src={project.image.src}
             alt={project.image.alt}
@@ -68,17 +90,22 @@ export default function ProjectPage() {
             className="object-cover"
             data-ai-hint={project.image.aiHint}
           />
-        </div>
+        </motion.div>
 
-        <div className="prose prose-invert prose-lg max-w-none mx-auto">
+        <motion.div 
+          className={`prose prose-invert prose-lg max-w-none mx-auto ${proseStyles}`}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
             <h2 className="font-headline text-3xl text-primary text-glow">{pageContent.aboutTitle}</h2>
             <p>{project.description}</p>
-            <h2 className="font-headline text-3xl text-primary text-glow">{pageContent.principlesTitle}</h2>
+            <h2 className="font-headline text-3xl text-primary text-glow mt-12">{pageContent.principlesTitle}</h2>
             <p>{project.designPrinciples}</p>
-        </div>
+        </motion.div>
         
-        <div className="mt-12 text-center">
-            <Button asChild size="lg" className="group transition-all duration-300 ease-in-out hover:box-glow-accent">
+        <div className="mt-16 text-center">
+            <Button asChild size="lg" className="group transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-accent/30">
                 <Link href={project.behanceUrl} target="_blank" rel="noopener noreferrer">
                     {pageContent.behanceButton} <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Link>

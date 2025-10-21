@@ -10,7 +10,6 @@ import { Menu } from "lucide-react";
 import { LanguageSwitcher } from "../language-switcher";
 import { useLanguage } from "@/context/language-context";
 import { content } from "@/lib/content";
-import { useState, useEffect } from "react";
 
 export function Header() {
   const pathname = usePathname();
@@ -26,19 +25,19 @@ export function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-lg supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 max-w-screen-2xl items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <NeonBloomLogo />
         </Link>
-        <nav className="hidden md:flex items-center space-x-4 text-sm font-medium">
+        <nav className="hidden md:flex items-center space-x-1 text-sm font-medium">
           {navLinks.map(({ href, label }) => (
             <Link
               key={href}
               href={href}
               className={cn(
-                "transition-colors hover:text-primary",
-                pathname === href ? "text-primary" : "text-foreground/60"
+                "px-3 py-2 rounded-md transition-colors hover:text-primary hover:bg-muted",
+                pathname === href ? "text-primary bg-muted font-semibold" : "text-foreground/60"
               )}
             >
               {label}
@@ -55,7 +54,7 @@ export function Header() {
                   <span className="sr-only">Toggle navigation menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right">
+              <SheetContent side="right" className="bg-card/95 backdrop-blur-lg">
                 <nav className="flex flex-col gap-6 text-lg font-medium mt-8">
                   <Link href="/" className="mb-4">
                     <NeonBloomLogo />

@@ -7,6 +7,7 @@ import { Footer } from '@/components/layout/Footer';
 import { Toaster } from '@/components/ui/toaster';
 import { LanguageProvider } from '@/context/language-context';
 import { QuickContact } from '@/components/layout/QuickContact';
+import { MotionWrapper } from '@/components/layout/MotionWrapper';
 
 const fontInter = Inter({
   subsets: ['latin'],
@@ -40,7 +41,9 @@ export default function RootLayout({
         <LanguageProvider>
           <div className="relative flex min-h-dvh flex-col bg-background">
             <Header />
-            <main className="flex-1">{children}</main>
+            <main className="flex-1">
+              <MotionWrapper>{children}</MotionWrapper>
+            </main>
             <Footer />
             <QuickContact />
           </div>

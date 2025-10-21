@@ -12,6 +12,7 @@ import { useLanguage } from "@/context/language-context";
 import { content } from "@/lib/content";
 import { skills as placeholderSkills } from "@/lib/placeholder-data";
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 const PhotoshopIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}><path d="M12.37.21L.36 7.43v9.14l12.01 7.22 11.96-7.22V7.43L12.37.21zM2.86 15.6V8.51l9.51-5.71 9.51 5.71v7.09l-9.51 5.71-9.51-5.71zm4.72-5.48c.5-.66 1.04-1.2 1.63-1.63.58-.44 1.2-.7 1.83-.81.63-.12 1.25-.03 1.86.25.61.28 1.15.73 1.58 1.32.44.59.67 1.29.67 2.01 0 .61-.13 1.2-.4 1.74-.27.54-.62.99-1.04 1.34s-.91.59-1.46.72c-.55.13-1.12.14-1.68.04-.56-.1-1.09-.32-1.57-.65-.48-.33-.89-.76-1.22-1.28l1.7-1.02c.21.33.47.62.78.85.31.23.66.4.04.49.38.09.77.09 1.15.02.38-.07.74-.22 1.07-.44.33-.22.6-.52.79-.87.19-.35.29-.75.29-1.16 0-.52-.13-.98-.4-1.39s-.6-.74-1-.97c-.4-.23-.85-.34-1.33-.31-.48.03-.94.19-1.35.45-.41.26-.75.63-1.01 1.08l-1.7-1.02zM8.33 9.01h2.23v6.05H8.33V9.01z" fill="currentColor"/></svg>
@@ -37,7 +38,6 @@ const softwareIcons = [
     { name: "Capcut", Icon: CapcutIcon },
 ];
 
-
 export default function AboutPage() {
   const { language } = useLanguage();
   const pageContent = content[language].about;
@@ -51,63 +51,93 @@ export default function AboutPage() {
     setSkillsLoading(false);
   }, []);
 
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.1 } },
+  };
+
   return (
-    <div className="container mx-auto px-4 py-16 md:py-24">
+    <div className="container mx-auto px-4 py-16 md:py-24 space-y-24 md:space-y-32">
       <section className="grid md:grid-cols-3 gap-12 items-center">
-        <div className="md:col-span-1">
+        <motion.div 
+          className="md:col-span-1"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
           {aboutImage && (
-            <div className="relative aspect-square rounded-lg overflow-hidden transition-all duration-300 ease-in-out hover:box-glow-primary">
+            <div className="relative aspect-square rounded-lg overflow-hidden group">
               <Image
                 src={aboutImage.imageUrl}
                 alt={aboutImage.description}
                 fill
-                className="object-cover"
+                className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
                 data-ai-hint={aboutImage.imageHint}
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
             </div>
           )}
-        </div>
-        <div className="md:col-span-2">
-          <h1 className="font-headline text-4xl md:text-6xl font-bold text-glow">
+        </motion.div>
+        <motion.div 
+          className="md:col-span-2"
+          initial="hidden"
+          animate="visible"
+          variants={cardVariants}
+        >
+          <motion.h1 variants={cardVariants} className="font-headline text-4xl md:text-6xl font-bold text-glow">
             {pageContent.philosophyTitle}
-          </h1>
-          <p className="mt-6 text-lg text-foreground/80 leading-relaxed">
+          </motion.h1>
+          <motion.p variants={cardVariants} className="mt-6 text-lg text-foreground/80 leading-relaxed">
             {pageContent.philosophyP1}
-          </p>
-          <p className="mt-4 text-lg text-foreground/80 leading-relaxed">
+          </motion.p>
+          <motion.p variants={cardVariants} className="mt-4 text-lg text-foreground/80 leading-relaxed">
             {pageContent.philosophyP2}
-          </p>
-          <Button size="lg" className="mt-8">
-            <Download className="mr-2 h-5 w-5" />
-            {pageContent.downloadResume}
-          </Button>
-        </div>
+          </motion.p>
+          <motion.div variants={cardVariants}>
+            <Button size="lg" className="mt-8">
+              <Download className="mr-2 h-5 w-5" />
+              {pageContent.downloadResume}
+            </Button>
+          </motion.div>
+        </motion.div>
       </section>
 
-      <section className="mt-24">
+      <section>
         <h2 className="text-center font-headline text-3xl md:text-4xl font-bold">
           {pageContent.educationTitle} <span className="text-primary text-glow">{pageContent.educationHighlight}</span>
         </h2>
-        <div className="mt-12 max-w-2xl mx-auto space-y-8">
-            <div className="p-6 bg-card/50 backdrop-blur-sm border-border/50 rounded-lg">
+        <motion.div 
+          className="mt-12 max-w-2xl mx-auto space-y-8"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={cardVariants}
+        >
+            <motion.div variants={cardVariants} className="p-6 bg-card/50 backdrop-blur-sm border border-border/50 rounded-lg">
                 <h3 className="text-xl font-headline">Phenikaa University — INFORMATION TECHNOLOGY</h3>
                 <p className="text-muted-foreground">2021 — now</p>
-            </div>
-             <div className="p-6 bg-card/50 backdrop-blur-sm border-border/50 rounded-lg">
+            </motion.div>
+             <motion.div variants={cardVariants} className="p-6 bg-card/50 backdrop-blur-sm border border-border/50 rounded-lg">
                 <h3 className="text-xl font-headline">Chuyên Bắc Giang High School</h3>
                 <p className="text-muted-foreground">2018 — 2021</p>
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
       </section>
 
-      <section className="mt-24">
+      <section>
         <h2 className="text-center font-headline text-3xl md:text-4xl font-bold">
           {pageContent.skillsTitle} <span className="text-primary text-glow">{pageContent.skillsHighlight}</span>
         </h2>
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+        <motion.div 
+          className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={cardVariants}
+        >
           {skillsLoading ? (
             Array.from({ length: 4 }).map((_, i) => (
-              <Card key={i} className="bg-card/50 backdrop-blur-sm border-border/50">
+              <Card key={i}>
                 <CardHeader>
                   <div className="h-6 w-3/4 bg-muted/50 rounded animate-pulse" />
                 </CardHeader>
@@ -118,7 +148,7 @@ export default function AboutPage() {
               </Card>
             ))
           ) : (skills || []).map((skill, index) => (
-            <Card key={index} className="bg-card/50 backdrop-blur-sm border-border/50">
+            <Card key={index}>
               <CardHeader>
                 <CardTitle className="text-xl font-headline">{skill.name}</CardTitle>
               </CardHeader>
@@ -131,26 +161,39 @@ export default function AboutPage() {
               </CardContent>
             </Card>
           ))}
-        </div>
+        </motion.div>
       </section>
       
-      <section className="mt-16">
-          <div className="flex justify-center items-center gap-6 md:gap-8 flex-wrap">
+      <section>
+          <motion.div 
+            className="flex justify-center items-center gap-6 md:gap-8 flex-wrap"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={cardVariants}
+          >
               {softwareIcons.map(({name, Icon}) => (
-                  <div key={name} className="flex flex-col items-center gap-2 group">
-                      <div className="relative w-16 h-16 md:w-20 md:h-20 transition-transform duration-300 group-hover:scale-110 text-foreground/80 group-hover:text-primary">
+                  <motion.div 
+                    key={name} 
+                    variants={cardVariants} 
+                    className="flex flex-col items-center gap-2 group"
+                  >
+                      <motion.div 
+                        className="relative w-16 h-16 md:w-20 md:h-20 text-foreground/80 group-hover:text-primary transition-colors duration-300"
+                        whileHover={{ scale: 1.1, y: -5 }}
+                      >
                           <Icon className="w-full h-full" />
-                      </div>
+                      </motion.div>
                       <p className="text-sm text-muted-foreground transition-colors duration-300 group-hover:text-primary">{name}</p>
-                  </div>
+                  </motion.div>
               ))}
-          </div>
+          </motion.div>
       </section>
 
 
-      <section id="contact" className="mt-24 text-center bg-card p-8 md:p-16 rounded-lg">
+      <section id="contact" className="text-center bg-card/50 border border-border/50 backdrop-blur-sm p-8 md:p-16 rounded-lg">
         <h2 className="font-headline text-3xl md:text-4xl font-bold">
-          {pageContent.contactTitle} <span className="text-accent text-glow-accent">{pageContent.contactHighlight}</span> Together
+          {pageContent.contactTitle} <span className="text-primary text-glow">{pageContent.contactHighlight}</span> Together
         </h2>
         <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
           {pageContent.contactDescription}
