@@ -73,7 +73,7 @@ export default function ResourcesPage() {
                     {pageContent.title}
                 </h1>
                 <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-                    {pageContent.loading}
+                    {content[language].loading}
                 </p>
             </div>
              <div className="max-w-3xl mx-auto mt-12 space-y-4">

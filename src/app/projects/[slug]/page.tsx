@@ -37,7 +37,7 @@ export default function ProjectPage() {
   }, [isLoading, project]);
 
   if (isLoading) {
-    return <div className="flex items-center justify-center h-screen">Loading project...</div>;
+    return <div className="flex items-center justify-center h-screen">{content[language].loading}</div>;
   }
   
   if (!project) {
@@ -64,7 +64,7 @@ export default function ProjectPage() {
             <Button asChild variant="ghost" className="pl-0">
               <Link href="/projects">
                 <ArrowLeft className="mr-2 h-4 w-4" />
-                Back to Projects
+                {pageContent.backToProjects}
               </Link>
             </Button>
         </motion.div>

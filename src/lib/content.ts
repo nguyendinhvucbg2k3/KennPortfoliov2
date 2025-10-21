@@ -1,11 +1,13 @@
 export const content = {
   vi: {
+    loading: "Đang tải...",
     nav: {
       home: "Trang chủ",
       about: "Giới thiệu",
       projects: "Dự án",
       resources: "Tài nguyên",
       contact: "Liên hệ",
+      toggleMenu: "Chuyển đổi menu",
     },
     home: {
       title: "Freelancer Esports Media || Esports Event Operations Associate",
@@ -49,8 +51,10 @@ export const content = {
         title: "Tác phẩm của tôi",
         description: "Một tập hợp các dự án thể hiện niềm đam mê của tôi đối với việc xây dựng thương hiệu, minh họa và chỉ đạo nghệ thuật.",
         viewProject: "Xem dự án",
+        viewOnBehance: "Xem toàn bộ trên Behance",
     },
     projectDetail: {
+        backToProjects: "Quay lại dự án",
         aboutTitle: "Về dự án",
         principlesTitle: "Nguyên tắc thiết kế",
         behanceButton: "Xem trên Behance",
@@ -68,7 +72,6 @@ export const content = {
     resources: {
         title: "Trung tâm tài nguyên",
         description: "Một bộ sưu tập các công cụ, trang web và tài nguyên yêu thích của tôi cho thiết kế và sáng tạo.",
-        loading: "Đang tải tài nguyên...",
     },
     contact: {
         title: "Liên hệ với tôi",
@@ -93,12 +96,14 @@ export const content = {
     },
   },
   en: {
+    loading: "Loading...",
     nav: {
       home: "Home",
       about: "About",
       projects: "Projects",
       resources: "Resources",
       contact: "Contact",
+      toggleMenu: "Toggle menu",
     },
     home: {
       title: "Freelancer Esports Media || Esports Event Operations Associate",
@@ -142,8 +147,10 @@ export const content = {
         title: "My Work",
         description: "A selection of projects that showcase my passion for branding, illustration, and art direction.",
         viewProject: "View Project",
+        viewOnBehance: "View all on Behance",
     },
     projectDetail: {
+        backToProjects: "Back to Projects",
         aboutTitle: "About the Project",
         principlesTitle: "Design Principles",
         behanceButton: "View on Behance",
@@ -161,7 +168,6 @@ export const content = {
     resources: {
         title: "Resource Hub",
         description: "A curated collection of my favorite tools, websites, and resources for design and creativity.",
-        loading: "Loading resources...",
     },
     contact: {
         title: "Contact Me",
@@ -186,5 +192,3 @@ export const content = {
     },
   },
 };
-
-    

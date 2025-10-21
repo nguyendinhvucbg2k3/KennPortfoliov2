@@ -57,7 +57,7 @@ export default function ProjectsPage() {
         </p>
          <Button asChild size="lg" className="mt-8 group transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-accent/30">
             <Link href={behanceProfileUrl} target="_blank" rel="noopener noreferrer">
-                Xem toàn bộ trên Behance <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                {pageContent.viewOnBehance} <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Link>
         </Button>
       </div>

@@ -53,7 +53,7 @@ export function Header() {
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon">
                   <Menu className="h-6 w-6" />
-                  <span className="sr-only">Toggle navigation menu</span>
+                  <span className="sr-only">{navContent.toggleMenu}</span>
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="bg-card/95 backdrop-blur-lg">
