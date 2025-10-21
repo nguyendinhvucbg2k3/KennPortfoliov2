@@ -14,6 +14,7 @@ import { FigmaIcon } from "@/components/icons/FigmaIcon";
 import { CanvaIcon } from "@/components/icons/CanvaIcon";
 import { CapcutIcon } from "@/components/icons/CapcutIcon";
 import { SkillsChart } from "@/components/charts/skills-chart";
+import { skills } from "@/lib/placeholder-data";
 
 const softwareIcons = [
     { name: "Photoshop", Icon: PhotoshopIcon },
@@ -105,16 +106,22 @@ export default function AboutPage() {
         <h2 className="text-center font-headline text-3xl md:text-4xl font-bold">
           {pageContent.skillsTitle} <span className="text-primary text-glow">{pageContent.skillsHighlight}</span>
         </h2>
-        <motion.div 
-          className="mt-12"
+        <motion.div
+          className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
           variants={cardVariants}
         >
-          <div className="h-[400px] w-full max-w-4xl mx-auto">
-            <SkillsChart />
-          </div>
+          {skills.map((skill) => (
+            <motion.div key={skill.id} variants={cardVariants} className="flex flex-col items-center gap-4">
+              <SkillsChart value={skill.level} />
+              <div className="text-center">
+                <h3 className="font-headline text-sm uppercase tracking-wider">{skill.name}</h3>
+                <p className="text-xs text-muted-foreground mt-1">{skill.description}</p>
+              </div>
+            </motion.div>
+          ))}
         </motion.div>
       </section>
       

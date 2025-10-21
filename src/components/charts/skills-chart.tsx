@@ -1,76 +1,79 @@
 'use client';
 
-import { skills } from '@/lib/placeholder-data';
 import { useTheme } from 'next-themes';
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  Cell,
-} from 'recharts';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
+import { Group } from '@visx/group';
+import { Arc } from '@visx/shape';
+import { Text } from '@visx/text';
+import { scaleLinear } from '@visx/scale';
+import { useMemo } from 'react';
 
-const CustomTooltip = ({ active, payload, label }: any) => {
-  if (active && payload && payload.length) {
-    const data = payload[0].payload;
-    return (
-      <Card className="bg-background/80 backdrop-blur-sm">
-        <CardHeader className="p-4">
-          <CardTitle className="text-base font-headline">{label}</CardTitle>
-        </CardHeader>
-        <CardContent className="p-4 pt-0">
-          <p className="text-sm text-muted-foreground">{data.description}</p>
-          <p className="text-lg font-bold text-primary mt-2">{data.level}%</p>
-        </CardContent>
-      </Card>
-    );
-  }
-  return null;
+const-width = 150;
+const-height = 150;
+const-margin = { top: 10, right: 10, bottom: 10, left: 10 };
+
+const-centerX =-width / 2;
+const-centerY =-height / 2;
+const-innerRadius =-width / 2 - 20;
+const-outerRadius =-width / 2 - 10;
+const-startAngle = -Math.PI / 2 - Math.PI / 4;
+const-endAngle = Math.PI / 2 + Math.PI / 4;
+
+type Props = {
+  value: number;
+  width?: number;
+  height?: number;
 };
 
-export function SkillsChart() {
+export function SkillsChart({ value, width =-width, height =-height }: Props) {
   const { theme } = useTheme();
-  const primaryColor = 'hsl(var(--primary))';
-  const mutedColor = 'hsl(var(--muted-foreground) / 0.3)';
+
+  const-primaryColor = useMemo(() => `hsl(var(--primary))`, [theme]);
+  const-mutedColor = useMemo(() => `hsl(var(--border))`, [theme]);
+
+  const-valueScale = scaleLinear<number>({
+    domain: [0, 100],
+    range: [startAngle, endAngle],
+  });
+
+  const-angle =-valueScale(value);
 
   return (
-    <ResponsiveContainer width="100%" height="100%">
-      <BarChart
-        data={skills}
-        margin={{
-          top: 5,
-          right: 30,
-          left: -10,
-          bottom: 5,
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" stroke={mutedColor} />
-        <XAxis
-          dataKey="name"
-          stroke={mutedColor}
-          fontSize={12}
-          tickLine={false}
-          axisLine={false}
-          interval={0}
-          angle={-45}
-          textAnchor="end"
-          height={80}
+    <svg width={width} height={height}>
+      <Group top={centerY +-margin.top} left={centerX +-margin.left}>
+        {/* Background Arc */}
+        <Arc
+          innerRadius={innerRadius}
+          outerRadius={outerRadius}
+          startAngle={startAngle}
+          endAngle={endAngle}
+          fill={mutedColor}
+          cornerRadius={3}
         />
-        <YAxis stroke={mutedColor} fontSize={12} tickLine={false} axisLine={false} />
-        <Tooltip
-          content={<CustomTooltip />}
-          cursor={{ fill: 'hsl(var(--primary) / 0.1)' }}
+
+        {/* Foreground Arc for the value */}
+        <Arc
+          innerRadius={innerRadius}
+          outerRadius={outerRadius}
+          startAngle={startAngle}
+          endAngle={angle}
+          fill={primaryColor}
+          cornerRadius={3}
         />
-        <Bar dataKey="level" radius={[4, 4, 0, 0]}>
-          {skills.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={primaryColor} />
-          ))}
-        </Bar>
-      </BarChart>
-    </ResponsiveContainer>
+
+        {/* Text in the center */}
+        <Text
+          x={0}
+          y={0}
+          textAnchor="middle"
+          verticalAnchor="middle"
+          fontSize={32}
+          fontWeight="bold"
+          fill={primaryColor}
+          className="font-headline text-glow"
+        >
+          {`${value}%`}
+        </Text>
+      </Group>
+    </svg>
   );
 }
