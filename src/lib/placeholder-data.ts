@@ -241,7 +241,7 @@ export const experiences: Experience[] = [
         en: "Graphics Designer"
       },
       organization: {
-        vi: "PHENIKAA ESPORTS CLUB",
+        vi: "CLB Thể thao Điện tử Đại học Phenikaa",
         en: "PHENIKAA ESPORTS CLUB"
       },
       date: "10/2021 — nay",
@@ -331,5 +331,6 @@ export const experiences: Experience[] = [
       },
     }
 ];
+
 
 
