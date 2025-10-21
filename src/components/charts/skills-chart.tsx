@@ -5,7 +5,7 @@ import { Group } from '@visx/group';
 import { Arc } from '@visx/shape';
 import { Text } from '@visx/text';
 import { scaleLinear } from '@visx/scale';
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 
 const width = 150;
 const height = 150;
@@ -25,10 +25,15 @@ type Props = {
 };
 
 export function SkillsChart({ value, width: propsWidth = width, height: propsHeight = height }: Props) {
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
+  const [isMounted, setIsMounted] = useState(false);
 
-  const primaryColor = useMemo(() => `hsl(var(--primary))`, [theme]);
-  const mutedColor = useMemo(() => `hsl(var(--border))`, [theme]);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const primaryColor = useMemo(() => `hsl(var(--primary))`, [resolvedTheme]);
+  const mutedColor = useMemo(() => `hsl(var(--border))`, [resolvedTheme]);
 
   const valueScale = scaleLinear<number>({
     domain: [0, 100],
@@ -36,6 +41,16 @@ export function SkillsChart({ value, width: propsWidth = width, height: propsHei
   });
 
   const angle = valueScale(value);
+
+  // Render a placeholder or null on the server and during initial client render
+  if (!isMounted) {
+    return (
+        <svg width={propsWidth} height={propsHeight} viewBox={`0 0 ${width} ${height}`}>
+            <circle cx={centerX + margin.left} cy={centerY + margin.top} r={outerRadius - 5} fill="transparent" />
+        </svg>
+    );
+  }
+
 
   return (
     <svg width={propsWidth} height={propsHeight}>
