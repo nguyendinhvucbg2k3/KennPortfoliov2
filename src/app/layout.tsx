@@ -41,6 +41,10 @@ export default function RootLayout({
           fontSpaceGrotesk.variable
         )}
       >
+        <div className="cyberpunk-vortex" aria-hidden="true">
+          <div className="particles"></div>
+          <div className="vortex-effect"></div>
+        </div>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
