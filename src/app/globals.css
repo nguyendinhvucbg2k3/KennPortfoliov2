@@ -114,40 +114,66 @@
     width: 200%;
     height: 200%;
   }
-  
-  .aurora-animate {
-      animation: aurora 20s infinite linear;
-  }
-  
-  .grid-lines {
-    position: absolute;
-    inset: 0;
-    background-image:
-      repeating-linear-gradient(45deg, hsl(var(--border)/0.25) 0, hsl(var(--border)/0.25) 1px, transparent 80px);
-    animation: animate-lines 40s linear infinite;
-    z-index: -1;
-  }
 
   .animate-flicker {
     animation: flicker 2s infinite;
   }
 
-  @keyframes aurora {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    25% { transform: translate(40px, 60px) rotate(30deg); }
-    50% { transform: translate(-20px, -40px) rotate(-20deg); }
-    75% { transform: translate(30px, -50px) rotate(40deg); }
-    100% { transform: translate(0, 0) rotate(0deg); }
+  .liquid-flow-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    filter: url(#liquid);
   }
 
-  @keyframes animate-lines {
-    0% {
-      background-position: 0 0;
+  .liquid-shape {
+    position: absolute;
+    border-radius: 50%;
+    background: hsl(var(--primary));
+    opacity: 0.15;
+    animation-name: move;
+    animation-timing-function: cubic-bezier(.31,.85,.6,1);
+    animation-iteration-count: infinite;
+  }
+
+  .liquid-shape:nth-child(1) { width: 15vw; height: 15vw; top: 10%; left: 10%; animation-duration: 15s; }
+  .liquid-shape:nth-child(2) { width: 20vw; height: 20vw; top: 30%; left: 80%; animation-duration: 20s; }
+  .liquid-shape:nth-child(3) { width: 10vw; height: 10vw; top: 70%; left: 20%; animation-duration: 25s; }
+  .liquid-shape:nth-child(4) { width: 25vw; height: 25vw; top: 80%; left: 60%; animation-duration: 18s; animation-delay: -5s; }
+  .liquid-shape:nth-child(5) { width: 12vw; height: 12vw; top: 5%; left: 50%; animation-duration: 22s; }
+  .liquid-shape:nth-child(6) { width: 18vw; height: 18vw; top: 50%; left: 5%; animation-duration: 16s; animation-delay: -8s; }
+  .liquid-shape:nth-child(7) { width: 22vw; height: 22vw; top: 90%; left: 90%; animation-duration: 28s; }
+  .liquid-shape:nth-child(8) { width: 8vw; height: 8vw; top: 40%; left: 40%; animation-duration: 14s; }
+  .liquid-shape:nth-child(9) { width: 16vw; height: 16vw; top: 60%; left: 95%; animation-duration: 26s; animation-delay: -3s; }
+
+
+  @keyframes move {
+    0%, 100% {
+      transform: translate(0, 0) scale(1);
     }
-    100% {
-      background-position: 160px 0;
+    25% {
+      transform: translate(calc(var(--tx, 0) * 1px), calc(var(--ty, 0) * 1px)) scale(1.2);
+    }
+    50% {
+      transform: translate(calc(var(--tx, 0) * -0.5px), calc(var(--ty, 0) * -0.5px)) scale(0.9);
+    }
+    75% {
+      transform: translate(calc(var(--tx, 0) * 0.8px), calc(var(--ty, 0) * -1.2px)) scale(1.1);
     }
   }
+
+  .liquid-shape:nth-child(1) { --tx: 100; --ty: -50; }
+  .liquid-shape:nth-child(2) { --tx: -150; --ty: 80; }
+  .liquid-shape:nth-child(3) { --tx: 80; --ty: 120; }
+  .liquid-shape:nth-child(4) { --tx: -120; --ty: -100; }
+  .liquid-shape:nth-child(5) { --tx: 50; --ty: -150; }
+  .liquid-shape:nth-child(6) { --tx: 180; --ty: 50; }
+  .liquid-shape:nth-child(7) { --tx: -80; --ty: 180; }
+  .liquid-shape:nth-child(8) { --tx: 130; --ty: -130; }
+  .liquid-shape:nth-child(9) { --tx: -160; --ty: 100; }
+
 
   @keyframes flicker {
     0%, 100% {

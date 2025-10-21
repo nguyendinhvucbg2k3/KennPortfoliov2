@@ -25,26 +25,30 @@ export default function Home() {
 
   return (
     <div className="flex flex-col">
-      <section className="relative w-full h-[70vh] md:h-[80vh] flex items-center justify-center text-center overflow-hidden">
-        {heroImage && (
-          <motion.div
-            initial={{ scale: 1.1, opacity: 0.8 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute inset-0"
-          >
-            <Image
-              src={heroImage.imageUrl}
-              alt={heroImage.description}
-              fill
-              className="object-cover"
-              priority
-              data-ai-hint={heroImage.imageHint}
-            />
-          </motion.div>
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent" />
-        <div className="absolute inset-0 bg-background/50" />
+       <section className="relative w-full h-[70vh] md:h-[80vh] flex items-center justify-center text-center overflow-hidden">
+        <div className="absolute inset-0 z-0 bg-background">
+            <div className="liquid-flow-background">
+                <div className="liquid-shape"></div>
+                <div className="liquid-shape"></div>
+                <div className="liquid-shape"></div>
+                 <div className="liquid-shape"></div>
+                <div className="liquid-shape"></div>
+                <div className="liquid-shape"></div>
+                 <div className="liquid-shape"></div>
+                <div className="liquid-shape"></div>
+                <div className="liquid-shape"></div>
+            </div>
+             <svg className="absolute w-0 h-0">
+                <defs>
+                <filter id="liquid">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="liquid" />
+                    <feBlend in="SourceGraphic" in2="liquid" />
+                </filter>
+                </defs>
+            </svg>
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
         
         <div className="relative z-10 p-4 max-w-4xl mx-auto">
             <motion.h1 
@@ -85,13 +89,13 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24 bg-background">
+      <section className="py-16 md:py-24 bg-transparent">
         <div className="container mx-auto px-4">
             <h2 className="text-center font-headline text-3xl md:text-4xl font-bold mb-12 text-primary text-glow">
               {pageContent.basicInfo.title} {pageContent.basicInfo.highlight}
             </h2>
               <motion.div 
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-x-8 gap-y-10 max-w-4xl mx-auto"
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10 max-w-4xl mx-auto"
                 variants={cardVariants}
                 initial="hidden"
                 whileInView="visible"
@@ -117,7 +121,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24">
+      <section className="py-16 md:py-24 bg-transparent">
         <div className="container mx-auto px-4">
           <h2 className="text-center font-headline text-3xl md:text-4xl font-bold mb-16 text-primary text-glow">
             {pageContent.activities.title}{pageContent.activities.highlight}
@@ -136,7 +140,7 @@ export default function Home() {
                 >
                   <div className="absolute top-1 left-4 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-primary ring-4 ring-background box-glow-primary"></div>
                    <div className={cn("md:w-[calc(50%-2rem)]", index % 2 === 0 ? 'md:ml-auto' : 'md:mr-auto')}>
-                     <Card className="bg-card/80">
+                     <Card className="bg-card/80 backdrop-blur-sm">
                         <CardHeader className={cn(index % 2 !== 0 && "md:text-right")}>
                           <CardTitle className="font-headline text-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-1">
                             <span className="md:order-1">{exp.title[language]}</span>
@@ -156,7 +160,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-24 md:py-32 bg-background">
+      <section className="py-24 md:py-32 bg-transparent">
         <div className="container mx-auto px-4">
           <div className="text-center">
             <h2 className="font-headline text-3xl md:text-4xl font-bold text-primary text-glow">
