@@ -12,7 +12,6 @@ import { content } from "@/lib/content";
 import { useState, useEffect } from "react";
 import { personalInfo as placeholderPersonalInfo } from "@/lib/placeholder-data";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { motion } from "framer-motion";
 import { BehanceIcon } from "@/components/icons/BehanceIcon";
 import { TiktokIcon } from "@/components/icons/TiktokIcon";
 import { PinterestIcon } from "@/components/icons/PinterestIcon";
@@ -20,7 +19,6 @@ import { FacebookIcon } from "@/components/icons/FacebookIcon";
 import { TwitterIcon } from "@/components/icons/TwitterIcon";
 import { InstagramIcon } from "@/components/icons/InstagramIcon";
 import { LinkedInIcon } from "@/components/icons/LinkedInIcon";
-
 
 export default function ContactPage() {
     const { language } = useLanguage();
