@@ -48,7 +48,6 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <LanguageProvider>
-            <div className="hexagon-background"></div>
             <div className="relative flex min-h-dvh flex-col bg-transparent">
               <ScrollProgressDragon />
               <Header />
