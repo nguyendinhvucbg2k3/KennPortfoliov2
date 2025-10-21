@@ -1,16 +1,10 @@
 {
   "placeholderImages": [
     {
-      "id": "hero-background",
-      "description": "Abstract neon lights in a garden-like formation, creating a futuristic and vibrant atmosphere.",
-      "imageUrl": "https://images.unsplash.com/photo-1617280196904-8e0a4ba6ce95?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxhYnN0cmFjdCUyMG5lb258ZW58MHx8fHwxNzYwOTQyODc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "abstract neon"
-    },
-    {
-      "id": "hero-character",
-      "description": "A focused man wearing headphones, looking away, in a dark, atmospheric setting.",
-      "imageUrl": "https://images.unsplash.com/photo-1627087821362-e8a050fa4ae6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8bWFuJTIwaGVhZHBob25lc3xlbnwwfHx8fDE3NjA5NjYxOTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "man headphones"
+      "id": "hero-background-artistic",
+      "description": "An atmospheric, painted digital art piece of a fantasy game environment, with a muted color palette.",
+      "imageUrl": "https://images.unsplash.com/photo-1615249452332-98c69abff517?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxmYW50YXN5JTIwZ2FtZSUyMGVudmlyb25tZW50fGVufDB8fHx8MTc2MDk5MDkyMnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "fantasy environment concept"
     },
     {
       "id": "about-image",

@@ -5,32 +5,32 @@
 
 @layer base {
   :root {
-    --background: 0 0% 98%;
-    --foreground: 240 10% 3.9%;
+    --background: 0 0% 4%; /* #0A0A0A */
+    --foreground: 0 0% 98%; /* #FAFAFA */
     
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --card: 0 0% 8%; /* #141414 */
+    --card-foreground: 0 0% 98%;
     
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 98%;
     
-    --primary: 356 79% 56%;
+    --primary: 356 79% 56%; /* #E53342 */
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 63.9%;
     
     --accent: 356 79% 56%;
     --accent-foreground: 0 0% 98%;
     
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
     --ring: 356 79% 56%;
 
     --radius: 0.5rem;
@@ -115,70 +115,4 @@
     width: 200%;
     height: 200%;
   }
-}
-
-/* Cyberpunk Vortex Background */
-@keyframes pan-image {
-  0% { background-position: 0% 0%; }
-  100% { background-position: 100% 100%; }
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.cyberpunk-vortex {
-  position: fixed;
-  inset: 0;
-  z-index: -10;
-  width: 100vw;
-  height: 100vh;
-  background-color: hsl(var(--background));
-  overflow: hidden;
-}
-
-.cyberpunk-vortex::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(to right, hsl(var(--primary) / 0.1) 1px, transparent 1px),
-    linear-gradient(to bottom, hsl(var(--primary) / 0.1) 1px, transparent 1px);
-  background-size: 3rem 3rem;
-  opacity: 0.5;
-}
-
-.cyberpunk-vortex::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(circle, transparent, hsl(var(--background)) 80%);
-}
-
-.cyberpunk-vortex .particles {
-  position: absolute;
-  inset: 0;
-  background-image: 
-    radial-gradient(hsl(var(--primary) / 0.3) 1px, transparent 1px),
-    radial-gradient(hsl(var(--primary) / 0.2) 1px, transparent 1px);
-  background-size: 400px 400px, 200px 200px;
-  background-position: 0 0, 100px 100px;
-  animation: pan-image 60s linear infinite;
-}
-
-.cyberpunk-vortex .vortex-effect {
-  position: absolute;
-  inset: -200%;
-  width: 500%;
-  height: 500%;
-  mask-image: radial-gradient(circle at center, transparent 10%, black 50%);
-}
-
-.cyberpunk-vortex .vortex-effect::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: repeating-conic-gradient(from 0deg, hsl(var(--primary) / 0.5) 0deg 0.1deg, transparent 0.2deg 0.5deg);
-  animation: spin 40s linear infinite;
 }

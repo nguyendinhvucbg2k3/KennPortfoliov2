@@ -2,17 +2,21 @@
 
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight, Briefcase, Cake, GraduationCap, Mail, MapPin, Phone } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
 import { experiences, personalInfo } from '@/lib/placeholder-data';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 
 export default function Home() {
   const { language } = useLanguage();
   const pageContent = content[language].home;
+  const heroImage = PlaceHolderImages.find(p => p.id === 'hero-background-artistic');
+
 
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -22,47 +26,59 @@ export default function Home() {
   return (
     <div className="flex flex-col">
        <section className="relative w-full min-h-[90vh] md:min-h-screen flex items-center justify-center text-center overflow-hidden">
-        <div className="relative z-10 p-4 max-w-4xl mx-auto">
-            <motion.h1 
-              className="font-headline text-5xl md:text-7xl lg:text-8xl font-black text-primary text-glow"
-              initial={{ opacity: 0, y: 20 }}
+        {heroImage && (
+          <Image
+            src={heroImage.imageUrl}
+            alt={heroImage.description}
+            fill
+            className="object-cover z-0"
+            data-ai-hint={heroImage.imageHint}
+            priority
+          />
+        )}
+        <div className="absolute inset-0 bg-black/60 z-10"></div>
+        <div className="relative z-20 p-4 max-w-4xl mx-auto flex flex-col items-center">
+            <motion.p 
+              className="font-headline text-lg md:text-xl text-foreground/80 tracking-widest uppercase"
+              initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+             {personalInfo?.title || pageContent.title}
+            </motion.p>
+            <motion.h1 
+              className="font-headline text-6xl md:text-8xl lg:text-9xl font-black text-white my-2"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.4, type: "spring", stiffness: 100 }}
             >
               KENN
             </motion.h1>
-           <motion.p 
-              className="mt-4 text-lg md:text-2xl text-foreground/80 font-headline"
+            <motion.div
+              className="flex items-center gap-x-6 font-headline text-lg md:text-xl text-foreground/80 tracking-widest uppercase"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
             >
-             {personalInfo?.title || pageContent.title}
-          </motion.p>
-          <motion.p 
-            className="mt-6 max-w-2xl mx-auto text-base md:text-lg text-foreground/70"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-           >
-            {pageContent.introduction}
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.8 }}
-          >
-            <Button asChild size="lg" className="mt-8 group">
-              <Link href="/projects">
-                {pageContent.exploreWork} <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </Link>
-            </Button>
-          </motion.div>
+              <span>{personalInfo.footerName}</span>
+              <span className='h-4 w-px bg-foreground/50'></span>
+              <span>{new Date().getFullYear()}</span>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 1 }}
+            >
+              <Button asChild size="lg" className="mt-12 group">
+                <Link href="/projects">
+                  {pageContent.exploreWork} <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </Button>
+            </motion.div>
         </div>
       </section>
 
-      <div className="relative bg-background/80 backdrop-blur-sm">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background z-0"></div>
+      <div className="relative bg-background">
         <div className="relative z-10">
             <section className="py-16 md:py-24 bg-transparent">
             <div className="container mx-auto px-4">
