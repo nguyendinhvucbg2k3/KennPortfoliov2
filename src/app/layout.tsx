@@ -41,7 +41,7 @@ export default function RootLayout({
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="light"
           enableSystem
           disableTransitionOnChange
         >
@@ -49,8 +49,9 @@ export default function RootLayout({
             <div className="relative flex min-h-dvh flex-col bg-background">
                <div className="absolute top-0 left-0 -z-10 h-full w-full overflow-hidden">
                   <div className="absolute inset-0 bg-background">
-                    <div className="absolute bottom-0 left-[-20%] right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,hsl(var(--primary)/0.1),rgba(255,255,255,0))] aurora-animate"></div>
-                    <div className="absolute bottom-0 right-[-20%] top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,hsl(var(--accent)/0.1),rgba(255,255,255,0))] aurora-animate [animation-delay:-6s]"></div>
+                    <div className="absolute bottom-0 left-[-20%] right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,hsl(var(--primary)/0.08),rgba(255,255,255,0))] aurora-animate"></div>
+                    <div className="absolute bottom-0 right-[-20%] top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,hsl(var(--accent)/0.08),rgba(255,255,255,0))] aurora-animate [animation-delay:-6s]"></div>
+                    <div className="grid-lines"></div>
                   </div>
               </div>
               <Header />

@@ -118,6 +118,15 @@
   .aurora-animate {
       animation: aurora 20s infinite linear;
   }
+  
+  .grid-lines {
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(45deg, hsl(var(--border)/0.25) 0, hsl(var(--border)/0.25) 1px, transparent 1px, transparent 80px);
+    animation: animate-lines 40s linear infinite;
+    z-index: -1;
+  }
 
   @keyframes aurora {
     0% { transform: translate(0, 0) rotate(0deg); }
@@ -125,5 +134,14 @@
     50% { transform: translate(-20px, -40px) rotate(-20deg); }
     75% { transform: translate(30px, -50px) rotate(40deg); }
     100% { transform: translate(0, 0) rotate(0deg); }
+  }
+
+  @keyframes animate-lines {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 160px 0;
+    }
   }
 }
