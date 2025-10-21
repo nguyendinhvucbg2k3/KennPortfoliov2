@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { PersonalInfo } from "@/lib/types";
-import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
 import Link from "next/link";
 import { useLanguage } from "@/context/language-context";
 import { content } from "@/lib/content";
@@ -16,6 +16,10 @@ import { motion } from "framer-motion";
 import { BehanceIcon } from "@/components/icons/BehanceIcon";
 import { TiktokIcon } from "@/components/icons/TiktokIcon";
 import { PinterestIcon } from "@/components/icons/PinterestIcon";
+import { FacebookIcon } from "@/components/icons/FacebookIcon";
+import { TwitterIcon } from "@/components/icons/TwitterIcon";
+import { InstagramIcon } from "@/components/icons/InstagramIcon";
+import { LinkedInIcon } from "@/components/icons/LinkedInIcon";
 
 
 export default function ContactPage() {
@@ -73,7 +77,7 @@ export default function ContactPage() {
                     <TooltipTrigger asChild>
                         <Button variant="outline" size="icon" className="hover:text-primary hover:border-primary" asChild>
                             <Link href="https://www.facebook.com/TNDVKenn203" target="_blank" aria-label="Facebook">
-                                <Facebook className="h-5 w-5" />
+                                <FacebookIcon className="h-5 w-5" />
                             </Link>
                         </Button>
                     </TooltipTrigger>
@@ -83,7 +87,7 @@ export default function ContactPage() {
                     <TooltipTrigger asChild>
                         <Button variant="outline" size="icon" className="hover:text-primary hover:border-primary" asChild>
                             <Link href="https://twitter.com/anhvubg999" target="_blank" aria-label="Twitter">
-                                <Twitter className="h-5 w-5" />
+                                <TwitterIcon className="h-5 w-5" />
                             </Link>
                         </Button>
                     </TooltipTrigger>
@@ -93,7 +97,7 @@ export default function ContactPage() {
                     <TooltipTrigger asChild>
                         <Button variant="outline" size="icon" className="hover:text-primary hover:border-primary" asChild>
                             <Link href="https://www.instagram.com/nguyendinhvu_" target="_blank" aria-label="Instagram">
-                                <Instagram className="h-5 w-5" />
+                                <InstagramIcon className="h-5 w-5" />
                             </Link>
                         </Button>
                     </TooltipTrigger>
@@ -133,7 +137,7 @@ export default function ContactPage() {
                     <TooltipTrigger asChild>
                         <Button variant="outline" size="icon" className="hover:text-primary hover:border-primary" asChild>
                             <Link href="https://www.linkedin.com/in/tndvkenn5207" target="_blank" aria-label="LinkedIn">
-                                <Linkedin className="h-5 w-5" />
+                                <LinkedInIcon className="h-5 w-5" />
                             </Link>
                         </Button>
                     </TooltipTrigger>

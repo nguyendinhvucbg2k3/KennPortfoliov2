@@ -9,10 +9,13 @@ import { content } from "@/lib/content";
 import { useState, useEffect } from "react";
 import { personalInfo as placeholderPersonalInfo } from "@/lib/placeholder-data";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
 import { TiktokIcon } from "../icons/TiktokIcon";
 import { PinterestIcon } from "../icons/PinterestIcon";
 import { BehanceIcon } from "../icons/BehanceIcon";
+import { FacebookIcon } from "../icons/FacebookIcon";
+import { TwitterIcon } from "../icons/TwitterIcon";
+import { InstagramIcon } from "../icons/InstagramIcon";
+import { LinkedInIcon } from "../icons/LinkedInIcon";
 
 export function Footer() {
     const { language } = useLanguage();
@@ -41,7 +44,7 @@ export function Footer() {
                 <TooltipTrigger asChild>
                     <Button variant="ghost" size="icon" asChild>
                       <Link href="https://www.facebook.com/TNDVKenn203" target="_blank" aria-label="Facebook">
-                          <Facebook className="h-5 w-5 text-muted-foreground transition-colors hover:text-foreground" />
+                          <FacebookIcon className="h-5 w-5 text-muted-foreground transition-colors hover:text-foreground" />
                       </Link>
                     </Button>
                 </TooltipTrigger>
@@ -51,7 +54,7 @@ export function Footer() {
                 <TooltipTrigger asChild>
                     <Button variant="ghost" size="icon" asChild>
                         <Link href="https://twitter.com/anhvubg999" target="_blank" aria-label="Twitter">
-                            <Twitter className="h-5 w-5 text-muted-foreground transition-colors hover:text-foreground" />
+                            <TwitterIcon className="h-5 w-5 text-muted-foreground transition-colors hover:text-foreground" />
                         </Link>
                     </Button>
                 </TooltipTrigger>
@@ -61,7 +64,7 @@ export function Footer() {
                 <TooltipTrigger asChild>
                     <Button variant="ghost" size="icon" asChild>
                         <Link href="https://www.instagram.com/nguyendinhvu_" target="_blank" aria-label="Instagram">
-                            <Instagram className="h-5 w-5 text-muted-foreground transition-colors hover:text-foreground" />
+                            <InstagramIcon className="h-5 w-5 text-muted-foreground transition-colors hover:text-foreground" />
                         </Link>
                     </Button>
                 </TooltipTrigger>
@@ -101,7 +104,7 @@ export function Footer() {
                 <TooltipTrigger asChild>
                     <Button variant="ghost" size="icon" asChild>
                         <Link href="https://www.linkedin.com/in/tndvkenn5207" target="_blank" aria-label="LinkedIn">
-                        <Linkedin className="h-5 w-5 text-muted-foreground transition-colors hover:text-foreground" />
+                        <LinkedInIcon className="h-5 w-5 text-muted-foreground transition-colors hover:text-foreground" />
                         </Link>
                     </Button>
                 </TooltipTrigger>
