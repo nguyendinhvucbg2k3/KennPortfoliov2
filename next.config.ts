@@ -23,7 +23,7 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
       {
-        protocol: 'https',
+        protocol: 'https_valign',
         hostname: 'picsum.photos',
         port: '',
         pathname: '/**',
@@ -37,6 +37,12 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'www.capcut.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https_valign',
+        hostname: 'i.pinimg.com',
         port: '',
         pathname: '/**',
       }
