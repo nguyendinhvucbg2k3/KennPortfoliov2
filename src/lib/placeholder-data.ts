@@ -237,8 +237,8 @@ export const experiences: Experience[] = [
     {
       id: "1",
       title: {
-        vi: "Graphics Designer",
-        en: "Graphics Designer"
+        vi: "Graphics Designer & Leader Media",
+        en: "Graphics Designer & Leader Media"
       },
       organization: {
         vi: "CLB Thể thao Điện tử Đại học Phenikaa",
@@ -269,7 +269,7 @@ export const experiences: Experience[] = [
     {
       id: "3",
       title: {
-        vi: "CTV Designer",
+        vi: "Cộng tác viên Thiết kế",
         en: "Collaborator Designer"
       },
       organization: {
@@ -285,12 +285,12 @@ export const experiences: Experience[] = [
     {
       id: "4",
       title: {
-        vi: "Cộng tác viên Media",
-        en: "Media Collaborator"
+        vi: "Thực tập sinh Makerting",
+        en: "Marketing Intern"
       },
       organization: {
-        vi: "NECTECH",
-        en: "NECTECH"
+        vi: "Néctech Corporate Digital Transformation",
+        en: "Néctech Corporate Digital Transformation"
       },
       date: "04/2024 — Nay",
       description: {
@@ -317,7 +317,7 @@ export const experiences: Experience[] = [
     {
       id: "6",
       title: {
-        vi: "CTV Vận hành sự kiện",
+        vi: "Cộng tác viên Vận hành sự kiện",
         en: "Event Operations Collaborator"
       },
       organization: {
