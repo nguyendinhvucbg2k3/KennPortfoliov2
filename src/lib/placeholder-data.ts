@@ -247,32 +247,6 @@ export const experiences: Experience[] = [
         en: "Designed and managed media products for the club, ensuring brand identity for events and tournaments."
       },
     },
-     {
-      id: "5",
-      title: {
-        vi: "Trưởng Ban Tổ chức / Vận hành giải đấu",
-        en: "Head of Organizing Committee / Tournament Operator"
-      },
-      organization: "VALORANT University Tour",
-      date: "03/2023 — 05/2023",
-      description: {
-        vi: "Chịu trách nhiệm chính trong việc tổ chức và vận hành toàn bộ giải đấu VALORANT cho sinh viên.",
-        en: "Lead organizer and operator for the entire VALORANT university tournament."
-      },
-    },
-    {
-      id: "6",
-      title: {
-        vi: "Học viên",
-        en: "Student"
-      },
-      organization: "VTC Academy",
-      date: "06/2023 — 09/2023",
-      description: {
-        vi: "Tham gia khóa học 'Vận hành giải đấu Esports' để nâng cao kiến thức và kỹ năng chuyên môn.",
-        en: "Participated in the 'Esports Tournament Operations' course to enhance professional knowledge and skills."
-      },
-    },
     {
       id: "2",
       title: {
@@ -297,32 +271,6 @@ export const experiences: Experience[] = [
       description: {
         vi: "Tạo các sản phẩm truyền thông cho cộng đồng người hâm mộ Team Flash, góp phần nâng cao hình ảnh thương hiệu.",
         en: "Created media products for the Team Flash fan community, contributing to enhancing the brand image."
-      },
-    },
-    {
-      id: "7",
-      title: {
-        vi: "Trưởng Ban Tổ chức",
-        en: "Head of Organizing Committee"
-      },
-      organization: "FPT Polytechnic",
-      date: "10/2024 — 12/2024",
-      description: {
-        vi: "Dẫn dắt và điều phối công tác tổ chức giải đấu VALORANT, đảm bảo sự kiện diễn ra thành công.",
-        en: "Led and coordinated the organization of the VALORANT tournament, ensuring a successful event."
-      },
-    },
-    {
-      id: "4",
-      title: {
-        vi: "TTS Marketing",
-        en: "Marketing Intern"
-      },
-      organization: "NECTECH CORPORATE DIGITAL TRANSFORMATION",
-      date: "01/2025 — 04/2025",
-      description: {
-        vi: "Quản lý nội dung, tối ưu SEO cho các kênh truyền thông của công ty và làm quen với các công cụ marketing.",
-        en: "Managed content, optimized SEO for the company's media channels, and familiarized with marketing tools."
       },
     },
 ];
