@@ -8,6 +8,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "../ui/button";
 import { Menu } from "lucide-react";
 import { LanguageSwitcher } from "../language-switcher";
+import { ThemeSwitcher } from "../theme-switcher";
 import { useLanguage } from "@/context/language-context";
 import { content } from "@/lib/content";
 
@@ -46,6 +47,7 @@ export function Header() {
         </nav>
         <div className="flex items-center gap-2">
            <LanguageSwitcher />
+           <ThemeSwitcher />
           <div className="md:hidden">
             <Sheet>
               <SheetTrigger asChild>
