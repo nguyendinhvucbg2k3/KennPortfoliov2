@@ -9,6 +9,7 @@ import { LanguageProvider } from '@/context/language-context';
 import { ThemeProvider } from '@/context/theme-context';
 import { QuickContact } from '@/components/layout/QuickContact';
 import { MotionWrapper } from '@/components/layout/MotionWrapper';
+import { ScrollProgressDragon } from '@/components/layout/ScrollProgressDragon';
 
 const fontInter = Inter({
   subsets: ['latin'],
@@ -54,6 +55,7 @@ export default function RootLayout({
                     <div className="grid-lines"></div>
                   </div>
               </div>
+              <ScrollProgressDragon />
               <Header />
               <main className="flex-1">
                 <MotionWrapper>{children}</MotionWrapper>
