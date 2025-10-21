@@ -120,95 +120,42 @@
     animation: flicker 2s infinite;
   }
 
-  .liquid-flow-background {
+  .hexagon-background {
+    --hex-size: 50px;
+    --hex-gap: 4px;
+    --hex-height: calc(var(--hex-size) * 1.732);
+    --hex-width: calc(var(--hex-size) * 2);
+    --hex-height-half: calc(var(--hex-height) / 2);
+    --hex-size-half: calc(var(--hex-size) / 2);
+
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    filter: url(#liquid);
+    overflow: hidden;
     z-index: -1;
-  }
-
-  .liquid-shape {
-    position: absolute;
-    border-radius: 50%;
-    background: hsl(var(--primary));
-    opacity: 0.2;
-    animation-name: move;
-    animation-timing-function: cubic-bezier(.31,.85,.6,1);
-    animation-iteration-count: infinite;
-  }
-  
-  .liquid-shape.cyan {
-    background: hsl(180 80% 50%);
-    opacity: 0.15;
-  }
-
-  .liquid-shape:nth-child(1) { width: 15vw; height: 15vw; top: 10%; left: 10%; animation-duration: 12s; }
-  .liquid-shape:nth-child(2) { width: 20vw; height: 20vw; top: 30%; left: 80%; animation-duration: 18s; }
-  .liquid-shape:nth-child(3) { width: 10vw; height: 10vw; top: 70%; left: 20%; animation-duration: 22s; }
-  .liquid-shape:nth-child(4) { width: 25vw; height: 25vw; top: 80%; left: 60%; animation-duration: 15s; animation-delay: -5s; }
-  .liquid-shape:nth-child(5) { width: 12vw; height: 12vw; top: 5%; left: 50%; animation-duration: 20s; }
-  .liquid-shape:nth-child(6) { width: 18vw; height: 18vw; top: 50%; left: 5%; animation-duration: 14s; animation-delay: -8s; }
-  .liquid-shape:nth-child(7) { width: 22vw; height: 22vw; top: 90%; left: 90%; animation-duration: 25s; }
-  .liquid-shape:nth-child(8) { width: 8vw; height: 8vw; top: 40%; left: 40%; animation-duration: 13s; }
-  .liquid-shape:nth-child(9) { width: 16vw; height: 16vw; top: 60%; left: 95%; animation-duration: 23s; animation-delay: -3s; }
-  
-  .neon-grid-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -1;
-    --grid-size: 50px;
-    --grid-strength: 0.5px;
-    --grid-color: hsl(var(--primary) / 0.2);
     
-    background-image:
-      repeating-linear-gradient(0deg, transparent, transparent calc(var(--grid-size) - var(--grid-strength)), var(--grid-color) calc(var(--grid-size) - var(--grid-strength)), var(--grid-color) var(--grid-size)),
-      repeating-linear-gradient(-90deg, transparent, transparent calc(var(--grid-size) - var(--grid-strength)), var(--grid-color) calc(var(--grid-size) - var(--grid-strength)), var(--grid-color) var(--grid-size));
+    background-color: hsl(var(--background));
     
-    background-size: var(--grid-size) var(--grid-size);
-    animation: pan-grid 20s linear infinite;
+    background-image: 
+      radial-gradient(circle at center, hsl(var(--primary) / 0.15) 0%, transparent 30%),
+      repeating-conic-gradient(from 30deg, hsl(var(--primary)/0.4) 0 60deg, transparent 60deg 120deg);
+
+    background-size: var(--hex-width) var(--hex-height);
+    animation: pan-hexagon 20s linear infinite;
+
+    box-shadow: inset 0 0 100px 30px hsl(var(--background));
   }
   
-  @keyframes pan-grid {
+  @keyframes pan-hexagon {
     0% {
       background-position: 0 0;
     }
     100% {
-      background-position: var(--grid-size) var(--grid-size);
+      background-position: var(--hex-width) var(--hex-height);
     }
   }
-
-
-  @keyframes move {
-    0%, 100% {
-      transform: translate(0, 0) scale(1);
-    }
-    25% {
-      transform: translate(calc(var(--tx, 0) * 1.2px), calc(var(--ty, 0) * 1.2px)) scale(1.3);
-    }
-    50% {
-      transform: translate(calc(var(--tx, 0) * -0.6px), calc(var(--ty, 0) * -0.6px)) scale(0.8);
-    }
-    75% {
-      transform: translate(calc(var(--tx, 0) * 0.9px), calc(var(--ty, 0) * -1.3px)) scale(1.2);
-    }
-  }
-
-  .liquid-shape:nth-child(1) { --tx: 120; --ty: -60; }
-  .liquid-shape:nth-child(2) { --tx: -180; --ty: 90; }
-  .liquid-shape:nth-child(3) { --tx: 90; --ty: 140; }
-  .liquid-shape:nth-child(4) { --tx: -140; --ty: -120; }
-  .liquid-shape:nth-child(5) { --tx: 60; --ty: -180; }
-  .liquid-shape:nth-child(6) { --tx: 200; --ty: 60; }
-  .liquid-shape:nth-child(7) { --tx: -90; --ty: 200; }
-  .liquid-shape:nth-child(8) { --tx: 150; --ty: -150; }
-  .liquid-shape:nth-child(9) { --tx: -190; --ty: 120; }
-
 
   @keyframes flicker {
     0%, 100% {

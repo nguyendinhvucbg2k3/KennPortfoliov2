@@ -21,30 +21,10 @@ export default function Home() {
 
   return (
     <div className="flex flex-col">
+      <div className="hexagon-background"></div>
+
        <section className="relative w-full h-[70vh] md:h-[80vh] flex items-center justify-center text-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <div className="liquid-flow-background">
-              <div className="liquid-shape"></div>
-              <div className="liquid-shape"></div>
-              <div className="liquid-shape cyan"></div>
-              <div className="liquid-shape"></div>
-              <div className="liquid-shape cyan"></div>
-              <div className="liquid-shape"></div>
-              <div className="liquid-shape"></div>
-              <div className="liquid-shape cyan"></div>
-              <div className="liquid-shape"></div>
-          </div>
-           <svg className="absolute w-0 h-0">
-              <defs>
-              <filter id="liquid">
-                  <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blur" />
-                  <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -8" result="liquid" />
-                  <feBlend in="SourceGraphic" in2="liquid" />
-              </filter>
-              </defs>
-          </svg>
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent z-0" />
         
         <div className="relative z-10 p-4 max-w-4xl mx-auto">
             <motion.h1 
@@ -85,8 +65,7 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="relative overflow-hidden">
-        <div className="neon-grid-background"></div>
+      <div className="relative">
         <section className="py-16 md:py-24 bg-transparent">
           <div className="container mx-auto px-4">
               <h2 className="text-center font-headline text-3xl md:text-4xl font-bold mb-12 text-primary text-glow">
