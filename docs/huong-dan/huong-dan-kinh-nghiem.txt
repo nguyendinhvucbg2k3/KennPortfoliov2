@@ -1,34 +1,34 @@
-=========================================
-HƯỚNG DẪN CẬP NHẬT KINH NGHIỆM LÀM VIỆC
-=========================================
+=======================================
+HƯỚNG DẪN CẬP NHẬT HOẠT ĐỘNG
+=======================================
 
-Toàn bộ kinh nghiệm làm việc hiển thị trên trang chủ của bạn được quản lý tại một nơi duy nhất để dễ dàng chỉnh sửa.
+Toàn bộ các hoạt động của bạn được quản lý tại một nơi duy nhất để dễ dàng chỉnh sửa.
 
 ---------------------------------
 1. Vị trí tệp tin
 ---------------------------------
 Mở tệp: `src/lib/placeholder-data.ts`
 
-Tìm đến một mảng (array) có tên là `experiences`. Mỗi kinh nghiệm làm việc là một đối tượng (object) trong mảng này.
+Tìm đến một mảng (array) có tên là `experiences`. Mỗi hoạt động là một đối tượng (object) trong mảng này.
 
 ---------------------------------
 2. Cách chỉnh sửa
 ---------------------------------
-- **Để thêm kinh nghiệm mới:** Sao chép một khối đối tượng `{...}` có sẵn, dán nó vào cuối danh sách và thay đổi nội dung cho phù hợp.
-- **Để sửa hoặc xóa:** Tìm kinh nghiệm bạn muốn chỉnh sửa và thay đổi nội dung bên trong, hoặc xóa toàn bộ khối đối tượng đó.
+- **Để thêm hoạt động mới:** Sao chép một khối đối tượng `{...}` có sẵn, dán nó vào cuối danh sách và thay đổi nội dung cho phù hợp.
+- **Để sửa hoặc xóa:** Tìm hoạt động bạn muốn chỉnh sửa và thay đổi nội dung bên trong, hoặc xóa toàn bộ khối đối tượng đó.
 
 ---------------------------------
-3. Cấu trúc của một đối tượng Kinh nghiệm
+3. Cấu trúc của một đối tượng Hoạt động
 ---------------------------------
-Mỗi kinh nghiệm cần có cấu trúc như sau:
+Mỗi hoạt động cần có cấu trúc như sau:
 
 ```javascript
 {
-  id: "6", // ID duy nhất cho mỗi kinh nghiệm, không được trùng nhau.
-  title: "Vị trí công việc của bạn (ví dụ: LEADER DESIGNER)",
-  organization: "Tên công ty/tổ chức",
-  date: "Thời gian làm việc (ví dụ: 03/2024 — 05/2024)",
-  description: "Mô tả ngắn gọn về công việc và những gì bạn đã làm, trách nhiệm chính.",
+  id: "1", // ID duy nhất cho mỗi hoạt động, không được trùng nhau.
+  title: "Vai trò/Chức vụ của bạn (ví dụ: Graphics Designer)",
+  organization: "Tên câu lạc bộ/tổ chức",
+  date: "Thời gian tham gia (ví dụ: 10/2021 — nay)",
+  description: "Mô tả ngắn gọn về vai trò và những gì bạn đã làm, trách nhiệm chính.",
 },
 ```
 
@@ -38,16 +38,16 @@ Mỗi kinh nghiệm cần có cấu trúc như sau:
 export const experiences: Experience[] = [
     {
       id: "1",
-      title: "LEADER DESIGNER",
-      organization: "TÊN TỔ CHỨC",
-      date: "06/2022 — 06/2022",
-      description: "Chịu trách nhiệm thiết kế và ban hành hầu hết các ấn phẩm của giải đấu.",
+      title: "Graphics Designer",
+      organization: "PHENIKAA ESPORTS CLUB",
+      date: "10/2021 — nay",
+      description: "Thiết kế chính - Đảm nhiệm việc thiết kế và quản lý hầu hết các sản phẩm truyền thông của tổ chức...",
     },
-    // Thêm các kinh nghiệm khác của bạn ở đây...
+    // Thêm các hoạt động khác của bạn ở đây...
 ];
 ```
 
 **LƯU Ý QUAN TRỌNG:**
 - Đảm bảo mỗi `id` là duy nhất.
-- Sau khi chỉnh sửa và lưu tệp `placeholder-data.ts`, trang chủ sẽ tự động cập nhật lại dòng thời gian kinh nghiệm của bạn.
-- Tiêu đề của mục kinh nghiệm (ví dụ: "Kinh nghiệm") được quản lý trong tệp `src/lib/content.ts` nếu bạn muốn thay đổi.
+- Sau khi chỉnh sửa và lưu tệp `placeholder-data.ts`, trang chủ sẽ tự động cập nhật lại dòng thời gian hoạt động của bạn.
+- Tiêu đề của mục (ví dụ: "Hoạt động") được quản lý trong tệp `src/lib/content.ts` nếu bạn muốn thay đổi.

@@ -22,9 +22,9 @@ export const content = {
         phone: "Điện thoại",
         address: "Địa chỉ",
       },
-      experience: {
-        title: "Kinh",
-        highlight: "nghiệm",
+      activities: {
+        title: "Hoạt",
+        highlight: "động",
       },
       callToAction: {
         title: "Hãy cùng tạo nên điều",
@@ -118,9 +118,9 @@ export const content = {
         phone: "Phone",
         address: "Address",
       },
-      experience: {
-        title: "Exper",
-        highlight: "ience",
+      activities: {
+        title: "Activi",
+        highlight: "ties",
       },
       callToAction: {
         title: "Let's Create Something",

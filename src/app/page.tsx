@@ -151,13 +151,13 @@ export default function Home() {
       <section className="py-16 md:py-24 bg-card/20">
         <div className="container mx-auto px-4">
           <h2 className="text-center font-headline text-3xl md:text-4xl font-bold mb-16">
-            {pageContent.experience.title} <span className="text-primary text-glow">{pageContent.experience.highlight}</span>
+            {pageContent.activities.title} <span className="text-primary text-glow">{pageContent.activities.highlight}</span>
           </h2>
           <div className="relative max-w-4xl mx-auto">
             <div className="absolute left-4 md:left-1/2 -translate-x-1/2 w-0.5 h-full bg-border/50"></div>
             <div className="space-y-12">
               {isLoading ? (
-                <p>Loading experiences...</p>
+                <p>Loading activities...</p>
               ) : (experiences || []).map((exp, index) => (
                 <motion.div 
                   key={exp.id}
