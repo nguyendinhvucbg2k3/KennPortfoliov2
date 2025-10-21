@@ -2,17 +2,21 @@
 
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight, Briefcase, Cake, GraduationCap, Mail, MapPin, Phone } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
 import { experiences, personalInfo } from '@/lib/placeholder-data';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 
 export default function Home() {
   const { language } = useLanguage();
   const pageContent = content[language].home;
+  const heroImage = PlaceHolderImages.find(p => p.id === 'hero-character');
+
 
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -21,15 +25,62 @@ export default function Home() {
 
   return (
     <div className="flex flex-col">
-       <section className="relative w-full h-[70vh] md:h-[80vh] flex items-center justify-center text-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent z-0" />
+       <section className="relative w-full min-h-[90vh] md:min-h-screen flex items-center justify-center text-center overflow-hidden">
+        <div className="absolute inset-0 bg-background z-0">
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
+        </div>
+
+        <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
+          <div className="relative w-[300px] h-[300px] md:w-[500px] md:h-[500px]">
+            {heroImage && (
+              <motion.div
+                initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+                className="absolute inset-0"
+              >
+              <Image
+                src={heroImage.imageUrl}
+                alt={heroImage.description}
+                fill
+                className="object-contain opacity-50"
+                priority
+                data-ai-hint={heroImage.imageHint}
+              />
+              </motion.div>
+            )}
+
+            <motion.svg 
+              className="absolute inset-0 w-full h-full animate-rotate-cw" 
+              viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"
+              style={{ animationDuration: '40s' }}
+            >
+              <circle cx="50" cy="50" r="48" stroke="hsl(var(--primary) / 0.1)" strokeWidth="0.5" />
+              <circle cx="50" cy="50" r="48" stroke="hsl(var(--primary))" strokeWidth="0.5" strokeDasharray="4 8" />
+            </motion.svg>
+            <motion.svg 
+              className="absolute inset-0 w-full h-full animate-rotate-ccw animate-flicker" 
+              viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"
+              style={{ animationDuration: '30s' }}
+            >
+              <circle cx="50" cy="50" r="38" stroke="hsl(var(--primary) / 0.2)" strokeWidth="0.5" strokeDasharray="2 6" />
+            </motion.svg>
+             <motion.svg 
+              className="absolute inset-0 w-full h-full animate-rotate-cw" 
+              viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"
+              style={{ animationDuration: '50s', animationDelay: '2s' }}
+            >
+              <circle cx="50" cy="50" r="28" stroke="hsl(var(--primary) / 0.3)" strokeWidth="0.25" />
+            </motion.svg>
+          </div>
+        </div>
         
-        <div className="relative z-10 p-4 max-w-4xl mx-auto">
+        <div className="relative z-20 p-4 max-w-4xl mx-auto">
             <motion.h1 
               className="font-headline text-5xl md:text-7xl lg:text-8xl font-black text-primary text-glow"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              transition={{ duration: 0.5, delay: 0.8 }}
             >
               KENN
             </motion.h1>
@@ -37,7 +88,7 @@ export default function Home() {
               className="mt-4 text-lg md:text-2xl text-foreground/80 font-headline"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.5, delay: 1 }}
             >
              {personalInfo?.title || pageContent.title}
           </motion.p>
@@ -45,14 +96,14 @@ export default function Home() {
             className="mt-6 max-w-2xl mx-auto text-base md:text-lg text-foreground/70"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+            transition={{ duration: 0.5, delay: 1.2 }}
            >
             {pageContent.introduction}
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
+            transition={{ duration: 0.5, delay: 1.4 }}
           >
             <Button asChild size="lg" className="mt-8 group">
               <Link href="/projects">

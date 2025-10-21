@@ -7,6 +7,12 @@
       "imageHint": "abstract neon"
     },
     {
+      "id": "hero-character",
+      "description": "A focused man wearing headphones, looking away, in a dark, atmospheric setting.",
+      "imageUrl": "https://images.unsplash.com/photo-1627087821362-e8a050fa4ae6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8bWFuJTIwaGVhZHBob25lc3xlbnwwfHx8fDE3NjA5NjYxOTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "man headphones"
+    },
+    {
       "id": "about-image",
       "description": "An abstract, stylized portrait of the designer, blending with neon-colored organic shapes.",
       "imageUrl": "https://images.unsplash.com/photo-1587592209017-711cfc83a206?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxhYnN0cmFjdCUyMHBvcnRyYWl0fGVufDB8fHx8MTc2MDg4ODUzMHww&ixlib=rb-4.1.0&q=80&w=1080",
