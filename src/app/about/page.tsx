@@ -2,20 +2,18 @@
 
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Download } from "lucide-react";
 import { useLanguage } from "@/context/language-context";
 import { content } from "@/lib/content";
-import { skills } from "@/lib/placeholder-data";
 import { motion } from "framer-motion";
 import { PhotoshopIcon } from "@/components/icons/PhotoshopIcon";
 import { IllustratorIcon } from "@/components/icons/IllustratorIcon";
 import { FigmaIcon } from "@/components/icons/FigmaIcon";
 import { CanvaIcon } from "@/components/icons/CanvaIcon";
 import { CapcutIcon } from "@/components/icons/CapcutIcon";
+import { SkillsChart } from "@/components/charts/skills-chart";
 
 const softwareIcons = [
     { name: "Photoshop", Icon: PhotoshopIcon },
@@ -108,26 +106,15 @@ export default function AboutPage() {
           {pageContent.skillsTitle} <span className="text-primary text-glow">{pageContent.skillsHighlight}</span>
         </h2>
         <motion.div 
-          className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8"
+          className="mt-12"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
           variants={cardVariants}
         >
-          {(skills || []).map((skill, index) => (
-            <Card key={index}>
-              <CardHeader>
-                <CardTitle className="text-xl font-headline">{skill.name}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex justify-between items-center mb-2">
-                  <p className="text-muted-foreground">{skill.description}</p>
-                  <span className="text-primary font-semibold">{skill.level}%</span>
-                </div>
-                <Progress value={skill.level} className="h-2" />
-              </CardContent>
-            </Card>
-          ))}
+          <div className="h-[400px] w-full max-w-4xl mx-auto">
+            <SkillsChart />
+          </div>
         </motion.div>
       </section>
       
