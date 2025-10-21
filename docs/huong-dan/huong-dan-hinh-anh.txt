@@ -1,0 +1,65 @@
+=======================================
+HƯỚNG DẪN CẬP NHẬT HÌNH ẢNH
+=======================================
+
+Toàn bộ hình ảnh trên trang web của bạn (từ ảnh nền, ảnh giới thiệu, đến ảnh các dự án) đều được quản lý tập trung tại một tệp duy nhất để dễ dàng thay đổi.
+
+---------------------------------
+1. Vị trí tệp tin
+---------------------------------
+Mở tệp: `src/lib/placeholder-images.json`
+
+Tệp này chứa một danh sách các đối tượng, mỗi đối tượng tương ứng với một hình ảnh trên trang web.
+
+---------------------------------
+2. Cấu trúc của một đối tượng Hình ảnh
+---------------------------------
+Mỗi hình ảnh có cấu trúc như sau:
+
+```json
+{
+  "id": "hero-background-artistic", // ID duy nhất để mã nguồn nhận diện ảnh. KHÔNG THAY ĐỔI ID NÀY.
+  "description": "Mô tả về hình ảnh (hữu ích cho bạn và cho SEO).",
+  "imageUrl": "https://images.unsplash.com/...", // ĐÂY LÀ ĐƯỜNG DẪN (URL) CỦA HÌNH ẢNH. BẠN SẼ THAY ĐỔI NÓ.
+  "imageHint": "gợi ý cho AI" // Gợi ý cho AI để tìm ảnh tương tự (ví dụ: 'fantasy environment').
+}
+```
+
+---------------------------------
+3. Cách thay đổi một hình ảnh
+---------------------------------
+Ví dụ bạn muốn thay đổi ảnh nền ở trang chủ:
+
+1.  **Chuẩn bị URL ảnh mới:** Tải ảnh của bạn lên một dịch vụ lưu trữ (ví dụ: imgur.com, postimages.org) và sao chép đường dẫn trực tiếp của ảnh.
+
+2.  **Mở tệp `src/lib/placeholder-images.json`.**
+
+3.  **Tìm đúng đối tượng:** Tìm đối tượng có `id` là `"hero-background-artistic"`.
+
+4.  **Thay thế URL:** Dán URL ảnh mới của bạn vào trường `"imageUrl"`.
+
+    **Trước khi thay đổi:**
+    ```json
+    {
+      "id": "hero-background-artistic",
+      "description": "An atmospheric, painted digital art piece...",
+      "imageUrl": "https://images.unsplash.com/photo-1615249452332-98c69abff517?...",
+      "imageHint": "fantasy environment concept"
+    }
+    ```
+
+    **Sau khi thay đổi:**
+    ```json
+    {
+      "id": "hero-background-artistic",
+      "description": "Mô tả mới cho ảnh của bạn, ví dụ: Anh hùng trong game đứng trên vách đá.",
+      "imageUrl": "https://link-anh-moi-cua-ban.com/hinh-anh.jpg",
+      "imageHint": "game hero cliff"
+    }
+    ```
+
+5.  **Lưu tệp:** Sau khi lưu, trang web sẽ tự động hiển thị hình ảnh mới của bạn.
+
+**LƯU Ý QUAN TRỌNG:**
+- Chỉ thay đổi giá trị của `"imageUrl"`. Giữ nguyên các `"id"` vì chúng được dùng để liên kết trong code.
+- Áp dụng tương tự cho các ảnh khác như `"about-image"` (ảnh trang giới thiệu) hoặc các ảnh dự án (`"project-fpt-art-show"`,...).
