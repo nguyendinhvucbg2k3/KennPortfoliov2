@@ -273,4 +273,17 @@ export const experiences: Experience[] = [
         en: "Created media products for the Team Flash fan community, contributing to enhancing the brand image."
       },
     },
+    {
+      id: "4",
+      title: {
+        vi: "Cộng tác viên Media",
+        en: "Media Collaborator"
+      },
+      organization: "NECTECH",
+      date: "04/2024 — Nay",
+      description: {
+        vi: "Sản xuất video ngắn và quản lý các kênh mạng xã hội, phát triển nội dung sáng tạo để thu hút người xem.",
+        en: "Produced short videos and managed social media channels, developing creative content to engage viewers."
+      },
+    }
 ];
