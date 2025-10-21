@@ -285,5 +285,32 @@ export const experiences: Experience[] = [
         vi: "Sản xuất video ngắn và quản lý các kênh mạng xã hội, phát triển nội dung sáng tạo để thu hút người xem.",
         en: "Produced short videos and managed social media channels, developing creative content to engage viewers."
       },
+    },
+    {
+      id: "5",
+      title: {
+        vi: "Admin & Media Esports",
+        en: "Admin & Esports Media"
+      },
+      organization: 'Kênh Tiktok "Chớp con bận làm MEDIA."',
+      date: "05/2024 — Nay",
+      description: {
+        vi: "Quản trị và sản xuất nội dung media về Esports, xây dựng và phát triển cộng đồng trên nền tảng Tiktok.",
+        en: "Administered and produced Esports media content, building and developing the community on the Tiktok platform."
+      },
+    },
+    {
+      id: "6",
+      title: {
+        vi: "CTV Vận hành sự kiện",
+        en: "Event Operations Collaborator"
+      },
+      organization: "FLAZER THUỘC TEAM FLASH VIETNAM",
+      date: "07/2024 — Nay",
+      description: {
+        vi: "Hỗ trợ vận hành các sự kiện và giải đấu, giám sát và đảm bảo quy trình diễn ra suôn sẻ, chuyên nghiệp.",
+        en: "Assisted in operating events and tournaments, monitoring and ensuring a smooth and professional process."
+      },
     }
 ];
+

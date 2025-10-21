@@ -56,16 +56,16 @@ export const experiences: Experience[] = [
       },
     },
     {
-      id: "4",
+      id: "6",
       title: {
-        vi: "Cộng tác viên Media",
-        en: "Media Collaborator"
+        vi: "CTV Vận hành sự kiện",
+        en: "Event Operations Collaborator"
       },
-      organization: "NECTECH",
-      date: "04/2024 — Nay",
+      organization: "FLAZER THUỘC TEAM FLASH VIETNAM",
+      date: "07/2024 — Nay",
       description: {
-        vi: "Sản xuất video ngắn và quản lý các kênh mạng xã hội, phát triển nội dung sáng tạo để thu hút người xem.",
-        en: "Produced short videos and managed social media channels, developing creative content to engage viewers."
+        vi: "Hỗ trợ vận hành các sự kiện và giải đấu, giám sát và đảm bảo quy trình diễn ra suôn sẻ, chuyên nghiệp.",
+        en: "Assisted in operating events and tournaments, monitoring and ensuring a smooth and professional process."
       },
     }
     // Thêm các hoạt động khác của bạn ở đây...
@@ -76,3 +76,4 @@ export const experiences: Experience[] = [
 - Đảm bảo mỗi `id` là duy nhất.
 - Sau khi chỉnh sửa và lưu tệp `placeholder-data.ts`, trang chủ sẽ tự động cập nhật lại dòng thời gian hoạt động của bạn với ngôn ngữ tương ứng.
 - Tiêu đề của mục (ví dụ: "Hoạt động") được quản lý trong tệp `src/lib/content.ts` nếu bạn muốn thay đổi.
+
