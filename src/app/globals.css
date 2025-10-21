@@ -123,27 +123,23 @@
   .hexagon-background {
     --hex-size: 50px;
     --hex-gap: 4px;
-    --hex-height: calc(var(--hex-size) * 1.732);
     --hex-width: calc(var(--hex-size) * 2);
-    --hex-height-half: calc(var(--hex-height) / 2);
-    --hex-size-half: calc(var(--hex-size) / 2);
-
-    position: absolute;
-    top: 0;
-    left: 0;
+    --hex-height: calc(var(--hex-size) * 1.732);
+  
+    position: fixed;
+    inset: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden;
     z-index: -1;
     
     background-color: hsl(var(--background));
     
     background-image: 
-      radial-gradient(circle at center, hsl(var(--primary) / 0.15) 0%, transparent 30%),
-      repeating-conic-gradient(from 30deg, hsl(var(--primary)/0.4) 0 60deg, transparent 60deg 120deg);
+      radial-gradient(ellipse at center, hsla(var(--background), 1) 0%, transparent 60%),
+      repeating-conic-gradient(from 30deg, hsl(var(--primary)/0.15) 0 60deg, transparent 60deg 120deg);
 
     background-size: var(--hex-width) var(--hex-height);
-    animation: pan-hexagon 20s linear infinite;
+    animation: pan-hexagon 40s linear infinite;
 
     box-shadow: inset 0 0 100px 30px hsl(var(--background));
   }

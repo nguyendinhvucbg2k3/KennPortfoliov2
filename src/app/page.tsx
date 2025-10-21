@@ -21,8 +21,6 @@ export default function Home() {
 
   return (
     <div className="flex flex-col">
-      <div className="hexagon-background"></div>
-
        <section className="relative w-full h-[70vh] md:h-[80vh] flex items-center justify-center text-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent z-0" />
         
@@ -65,7 +63,7 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="relative">
+      <div className="relative bg-background">
         <section className="py-16 md:py-24 bg-transparent">
           <div className="container mx-auto px-4">
               <h2 className="text-center font-headline text-3xl md:text-4xl font-bold mb-12 text-primary text-glow">
