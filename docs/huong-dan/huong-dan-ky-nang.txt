@@ -41,6 +41,7 @@ export const skills: Skill[] = [
 ];
 ```
 
-**LƯU Ý QUAN TRONT:**
+**LƯU Ý QUAN TRỌNG:**
 - Đảm bảo mỗi `id` là duy nhất.
-- Sau khi bạn lưu tệp, trang "Giới thiệu" sẽ tự động cập nhật danh sách kỹ năng và thanh tiến trình tương ứng.
+- Sau khi bạn lưu tệp `placeholder-data.ts`, trang "Giới thiệu" sẽ tự động cập nhật danh sách kỹ năng và thanh tiến trình tương ứng.
+- Tiêu đề của mục kỹ năng (ví dụ: "Kỹ năng của tôi") được quản lý trong tệp `src/lib/content.ts` nếu bạn muốn thay đổi.

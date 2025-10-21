@@ -34,10 +34,12 @@ export const personalInfo: PersonalInfo = {
 ---------------------------------
 3. Cập nhật các liên kết mạng xã hội
 ---------------------------------
-Các liên kết mạng xã hội được quản lý tại 2 tệp riêng:
+Các liên kết mạng xã hội được quản lý tại 3 tệp riêng:
 - **Chân trang (Footer):** Mở tệp `src/components/layout/Footer.tsx` và cập nhật các đường link `href` trong các thẻ `<Link>`.
 - **Trang liên hệ (Contact Page):** Mở tệp `src/app/contact/page.tsx` và cập nhật các đường link `href` tương ứng.
+- **Nút liên hệ nhanh:** Mở tệp `src/components/layout/QuickContact.tsx` và cập nhật các liên kết.
 
 **LƯU Ý QUAN TRỌNG:**
-- Sau khi bạn lưu tệp `placeholder-data.ts`, tất cả các khu vực sử dụng thông tin này (trang chủ, trang liên hệ, chân trang...) sẽ được cập nhật tự động.
+- Sau khi bạn lưu tệp `placeholder-data.ts`, tất cả các khu vực sử dụng thông tin này sẽ được cập nhật tự động.
 - Giữ nguyên cấu trúc của đối tượng, chỉ thay đổi phần nội dung trong dấu ngoặc kép `""`.
+- Các nhãn và tiêu đề trên giao diện (ví dụ: "Chức danh", "Ngày sinh") được quản lý trong tệp `src/lib/content.ts` nếu bạn muốn chỉnh sửa.

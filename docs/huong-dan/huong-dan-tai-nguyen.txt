@@ -1,5 +1,5 @@
 ========================================
-HƯỚSNG DẪN CẬP NHẬT TÀI NGUYÊN
+HƯỚNG DẪN CẬP NHẬT TÀI NGUYÊN
 ========================================
 
 Danh sách các tài nguyên, công cụ, hoặc trang web hữu ích của bạn được quản lý tại một nơi duy nhất.
@@ -40,15 +40,8 @@ export const resources: Resource[] = [
       id: "1",
       category: "Nguồn website tham khảo",
       title: "Behance",
-      description: "Nơi trưng bày và khám phá các tác phẩm mới nhất từ những nhà sáng tạo hàng đầu.",
+      description: "Nơi trưng bày và khám phá các tác phẩm mới nhất.",
       url: "https://www.behance.net/",
-    },
-    {
-      id: "2",
-      category: "Công cụ thiết kế",
-      title: "Figma",
-      description: "Công cụ thiết kế giao diện hợp tác trực tuyến.",
-      url: "https://www.figma.com/",
     },
     // Thêm các tài nguyên khác của bạn ở đây...
 ];
@@ -56,4 +49,5 @@ export const resources: Resource[] = [
 
 **LƯU Ý QUAN TRỌNG:**
 - Đảm bảo mỗi `id` là duy nhất.
-- Sau khi bạn lưu tệp, trang "Tài nguyên" sẽ tự động cập nhật danh sách và các nhóm tài nguyên tương ứng.
+- Sau khi bạn lưu tệp `placeholder-data.ts`, trang "Tài nguyên" sẽ tự động cập nhật danh sách và các nhóm tài nguyên tương ứng.
+- Các tiêu đề và mô tả chung của trang được quản lý trong tệp `src/lib/content.ts` nếu bạn muốn thay đổi.

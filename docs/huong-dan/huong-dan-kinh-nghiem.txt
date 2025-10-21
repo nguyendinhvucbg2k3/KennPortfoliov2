@@ -41,14 +41,7 @@ export const experiences: Experience[] = [
       title: "LEADER DESIGNER",
       organization: "TÊN TỔ CHỨC",
       date: "06/2022 — 06/2022",
-      description: "Chịu trách nhiệm thiết kế và ban hành hầu hết các ấn phẩm của giải đấu. Trong một tháng đã cho ra gần 20 ấn phẩm.",
-    },
-    {
-      id: "2",
-      title: "GRAPHIC DESIGNER",
-      organization: "MEDIA 2WIN",
-      date: "03/2024 — 05/2024",
-      description: "Phụ trách hình ảnh sản phẩm trên các sàn thương mại điện tử; thống nhất brand asset giữa các shop.",
+      description: "Chịu trách nhiệm thiết kế và ban hành hầu hết các ấn phẩm của giải đấu.",
     },
     // Thêm các kinh nghiệm khác của bạn ở đây...
 ];
@@ -56,4 +49,5 @@ export const experiences: Experience[] = [
 
 **LƯU Ý QUAN TRỌNG:**
 - Đảm bảo mỗi `id` là duy nhất.
-- Sau khi chỉnh sửa và lưu tệp, trang chủ sẽ tự động cập nhật lại dòng thời gian kinh nghiệm của bạn.
+- Sau khi chỉnh sửa và lưu tệp `placeholder-data.ts`, trang chủ sẽ tự động cập nhật lại dòng thời gian kinh nghiệm của bạn.
+- Tiêu đề của mục kinh nghiệm (ví dụ: "Kinh nghiệm") được quản lý trong tệp `src/lib/content.ts` nếu bạn muốn thay đổi.

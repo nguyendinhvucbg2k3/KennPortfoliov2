@@ -8,6 +8,7 @@
 - **Thư viện UI:** [React](https://reactjs.org/) & [TypeScript](https://www.typescriptlang.org/)
 - **Styling:** [Tailwind CSS](https://tailwindcss.com/)
 - **Components:** [Shadcn/ui](https://ui.shadcn.com/)
+- **Animation:** [Framer Motion](https://www.framer.com/motion/)
 - **Icons:** [Lucide React](https://lucide.dev/)
 
 ---
@@ -16,12 +17,40 @@
 
 Hầu hết nội dung trên trang web có thể được quản lý tập trung tại một vài tệp chính. Điều này giúp bạn dễ dàng cập nhật thông tin mà không cần phải can thiệp sâu vào mã nguồn của từng trang.
 
-### 1. Thông tin cá nhân, Kỹ năng, Kinh nghiệm, Dự án và Tài nguyên
+### 1. Nội dung Đa ngôn ngữ (Tiếng Việt/Tiếng Anh)
 
-Tất cả các nội dung này được quản lý trong tệp:
+Các văn bản tĩnh trên giao diện (như tiêu đề trang, nhãn nút bấm, các đoạn văn giới thiệu...) được quản lý trong tệp:
+`src/lib/content.ts`
+
+Bạn có thể chỉnh sửa nội dung cho cả hai ngôn ngữ (`vi` và `en`) tại đây. Khi người dùng chuyển đổi ngôn ngữ, nội dung sẽ được tự động cập nhật.
+
+```javascript
+export const content = {
+  vi: {
+    nav: {
+      home: "Trang chủ",
+      about: "Giới thiệu",
+      // ...
+    },
+    // ...
+  },
+  en: {
+    nav: {
+      home: "Home",
+      about: "About",
+      // ...
+    },
+    // ...
+  },
+};
+```
+
+### 2. Dữ liệu chính (Thông tin cá nhân, Kỹ năng, Kinh nghiệm, Dự án, Tài nguyên)
+
+Tất cả các dữ liệu lõi này được quản lý trong tệp:
 `src/lib/placeholder-data.ts`
 
-Bạn chỉ cần mở tệp này và chỉnh sửa các đối tượng và mảng dữ liệu tương ứng.
+Bạn chỉ cần mở tệp này và chỉnh sửa các đối tượng và mảng dữ liệu tương ứng. Dữ liệu này được viết bằng một ngôn ngữ (tiếng Anh) và sẽ được hiển thị trên cả hai phiên bản ngôn ngữ của trang web.
 
 #### a. Thông tin cá nhân (`personalInfo`)
 
@@ -79,7 +108,7 @@ export const experiences: Experience[] = [
 Quản lý các dự án trong portfolio của bạn.
 
 - `slug`: Chuỗi định danh duy nhất cho URL (ví dụ: `ten-du-an-moi`).
-- `image.src`: Lấy URL từ tệp `placeholder-images.json` (xem mục 2).
+- `image.src`: Lấy URL từ tệp `placeholder-images.json` (xem mục 3).
 
 ```javascript
 export const projects: Project[] = [
@@ -120,7 +149,7 @@ export const resources: Resource[] = [
 ];
 ```
 
-### 2. Quản lý Hình ảnh
+### 3. Quản lý Hình ảnh
 
 Tất cả hình ảnh được quản lý trong tệp:
 `src/lib/placeholder-images.json`
@@ -144,19 +173,12 @@ Tất cả hình ảnh được quản lý trong tệp:
 }
 ```
 
-### 3. Liên kết mạng xã hội
+### 4. Liên kết mạng xã hội
 
-Các liên kết mạng xã hội được đặt ở hai nơi:
+Các liên kết mạng xã hội được đặt ở ba nơi:
 - **Chân trang (Footer):** Mở tệp `src/components/layout/Footer.tsx` và cập nhật các đường dẫn `href`.
 - **Trang liên hệ (Contact Page):** Mở tệp `src/app/contact/page.tsx` và cập nhật các đường dẫn `href`.
 - **Nút liên hệ nhanh:** Mở tệp `src/components/layout/QuickContact.tsx` và cập nhật các liên kết.
-
-### 4. Nội dung Đa ngôn ngữ (Tiếng Việt/Tiếng Anh)
-
-Các văn bản tĩnh trên giao diện (như tiêu đề, nhãn nút bấm) được quản lý trong tệp:
-`src/lib/content.ts`
-
-Bạn có thể chỉnh sửa nội dung cho cả hai ngôn ngữ tại đây.
 
 ---
 
