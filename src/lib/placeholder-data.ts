@@ -243,8 +243,34 @@ export const experiences: Experience[] = [
       organization: "PHENIKAA ESPORTS CLUB",
       date: "10/2021 — nay",
       description: {
-        vi: "Thiết kế chính - Đảm nhiệm việc thiết kế và quản lý hầu hết các sản phẩm truyền thông của tổ chức. Chịu trách nhiệm về việc thiết kế và sản xuất các tài liệu truyền thông cho câu lạc bộ, như poster, banner, bài đăng trên mạng xã hội, backdrop, standee, v.v. Bảo đảm tính đồng nhất và liên kết trong thiết kế cho các sự kiện & giải đấu, đóng góp vào việc nâng cao nhận diện thương hiệu và hiệu quả trong truyền thông.",
-        en: "Lead Designer - Responsible for designing and managing most of the organization's media products. In charge of designing and producing media materials for the club, such as posters, banners, social media posts, backdrops, standees, etc. Ensuring consistency and cohesion in design for events & tournaments, contributing to enhancing brand identity and communication effectiveness."
+        vi: "Thiết kế và quản lý các sản phẩm truyền thông cho CLB, đảm bảo nhận diện thương hiệu cho các sự kiện và giải đấu.",
+        en: "Designed and managed media products for the club, ensuring brand identity for events and tournaments."
+      },
+    },
+     {
+      id: "5",
+      title: {
+        vi: "Trưởng Ban Tổ chức / Vận hành giải đấu",
+        en: "Head of Organizing Committee / Tournament Operator"
+      },
+      organization: "VALORANT University Tour",
+      date: "03/2023 — 05/2023",
+      description: {
+        vi: "Chịu trách nhiệm chính trong việc tổ chức và vận hành toàn bộ giải đấu VALORANT cho sinh viên.",
+        en: "Lead organizer and operator for the entire VALORANT university tournament."
+      },
+    },
+    {
+      id: "6",
+      title: {
+        vi: "Học viên",
+        en: "Student"
+      },
+      organization: "VTC Academy",
+      date: "06/2023 — 09/2023",
+      description: {
+        vi: "Tham gia khóa học 'Vận hành giải đấu Esports' để nâng cao kiến thức và kỹ năng chuyên môn.",
+        en: "Participated in the 'Esports Tournament Operations' course to enhance professional knowledge and skills."
       },
     },
     {
@@ -256,8 +282,8 @@ export const experiences: Experience[] = [
       organization: "HỘI SINH VIÊN BẮC GIANG TẠI HÀ NỘI",
       date: "10/2023 — 12/2024",
       description: {
-        vi: "Thành viên của Hội Truyền Thông chịu trách nhiệm thiết kế các sản phẩm truyền thông cho câu lạc bộ trên các mạng xã hội. Sáng tạo và thiết kế các ấn phẩm như bài đăng, poster, banner, video, để thu hút và nâng cao mức độ tương tác trên các nền tảng mạng xã hội. Đảm bảo sự nhất quán của hình ảnh của Hội, góp phần cải thiện hiệu quả truyền thông và nhận diện của Hội Sinh Viên.",
-        en: "Member of the Media Association responsible for designing media products for the club on social networks. Creating and designing publications such as posts, posters, banners, videos, to attract and increase engagement on social media platforms. Ensuring the consistency of the Association's image, contributing to improving communication effectiveness and the identity of the Student Association."
+        vi: "Thiết kế các ấn phẩm truyền thông (bài đăng, poster, banner) cho các hoạt động của hội trên mạng xã hội.",
+        en: "Designed media publications (posts, posters, banners) for the association's activities on social media."
       },
     },
     {
@@ -269,8 +295,21 @@ export const experiences: Experience[] = [
       organization: "FLAZER THUỘC TEAM FLASH VIETNAM",
       date: "10/2023 — Nay",
       description: {
-        vi: "Cộng tác viên Thiết kế (Designer) - Chịu trách nhiệm về việc tạo ra các sản phẩm truyền thông cho cộng đồng Flazer (Người hâm mộ Team Flash Esports Việt Nam). Tạo ra và phát triển các ấn phẩm truyền thông như poster, banner, bài đăng trên các trang mạng xã hội, ảnh bìa, video,... đảm bảo tính phù hợp với từng chiến dịch của cộng đồng. Sử dụng thông thạo các phần mềm: Adobe Photoshop, Illustrator, After Effects, Canva,... để sản xuất các sản phẩm chất lượng, sáng tạo và hấp dẫn. Thành tựu đã đạt được: Các sản phẩm thiết kế thu hút được số lượng tương tác cao trên các nền tảng mạng xã hội. Góp phần nâng cao giá trị hình ảnh thương hiệu và kết nối cộng đồng người hâm mộ Team Flash.",
-        en: "Collaborator Designer - Responsible for creating media products for the Flazer community (fans of Team Flash Esports Vietnam). Creating and developing media publications such as posters, banners, posts on social media pages, cover photos, videos,... ensuring appropriateness for each community campaign. Proficient in using software: Adobe Photoshop, Illustrator, After Effects, Canva,... to produce high-quality, creative, and engaging products. Achievements: Designed products that attracted high engagement on social media platforms. Contributed to enhancing the brand's image value and connecting the Team Flash fan community."
+        vi: "Tạo các sản phẩm truyền thông cho cộng đồng người hâm mộ Team Flash, góp phần nâng cao hình ảnh thương hiệu.",
+        en: "Created media products for the Team Flash fan community, contributing to enhancing the brand image."
+      },
+    },
+    {
+      id: "7",
+      title: {
+        vi: "Trưởng Ban Tổ chức",
+        en: "Head of Organizing Committee"
+      },
+      organization: "FPT Polytechnic",
+      date: "10/2024 — 12/2024",
+      description: {
+        vi: "Dẫn dắt và điều phối công tác tổ chức giải đấu VALORANT, đảm bảo sự kiện diễn ra thành công.",
+        en: "Led and coordinated the organization of the VALORANT tournament, ensuring a successful event."
       },
     },
     {
@@ -282,8 +321,8 @@ export const experiences: Experience[] = [
       organization: "NECTECH CORPORATE DIGITAL TRANSFORMATION",
       date: "01/2025 — 04/2025",
       description: {
-        vi: "Thực tập sinh trong lĩnh vực SEO Marketing / Social Media - Đảm nhiệm việc theo dõi và cập nhật thông tin trên các nền tảng mạng xã hội của công ty công nghệ Việt Nam tại Nhật Bản. Chịu trách nhiệm quản lý nội dung và tối ưu hóa SEO cho các bài viết trên Facebook, Website,... với mục tiêu nâng cao khả năng tiếp cận và tương tác. Làm quen với các công cụ như: Google Analytics, Google Search Console, Meta Business Suite,... để đánh giá hiệu suất của nội dung.",
-        en: "Intern in SEO Marketing / Social Media - Responsible for monitoring and updating information on the social media platforms of a Vietnamese technology company in Japan. In charge of content management and SEO optimization for posts on Facebook, Website,... aiming to enhance reach and interaction. Familiar with tools such as Google Analytics, Google Search Console, Meta Business Suite,... to evaluate content performance."
+        vi: "Quản lý nội dung, tối ưu SEO cho các kênh truyền thông của công ty và làm quen với các công cụ marketing.",
+        en: "Managed content, optimized SEO for the company's media channels, and familiarized with marketing tools."
       },
     },
 ];
