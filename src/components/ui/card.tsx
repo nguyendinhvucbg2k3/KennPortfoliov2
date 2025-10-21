@@ -4,6 +4,11 @@ import { cn } from "@/lib/utils"
 
 const MotionCard = motion.div;
 
+const cardVariants = {
+  initial: { y: 0 },
+  hover: { y: -5, transition: { duration: 0.2, ease: "easeOut" } },
+};
+
 const Card = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
@@ -11,10 +16,12 @@ const Card = React.forwardRef<
   <MotionCard
     ref={ref}
     className={cn(
-      "rounded-lg border bg-card/50 text-card-foreground shadow-sm backdrop-blur-sm",
+      "rounded-lg border bg-card/60 text-card-foreground shadow-lg shadow-black/5 backdrop-blur-lg",
       className
     )}
-    whileHover={{ y: -4, transition: { duration: 0.2 } }}
+    variants={cardVariants}
+    initial="initial"
+    whileHover="hover"
     {...props}
   />
 ))
