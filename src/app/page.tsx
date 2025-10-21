@@ -64,7 +64,7 @@ export default function Home() {
              <div className="h-20 bg-muted/50 rounded-md animate-pulse w-3/4 mx-auto" />
           ) : (
             <motion.h1 
-              className="font-headline text-5xl md:text-7xl lg:text-8xl font-bold text-glow"
+              className="font-headline text-5xl md:text-7xl lg:text-8xl font-bold text-primary text-glow"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}

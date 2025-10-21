@@ -73,7 +73,7 @@ export default function AboutPage() {
           animate="visible"
           variants={cardVariants}
         >
-          <motion.h1 variants={cardVariants} className="font-headline text-4xl md:text-6xl font-bold text-glow">
+          <motion.h1 variants={cardVariants} className="font-headline text-4xl md:text-6xl font-bold text-primary text-glow">
             {pageContent.philosophyTitle}
           </motion.h1>
           <motion.p variants={cardVariants} className="mt-6 text-lg text-foreground/80 leading-relaxed">

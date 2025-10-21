@@ -71,7 +71,7 @@ export default function ProjectPage() {
 
         <div className="text-center mb-12">
           <Badge variant="secondary" className="mb-4">{project.category}</Badge>
-          <h1 className="font-headline text-4xl md:text-6xl font-bold text-glow">
+          <h1 className="font-headline text-4xl md:text-6xl font-bold text-primary text-glow">
             {project.name}
           </h1>
           <p className="text-muted-foreground mt-2 text-lg">{project.year}</p>

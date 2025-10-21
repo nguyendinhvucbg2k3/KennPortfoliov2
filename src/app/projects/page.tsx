@@ -49,7 +49,7 @@ export default function ProjectsPage() {
   return (
     <div className="container mx-auto px-4 py-16 md:py-24">
       <div className="text-center">
-        <h1 className="font-headline text-4xl md:text-6xl font-bold text-glow">
+        <h1 className="font-headline text-4xl md:text-6xl font-bold text-primary text-glow">
           {pageContent.title}
         </h1>
         <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
