@@ -85,4 +85,3 @@ export const experiences: Experience[] = [
 - Đảm bảo mỗi `id` là duy nhất.
 - Sau khi chỉnh sửa và lưu tệp `placeholder-data.ts`, trang chủ sẽ tự động cập nhật lại dòng thời gian hoạt động của bạn với ngôn ngữ tương ứng.
 - Tiêu đề của mục (ví dụ: "Hoạt động") được quản lý trong tệp `src/lib/content.ts` nếu bạn muốn thay đổi.
-
