@@ -1,29 +1,19 @@
-"use client";
+'use client';
 
 import * as React from "react"
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 
-const MotionCard = motion.div;
-
-const cardVariants = {
-  initial: { y: 0 },
-  hover: { y: -5, transition: { duration: 0.2, ease: "easeOut" } },
-};
-
 const Card = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <MotionCard
+  <div
     ref={ref}
     className={cn(
-      "rounded-lg border bg-card/60 text-card-foreground shadow-lg shadow-black/5 backdrop-blur-lg",
+      "rounded-lg border bg-card text-card-foreground shadow-sm",
       className
     )}
-    variants={cardVariants}
-    initial="initial"
-    whileHover="hover"
     {...props}
   />
 ))
@@ -42,10 +32,10 @@ const CardHeader = React.forwardRef<
 CardHeader.displayName = "CardHeader"
 
 const CardTitle = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLHeadingElement>
 >(({ className, ...props }, ref) => (
-  <div
+  <h3
     ref={ref}
     className={cn(
       "text-2xl font-semibold leading-none tracking-tight",
@@ -57,10 +47,10 @@ const CardTitle = React.forwardRef<
 CardTitle.displayName = "CardTitle"
 
 const CardDescription = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
-  <div
+  <p
     ref={ref}
     className={cn("text-sm text-muted-foreground", className)}
     {...props}

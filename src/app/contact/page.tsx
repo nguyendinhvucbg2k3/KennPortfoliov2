@@ -35,7 +35,7 @@ export default function ContactPage() {
 
       <div className="grid md:grid-cols-2 gap-16 mt-16 max-w-6xl mx-auto">
         <div>
-            <h2 className="font-headline text-3xl font-bold mb-8">{pageContent.getInTouch}</h2>
+            <h2 className="font-headline text-3xl font-bold mb-8 text-primary">{pageContent.getInTouch}</h2>
             <div className="space-y-6">
                 <div className="flex items-center gap-4 group">
                     <Mail className="h-6 w-6 text-primary flex-shrink-0" />
@@ -50,7 +50,7 @@ export default function ContactPage() {
                     <p>{personalInfo.address}</p>
                 </div>
             </div>
-             <h2 className="font-headline text-3xl font-bold mt-12 mb-6">{pageContent.followMe}</h2>
+             <h2 className="font-headline text-3xl font-bold mt-12 mb-6 text-primary">{pageContent.followMe}</h2>
              <TooltipProvider>
              <div className="flex items-center gap-2 flex-wrap">
                  <Tooltip>
@@ -129,7 +129,7 @@ export default function ContactPage() {
         <div>
            <Card>
                 <CardHeader>
-                    <CardTitle className="font-headline text-2xl">{pageContent.formTitle}</CardTitle>
+                    <CardTitle className="font-headline text-2xl text-primary">{pageContent.formTitle}</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>

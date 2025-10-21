@@ -14,7 +14,7 @@ import { FigmaIcon } from "@/components/icons/FigmaIcon";
 import { CanvaIcon } from "@/components/icons/CanvaIcon";
 import { CapcutIcon } from "@/components/icons/CapcutIcon";
 import { SkillsChart } from "@/components/charts/skills-chart";
-import { skills } from "@/lib/placeholder-data";
+import { skills }from "@/lib/placeholder-data";
 
 const softwareIcons = [
     { name: "Photoshop", Icon: PhotoshopIcon },
@@ -81,8 +81,8 @@ export default function AboutPage() {
       </section>
 
       <section>
-        <h2 className="text-center font-headline text-3xl md:text-4xl font-bold">
-          {pageContent.educationTitle} <span className="text-primary text-glow">{pageContent.educationHighlight}</span>
+        <h2 className="text-center font-headline text-3xl md:text-4xl font-bold text-primary text-glow">
+          {pageContent.educationTitle} {pageContent.educationHighlight}
         </h2>
         <motion.div 
           className="mt-12 max-w-2xl mx-auto space-y-8"
@@ -103,8 +103,8 @@ export default function AboutPage() {
       </section>
 
       <section>
-        <h2 className="text-center font-headline text-3xl md:text-4xl font-bold">
-          {pageContent.skillsTitle} <span className="text-primary text-glow">{pageContent.skillsHighlight}</span>
+        <h2 className="text-center font-headline text-3xl md:text-4xl font-bold text-primary text-glow">
+          {pageContent.skillsTitle} {pageContent.skillsHighlight}
         </h2>
         <motion.div
           className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto"
@@ -153,8 +153,8 @@ export default function AboutPage() {
 
 
       <section id="contact" className="text-center bg-card/50 border border-border/50 backdrop-blur-sm p-8 md:p-16 rounded-lg">
-        <h2 className="font-headline text-3xl md:text-4xl font-bold">
-          {pageContent.contactTitle} <span className="text-primary text-glow">{pageContent.contactHighlight}</span> Together
+        <h2 className="font-headline text-3xl md:text-4xl font-bold text-primary text-glow">
+          {pageContent.contactTitle} {pageContent.contactHighlight} Together
         </h2>
         <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
           {pageContent.contactDescription}

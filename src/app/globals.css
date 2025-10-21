@@ -32,26 +32,26 @@
     --input: 240 5.9% 90%;
     --ring: 356 79% 56%;
 
-    --radius: 0.8rem;
+    --radius: 0.5rem;
   }
 
   .dark {
-    --background: 240 6% 10%;
-    --foreground: 0 0% 98%;
+    --background: 0 0% 4%; /* #0A0A0A */
+    --foreground: 0 0% 98%; /* #FAFAFA */
 
-    --card: 240 4% 13%;
+    --card: 0 0% 8%; /* #141414 */
     --card-foreground: 0 0% 98%;
 
-    --popover: 240 6% 10%;
+    --popover: 0 0% 4%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 356 79% 56%;
+    --primary: 356 79% 56%; /* #E53342 */
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 240 4% 15%;
+    --secondary: 0 0% 15%;
     --secondary-foreground: 0 0% 98%;
 
-    --muted: 240 4% 15%;
+    --muted: 0 0% 15%;
     --muted-foreground: 0 0% 63.9%;
 
     --accent: 356 79% 56%;
@@ -60,8 +60,8 @@
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 4% 20%;
-    --input: 240 4% 20%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
     --ring: 356 79% 56%;
   }
 }
@@ -123,7 +123,7 @@
     position: absolute;
     inset: 0;
     background-image:
-      repeating-linear-gradient(45deg, hsl(var(--border)/0.25) 0, hsl(var(--border)/0.25) 1px, transparent 1px, transparent 80px);
+      repeating-linear-gradient(45deg, hsl(var(--border)/0.25) 0, hsl(var(--border)/0.25) 1px, transparent 80px);
     animation: animate-lines 40s linear infinite;
     z-index: -1;
   }

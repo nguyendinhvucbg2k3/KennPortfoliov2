@@ -8,14 +8,13 @@ import { ArrowRight, Briefcase, Cake, GraduationCap, Mail, MapPin, Phone } from 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
-import { experiences as placeholderExperiences, personalInfo } from '@/lib/placeholder-data';
+import { experiences, personalInfo } from '@/lib/placeholder-data';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 
 export default function Home() {
   const { language } = useLanguage();
   const heroImage = PlaceHolderImages.find((img) => img.id === 'hero-background');
-  const experiences = placeholderExperiences;
   
   const pageContent = content[language].home;
 
@@ -45,11 +44,11 @@ export default function Home() {
           </motion.div>
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent" />
-        <div className="absolute inset-0 bg-background/30" />
+        <div className="absolute inset-0 bg-background/50" />
         
         <div className="relative z-10 p-4 max-w-4xl mx-auto">
             <motion.h1 
-              className="font-headline text-5xl md:text-7xl lg:text-8xl font-bold text-primary text-glow"
+              className="font-headline text-5xl md:text-7xl lg:text-8xl font-black text-primary text-glow"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
@@ -57,7 +56,7 @@ export default function Home() {
               KENN
             </motion.h1>
            <motion.p 
-              className="mt-4 text-lg md:text-2xl text-foreground/80"
+              className="mt-4 text-lg md:text-2xl text-foreground/80 font-headline"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
@@ -77,7 +76,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <Button asChild size="lg" className="mt-8 group transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-primary/30">
+            <Button asChild size="lg" className="mt-8 group">
               <Link href="/projects">
                 {pageContent.exploreWork} <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>
@@ -88,11 +87,11 @@ export default function Home() {
 
       <section className="py-16 md:py-24 bg-background">
         <div className="container mx-auto px-4">
-            <h2 className="text-center font-headline text-3xl md:text-4xl font-bold mb-12">
-              {pageContent.basicInfo.title} <span className="text-primary text-glow">{pageContent.basicInfo.highlight}</span>
+            <h2 className="text-center font-headline text-3xl md:text-4xl font-bold mb-12 text-primary text-glow">
+              {pageContent.basicInfo.title} {pageContent.basicInfo.highlight}
             </h2>
               <motion.div 
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10 max-w-6xl mx-auto"
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-x-8 gap-y-10 max-w-4xl mx-auto"
                 variants={cardVariants}
                 initial="hidden"
                 whileInView="visible"
@@ -109,7 +108,7 @@ export default function Home() {
                   <motion.div key={i} variants={cardVariants} className="flex items-start gap-4">
                       <item.icon className="h-6 w-6 mt-1 text-primary flex-shrink-0"/>
                       <div>
-                        <h3 className="font-semibold">{item.label}</h3>
+                        <h3 className="font-semibold text-foreground/90">{item.label}</h3>
                         <p className="text-muted-foreground">{item.value}</p>
                       </div>
                   </motion.div>
@@ -118,15 +117,15 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24 bg-card/20">
+      <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
-          <h2 className="text-center font-headline text-3xl md:text-4xl font-bold mb-16">
-            {pageContent.activities.title} <span className="text-primary text-glow">{pageContent.activities.highlight}</span>
+          <h2 className="text-center font-headline text-3xl md:text-4xl font-bold mb-16 text-primary text-glow">
+            {pageContent.activities.title}{pageContent.activities.highlight}
           </h2>
-          <div className="relative max-w-4xl mx-auto">
+          <div className="relative max-w-2xl mx-auto">
             <div className="absolute left-4 md:left-1/2 -translate-x-1/2 w-0.5 h-full bg-border/50"></div>
             <div className="space-y-12">
-              {(experiences || []).map((exp, index) => (
+              {experiences.map((exp, index) => (
                 <motion.div 
                   key={exp.id}
                   className="relative pl-12 md:pl-0"
@@ -137,7 +136,7 @@ export default function Home() {
                 >
                   <div className="absolute top-1 left-4 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-primary ring-4 ring-background box-glow-primary"></div>
                    <div className={cn("md:w-[calc(50%-2rem)]", index % 2 === 0 ? 'md:ml-auto' : 'md:mr-auto')}>
-                     <Card>
+                     <Card className="bg-card/80">
                         <CardHeader className={cn(index % 2 !== 0 && "md:text-right")}>
                           <CardTitle className="font-headline text-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-1">
                             <span className="md:order-1">{exp.title[language]}</span>
@@ -160,8 +159,8 @@ export default function Home() {
       <section className="py-24 md:py-32 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center">
-            <h2 className="font-headline text-3xl md:text-4xl font-bold">
-              {pageContent.callToAction.title} <span className="text-primary text-glow">{pageContent.callToAction.highlight}</span>
+            <h2 className="font-headline text-3xl md:text-4xl font-bold text-primary text-glow">
+              {pageContent.callToAction.title} {pageContent.callToAction.highlight}
             </h2>
             <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
               {pageContent.callToAction.description}

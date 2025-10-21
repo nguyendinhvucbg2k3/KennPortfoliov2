@@ -20,7 +20,6 @@ export default function ResourcesPage() {
   const pageContent = content[language].resources;
 
   const resourcesByCategory = useMemo(() => {
-    if (!resources) return {};
     return resources.reduce((acc, resource) => {
       const { category } = resource;
       if (!acc[category]) {
@@ -29,7 +28,7 @@ export default function ResourcesPage() {
       acc[category].push(resource);
       return acc;
     }, {} as Record<string, Resource[]>);
-  }, [resources]);
+  }, []);
 
   const defaultAccordionValue = useMemo(() => {
     const keys = Object.keys(resourcesByCategory);
@@ -75,7 +74,7 @@ export default function ResourcesPage() {
               <Accordion type="multiple" className="w-full space-y-4" defaultValue={defaultAccordionValue}>
               {Object.entries(resourcesByCategory).map(([category, resourcesInCategory]) => (
                   <motion.div key={category} variants={itemVariants}>
-                    <AccordionItem value={category} className="bg-card/50 border border-border/50 backdrop-blur-sm rounded-lg px-4">
+                    <AccordionItem value={category} className="bg-card/80 border border-border backdrop-blur-sm rounded-lg px-4">
                       <AccordionTrigger className="text-xl font-headline hover:text-primary hover:no-underline">
                           {category}
                       </AccordionTrigger>
@@ -87,7 +86,7 @@ export default function ResourcesPage() {
                               href={resource.url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="block p-4 rounded-md bg-background/50 hover:bg-background transition-colors group"
+                              className="block p-4 rounded-md bg-background/50 hover:bg-background/100 transition-colors group border border-transparent hover:border-primary/30"
                               >
                               <div className="flex justify-between items-center">
                                   <div>

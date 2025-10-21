@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { ArrowRight } from 'lucide-react';
 import { projects } from '@/lib/placeholder-data';
 import { useLanguage } from '@/context/language-context';
@@ -44,7 +44,7 @@ export default function ProjectsPage() {
         <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
           {pageContent.description}
         </p>
-         <Button asChild size="lg" className="mt-8 group transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-accent/30">
+         <Button asChild size="lg" className="mt-8 group">
             <Link href={behanceProfileUrl} target="_blank" rel="noopener noreferrer">
                 {pageContent.viewOnBehance} <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Link>
@@ -59,31 +59,31 @@ export default function ProjectsPage() {
       >
         {projects.map(project => (
           <motion.div key={project.id} variants={itemVariants}>
-            <Card className="overflow-hidden flex flex-col h-full group">
-              <div className="relative aspect-video overflow-hidden">
-                <Image
-                  src={project.image.src}
-                  alt={project.image.alt}
-                  fill
-                  className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
-                  data-ai-hint={project.image.aiHint}
-                />
-              </div>
-              <div className="flex flex-col flex-grow p-6">
-                <div className="flex-grow">
-                  <Badge variant="secondary" className="mb-2">{project.category}</Badge>
-                  <CardTitle className="font-headline text-xl mb-2">{project.name}</CardTitle>
-                  <p className="text-muted-foreground line-clamp-2">{project.shortDescription}</p>
+            <Link href={`/projects/${project.slug}`} className="block group">
+              <Card className="overflow-hidden flex flex-col h-full bg-card/80 transition-all duration-300 ease-out hover:border-primary/50 hover:shadow-primary/10">
+                <div className="relative aspect-video overflow-hidden">
+                  <Image
+                    src={project.image.src}
+                    alt={project.image.alt}
+                    fill
+                    className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+                    data-ai-hint={project.image.aiHint}
+                  />
                 </div>
-                <div className="mt-4">
-                  <Button asChild variant="link" className="p-0 text-base">
-                    <Link href={`/projects/${project.slug}`}>
-                      {pageContent.viewProject} <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </Button>
-                </div>
-              </div>
-            </Card>
+                <CardContent className="flex flex-col flex-grow p-6">
+                  <div className="flex-grow">
+                    <Badge variant="secondary" className="mb-2 text-xs">{project.category}</Badge>
+                    <h3 className="font-headline text-xl mb-2 text-foreground">{project.name}</h3>
+                    <p className="text-muted-foreground text-sm line-clamp-2">{project.shortDescription}</p>
+                  </div>
+                  <div className="mt-4">
+                      <p className="text-sm text-primary font-semibold flex items-center">
+                        {pageContent.viewProject} <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
           </motion.div>
         ))}
       </motion.div>

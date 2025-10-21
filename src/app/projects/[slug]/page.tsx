@@ -10,7 +10,7 @@ import { ArrowRight, ArrowLeft } from 'lucide-react';
 import type { Project } from '@/lib/types';
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
-import { projects as placeholderProjects } from '@/lib/placeholder-data';
+import { projects } from '@/lib/placeholder-data';
 import { motion } from 'framer-motion';
 
 export default function ProjectPage() {
@@ -20,22 +20,10 @@ export default function ProjectPage() {
   const { language } = useLanguage();
   const pageContent = content[language].projectDetail;
 
-  // Since this is a client component, we find the project directly.
-  // In a real app with many projects, you might fetch this data.
-  const project = placeholderProjects.find(p => p.slug === slug || p.id === slug);
+  const project = projects.find(p => p.slug === slug || p.id === slug);
 
-  // If the project isn't found after checking, trigger a 404.
-  // We use useEffect to call notFound because it must be called during render.
-  React.useEffect(() => {
-    if (!project) {
-      notFound();
-    }
-  }, [project]);
-
-  // If the project is not found, notFound() will be called,
-  // so we can return null here to prevent rendering anything further.
   if (!project) {
-    return null;
+    notFound();
   }
 
   const proseStyles = `
@@ -55,7 +43,7 @@ export default function ProjectPage() {
             transition={{ duration: 0.5 }}
             className="mb-8"
         >
-            <Button asChild variant="ghost" className="pl-0">
+            <Button asChild variant="ghost" className="pl-0 hover:bg-transparent hover:text-primary">
               <Link href="/projects">
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 {pageContent.backToProjects}
@@ -64,7 +52,7 @@ export default function ProjectPage() {
         </motion.div>
 
         <div className="text-center mb-12">
-          <Badge variant="secondary" className="mb-4">{project.category}</Badge>
+          <Badge variant="secondary" className="mb-4 text-sm">{project.category}</Badge>
           <h1 className="font-headline text-4xl md:text-6xl font-bold text-primary text-glow">
             {project.name}
           </h1>
@@ -72,7 +60,7 @@ export default function ProjectPage() {
         </div>
 
         <motion.div 
-          className="relative aspect-video rounded-lg overflow-hidden mb-12 shadow-2xl shadow-black/30"
+          className="relative aspect-video rounded-lg overflow-hidden mb-12 shadow-2xl shadow-black/30 border border-border"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -92,19 +80,21 @@ export default function ProjectPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-            <h2 className="font-headline text-3xl text-primary text-glow">{pageContent.aboutTitle}</h2>
+            <h2 className="font-headline text-3xl text-primary">{pageContent.aboutTitle}</h2>
             <p>{project.description}</p>
-            <h2 className="font-headline text-3xl text-primary text-glow mt-12">{pageContent.principlesTitle}</h2>
+            <h2 className="font-headline text-3xl text-primary mt-12">{pageContent.principlesTitle}</h2>
             <p>{project.designPrinciples}</p>
         </motion.div>
         
-        <div className="mt-16 text-center">
-            <Button asChild size="lg" className="group transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-accent/30">
-                <Link href={project.behanceUrl} target="_blank" rel="noopener noreferrer">
-                    {pageContent.behanceButton} <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                </Link>
-            </Button>
-        </div>
+        {project.behanceUrl && (
+          <div className="mt-16 text-center">
+              <Button asChild size="lg" className="group">
+                  <Link href={project.behanceUrl} target="_blank" rel="noopener noreferrer">
+                      {pageContent.behanceButton} <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                  </Link>
+              </Button>
+          </div>
+        )}
       </div>
     </div>
   );
