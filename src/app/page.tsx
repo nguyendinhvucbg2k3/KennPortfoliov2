@@ -1,9 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import Image from 'next/image';
 import Link from 'next/link';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { ArrowRight, Briefcase, Cake, GraduationCap, Mail, MapPin, Phone } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useLanguage } from '@/context/language-context';
@@ -14,8 +12,6 @@ import { motion } from 'framer-motion';
 
 export default function Home() {
   const { language } = useLanguage();
-  const heroImage = PlaceHolderImages.find((img) => img.id === 'hero-background');
-  
   const pageContent = content[language].home;
 
   const cardVariants = {
@@ -26,27 +22,27 @@ export default function Home() {
   return (
     <div className="flex flex-col">
        <section className="relative w-full h-[70vh] md:h-[80vh] flex items-center justify-center text-center overflow-hidden">
-        <div className="absolute inset-0 z-0 bg-background">
-            <div className="liquid-flow-background">
-                <div className="liquid-shape"></div>
-                <div className="liquid-shape"></div>
-                <div className="liquid-shape"></div>
-                 <div className="liquid-shape"></div>
-                <div className="liquid-shape"></div>
-                <div className="liquid-shape"></div>
-                 <div className="liquid-shape"></div>
-                <div className="liquid-shape"></div>
-                <div className="liquid-shape"></div>
-            </div>
-             <svg className="absolute w-0 h-0">
-                <defs>
-                <filter id="liquid">
-                    <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
-                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="liquid" />
-                    <feBlend in="SourceGraphic" in2="liquid" />
-                </filter>
-                </defs>
-            </svg>
+        <div className="absolute inset-0 z-0">
+          <div className="liquid-flow-background">
+              <div className="liquid-shape"></div>
+              <div className="liquid-shape"></div>
+              <div className="liquid-shape cyan"></div>
+              <div className="liquid-shape"></div>
+              <div className="liquid-shape cyan"></div>
+              <div className="liquid-shape"></div>
+              <div className="liquid-shape"></div>
+              <div className="liquid-shape cyan"></div>
+              <div className="liquid-shape"></div>
+          </div>
+           <svg className="absolute w-0 h-0">
+              <defs>
+              <filter id="liquid">
+                  <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blur" />
+                  <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -8" result="liquid" />
+                  <feBlend in="SourceGraphic" in2="liquid" />
+              </filter>
+              </defs>
+          </svg>
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
         
