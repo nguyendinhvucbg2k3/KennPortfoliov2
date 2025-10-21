@@ -10,6 +10,7 @@ import { ThemeProvider } from '@/context/theme-context';
 import { QuickContact } from '@/components/layout/QuickContact';
 import { MotionWrapper } from '@/components/layout/MotionWrapper';
 import { ScrollProgressDragon } from '@/components/layout/ScrollProgressDragon';
+import { OfflineIndicator } from '@/components/layout/OfflineIndicator';
 
 const fontInter = Inter({
   subsets: ['latin'],
@@ -62,6 +63,7 @@ export default function RootLayout({
               </main>
               <Footer />
               <QuickContact />
+              <OfflineIndicator />
             </div>
             <Toaster />
           </LanguageProvider>
