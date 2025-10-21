@@ -25,10 +25,16 @@ export type Resource = {
 
 export type Experience = {
     id: string;
-    title: string;
+    title: {
+        vi: string;
+        en: string;
+    };
     organization: string;
     date: string;
-    description: string;
+    description: {
+        vi: string;
+        en: string;
+    };
 };
 
 export type Skill = {

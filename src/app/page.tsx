@@ -172,13 +172,13 @@ export default function Home() {
                      <Card>
                         <CardHeader className={cn(index % 2 !== 0 && "md:text-right")}>
                           <CardTitle className="font-headline text-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-1">
-                            <span className="md:order-1">{exp.title}</span>
+                            <span className="md:order-1">{exp.title[language]}</span>
                             <span className="text-sm font-normal text-muted-foreground order-first md:order-last">{exp.date}</span>
                           </CardTitle>
                           <p className="text-primary font-semibold">{exp.organization}</p>
                         </CardHeader>
                         <CardContent>
-                          <p className="text-muted-foreground">{exp.description}</p>
+                          <p className="text-muted-foreground">{exp.description[language]}</p>
                         </CardContent>
                       </Card>
                    </div>

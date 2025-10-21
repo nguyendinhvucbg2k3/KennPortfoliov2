@@ -1,0 +1,65 @@
+=======================================
+HƯỚNG DẪN CẬP NHẬT HOẠT ĐỘNG
+=======================================
+
+Toàn bộ các hoạt động của bạn được quản lý tại một nơi duy nhất để dễ dàng chỉnh sửa.
+
+---------------------------------
+1. Vị trí tệp tin
+---------------------------------
+Mở tệp: `src/lib/placeholder-data.ts`
+
+Tìm đến một mảng (array) có tên là `experiences`. Mỗi hoạt động là một đối tượng (object) trong mảng này.
+
+---------------------------------
+2. Cách chỉnh sửa
+---------------------------------
+- **Để thêm hoạt động mới:** Sao chép một khối đối tượng `{...}` có sẵn, dán nó vào cuối danh sách và thay đổi nội dung cho phù hợp.
+- **Để sửa hoặc xóa:** Tìm hoạt động bạn muốn chỉnh sửa và thay đổi nội dung bên trong, hoặc xóa toàn bộ khối đối tượng đó.
+
+---------------------------------
+3. Cấu trúc của một đối tượng Hoạt động
+---------------------------------
+Mỗi hoạt động cần có cấu trúc song ngữ (tiếng Việt và tiếng Anh) như sau:
+
+```javascript
+{
+  id: "1", // ID duy nhất cho mỗi hoạt động, không được trùng nhau.
+  title: {
+    vi: "Vai trò/Chức vụ của bạn (tiếng Việt)",
+    en: "Your Role/Position (in English)"
+  },
+  organization: "Tên câu lạc bộ/tổ chức",
+  date: "Thời gian tham gia (ví dụ: 10/2021 — nay)",
+  description: {
+    vi: "Mô tả ngắn gọn về vai trò và những gì bạn đã làm (tiếng Việt).",
+    en: "A brief description of your role and what you did (in English)."
+  },
+},
+```
+
+**Ví dụ:**
+
+```javascript
+export const experiences: Experience[] = [
+    {
+      id: "1",
+      title: {
+        vi: "Graphics Designer",
+        en: "Graphics Designer"
+      },
+      organization: "PHENIKAA ESPORTS CLUB",
+      date: "10/2021 — nay",
+      description: {
+        vi: "Thiết kế chính - Đảm nhiệm việc thiết kế và quản lý hầu hết các sản phẩm truyền thông của tổ chức...",
+        en: "Lead Designer - Responsible for designing and managing most of the organization's media products..."
+      },
+    },
+    // Thêm các hoạt động khác của bạn ở đây...
+];
+```
+
+**LƯU Ý QUAN TRỌNG:**
+- Đảm bảo mỗi `id` là duy nhất.
+- Sau khi chỉnh sửa và lưu tệp `placeholder-data.ts`, trang chủ sẽ tự động cập nhật lại dòng thời gian hoạt động của bạn với ngôn ngữ tương ứng.
+- Tiêu đề của mục (ví dụ: "Hoạt động") được quản lý trong tệp `src/lib/content.ts` nếu bạn muốn thay đổi.
