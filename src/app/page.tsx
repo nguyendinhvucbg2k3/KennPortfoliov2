@@ -10,17 +10,6 @@ import { experiences, personalInfo } from '@/lib/placeholder-data';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 
-const CyberpunkBackground = () => {
-  return (
-    <div className="cyberpunk-bg">
-      <div className="stars"></div>
-      <div className="particles"></div>
-      <div className="scanlines"></div>
-      <div className="glitch"></div>
-    </div>
-  );
-};
-
 export default function Home() {
   const { language } = useLanguage();
   const pageContent = content[language].home;
@@ -33,7 +22,6 @@ export default function Home() {
   return (
     <div className="flex flex-col">
        <section className="relative w-full h-[70vh] md:h-[80vh] flex items-center justify-center text-center overflow-hidden">
-        <CyberpunkBackground />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent z-0" />
         
         <div className="relative z-10 p-4 max-w-4xl mx-auto">
