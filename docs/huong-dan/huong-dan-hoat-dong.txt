@@ -29,7 +29,10 @@ Mỗi hoạt động cần có cấu trúc song ngữ (tiếng Việt và tiến
     vi: "Vai trò/Chức vụ của bạn (tiếng Việt)",
     en: "Your Role/Position (in English)"
   },
-  organization: "Tên câu lạc bộ/tổ chức",
+  organization: {
+    vi: "Tên câu lạc bộ/tổ chức (tiếng Việt)",
+    en: "Name of club/organization (in English)"
+  },
   date: "Thời gian tham gia (ví dụ: 10/2021 — nay)",
   description: {
     vi: "Mô tả ngắn gọn, súc tích về vai trò và trách nhiệm chính (tiếng Việt).",
@@ -48,7 +51,10 @@ export const experiences: Experience[] = [
         vi: "Graphics Designer",
         en: "Graphics Designer"
       },
-      organization: "PHENIKAA ESPORTS CLUB",
+      organization: {
+        vi: "PHENIKAA ESPORTS CLUB",
+        en: "PHENIKAA ESPORTS CLUB"
+      },
       date: "10/2021 — nay",
       description: {
         vi: "Thiết kế và quản lý các sản phẩm truyền thông cho CLB, đảm bảo nhận diện thương hiệu cho các sự kiện và giải đấu.",
@@ -61,7 +67,10 @@ export const experiences: Experience[] = [
         vi: "CTV Vận hành sự kiện",
         en: "Event Operations Collaborator"
       },
-      organization: "FLAZER THUỘC TEAM FLASH VIETNAM",
+      organization: {
+        vi: "FLAZER THUỘC TEAM FLASH VIETNAM",
+        en: "FLAZER (UNDER TEAM FLASH VIETNAM)"
+      },
       date: "07/2024 — Nay",
       description: {
         vi: "Hỗ trợ vận hành các sự kiện và giải đấu, giám sát và đảm bảo quy trình diễn ra suôn sẻ, chuyên nghiệp.",

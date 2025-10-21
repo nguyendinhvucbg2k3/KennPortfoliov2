@@ -29,7 +29,10 @@ export type Experience = {
         vi: string;
         en: string;
     };
-    organization: string;
+    organization: {
+        vi: string;
+        en: string;
+    };
     date: string;
     description: {
         vi: string;

@@ -175,7 +175,7 @@ export default function Home() {
                             <span className="md:order-1">{exp.title[language]}</span>
                             <span className="text-sm font-normal text-muted-foreground order-first md:order-last">{exp.date}</span>
                           </CardTitle>
-                          <p className="text-primary font-semibold">{exp.organization}</p>
+                          <p className="text-primary font-semibold">{exp.organization[language]}</p>
                         </CardHeader>
                         <CardContent>
                           <p className="text-muted-foreground">{exp.description[language]}</p>

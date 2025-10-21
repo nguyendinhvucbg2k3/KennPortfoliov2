@@ -240,7 +240,10 @@ export const experiences: Experience[] = [
         vi: "Graphics Designer",
         en: "Graphics Designer"
       },
-      organization: "PHENIKAA ESPORTS CLUB",
+      organization: {
+        vi: "PHENIKAA ESPORTS CLUB",
+        en: "PHENIKAA ESPORTS CLUB"
+      },
       date: "10/2021 — nay",
       description: {
         vi: "Thiết kế và quản lý các sản phẩm truyền thông cho CLB, đảm bảo nhận diện thương hiệu cho các sự kiện và giải đấu.",
@@ -253,7 +256,10 @@ export const experiences: Experience[] = [
         vi: "Graphic Designer",
         en: "Graphic Designer"
       },
-      organization: "HỘI SINH VIÊN BẮC GIANG TẠI HÀ NỘI",
+      organization: {
+        vi: "HỘI SINH VIÊN BẮC GIANG TẠI HÀ NỘI",
+        en: "BAC GIANG STUDENTS ASSOCIATION IN HANOI"
+      },
       date: "10/2023 — 12/2024",
       description: {
         vi: "Thiết kế các ấn phẩm truyền thông (bài đăng, poster, banner) cho các hoạt động của hội trên mạng xã hội.",
@@ -266,7 +272,10 @@ export const experiences: Experience[] = [
         vi: "CTV Designer",
         en: "Collaborator Designer"
       },
-      organization: "FLAZER THUỘC TEAM FLASH VIETNAM",
+      organization: {
+        vi: "FLAZER THUỘC TEAM FLASH VIETNAM",
+        en: "FLAZER (UNDER TEAM FLASH VIETNAM)"
+      },
       date: "10/2023 — Nay",
       description: {
         vi: "Tạo các sản phẩm truyền thông cho cộng đồng người hâm mộ Team Flash, góp phần nâng cao hình ảnh thương hiệu.",
@@ -279,7 +288,10 @@ export const experiences: Experience[] = [
         vi: "Cộng tác viên Media",
         en: "Media Collaborator"
       },
-      organization: "NECTECH",
+      organization: {
+        vi: "NECTECH",
+        en: "NECTECH"
+      },
       date: "04/2024 — Nay",
       description: {
         vi: "Sản xuất video ngắn và quản lý các kênh mạng xã hội, phát triển nội dung sáng tạo để thu hút người xem.",
@@ -292,7 +304,10 @@ export const experiences: Experience[] = [
         vi: "Admin & Media Esports",
         en: "Admin & Esports Media"
       },
-      organization: 'Kênh Tiktok "Chớp con bận làm MEDIA."',
+      organization: {
+        vi: 'Kênh Tiktok "Chớp con bận làm MEDIA."',
+        en: 'Tiktok Channel "Chớp con bận làm MEDIA."'
+      },
       date: "05/2024 — Nay",
       description: {
         vi: "Quản trị và sản xuất nội dung media về Esports, xây dựng và phát triển cộng đồng trên nền tảng Tiktok.",
@@ -305,7 +320,10 @@ export const experiences: Experience[] = [
         vi: "CTV Vận hành sự kiện",
         en: "Event Operations Collaborator"
       },
-      organization: "FLAZER THUỘC TEAM FLASH VIETNAM",
+      organization: {
+        vi: "FLAZER THUỘC TEAM FLASH VIETNAM",
+        en: "FLAZER (UNDER TEAM FLASH VIETNAM)"
+      },
       date: "07/2024 — Nay",
       description: {
         vi: "Hỗ trợ vận hành các sự kiện và giải đấu, giám sát và đảm bảo quy trình diễn ra suôn sẻ, chuyên nghiệp.",
@@ -313,4 +331,5 @@ export const experiences: Experience[] = [
       },
     }
 ];
+
 
