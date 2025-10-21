@@ -8,26 +8,14 @@ import { ArrowRight, Briefcase, Cake, GraduationCap, Mail, MapPin, Phone } from 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
-import { experiences as placeholderExperiences, personalInfo as placeholderPersonalInfo } from '@/lib/placeholder-data';
-import type { PersonalInfo, Experience } from '@/lib/types';
-import { useState, useEffect } from 'react';
+import { experiences as placeholderExperiences, personalInfo } from '@/lib/placeholder-data';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 
 export default function Home() {
   const { language } = useLanguage();
   const heroImage = PlaceHolderImages.find((img) => img.id === 'hero-background');
-  
-  const [personalInfo, setPersonalInfo] = useState<PersonalInfo | null>(null);
-  const [experiences, setExperiences] = useState<Experience[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Simulate fetching data
-    setPersonalInfo(placeholderPersonalInfo);
-    setExperiences(placeholderExperiences);
-    setIsLoading(false);
-  }, []);
+  const experiences = placeholderExperiences;
   
   const pageContent = content[language].home;
 
@@ -60,9 +48,6 @@ export default function Home() {
         <div className="absolute inset-0 bg-background/30" />
         
         <div className="relative z-10 p-4 max-w-4xl mx-auto">
-          {isLoading ? (
-             <div className="h-20 bg-muted/50 rounded-md animate-pulse w-3/4 mx-auto" />
-          ) : (
             <motion.h1 
               className="font-headline text-5xl md:text-7xl lg:text-8xl font-bold text-primary text-glow"
               initial={{ opacity: 0, y: 20 }}
@@ -71,7 +56,6 @@ export default function Home() {
             >
               KENN
             </motion.h1>
-          )}
            <motion.p 
               className="mt-4 text-lg md:text-2xl text-foreground/80"
               initial={{ opacity: 0, y: 20 }}
@@ -107,19 +91,6 @@ export default function Home() {
             <h2 className="text-center font-headline text-3xl md:text-4xl font-bold mb-12">
               {pageContent.basicInfo.title} <span className="text-primary text-glow">{pageContent.basicInfo.highlight}</span>
             </h2>
-             {isLoading ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                {Array.from({ length: 6 }).map((_, i) => (
-                  <div key={i} className="flex items-start gap-4 p-4 rounded-lg bg-card/50">
-                    <div className="h-6 w-6 mt-1 bg-muted/50 rounded animate-pulse"/>
-                    <div className="w-full">
-                      <div className="h-5 w-1/3 bg-muted/50 rounded animate-pulse mb-2" />
-                      <div className="h-4 w-2/3 bg-muted/50 rounded animate-pulse" />
-                    </div>
-                  </div>
-                ))}
-              </div>
-             ) : personalInfo && (
               <motion.div 
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10 max-w-6xl mx-auto"
                 variants={cardVariants}
@@ -144,7 +115,6 @@ export default function Home() {
                   </motion.div>
                 ))}
               </motion.div>
-             )}
         </div>
       </section>
 
@@ -156,9 +126,7 @@ export default function Home() {
           <div className="relative max-w-4xl mx-auto">
             <div className="absolute left-4 md:left-1/2 -translate-x-1/2 w-0.5 h-full bg-border/50"></div>
             <div className="space-y-12">
-              {isLoading ? (
-                <p>Loading activities...</p>
-              ) : (experiences || []).map((exp, index) => (
+              {(experiences || []).map((exp, index) => (
                 <motion.div 
                   key={exp.id}
                   className="relative pl-12 md:pl-0"

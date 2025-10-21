@@ -3,11 +3,9 @@
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { NeonBloomLogo } from "../icons/NeonBloomLogo";
-import { PersonalInfo } from "@/lib/types";
 import { useLanguage } from "@/context/language-context";
 import { content } from "@/lib/content";
-import { useState, useEffect } from "react";
-import { personalInfo as placeholderPersonalInfo } from "@/lib/placeholder-data";
+import { personalInfo } from "@/lib/placeholder-data";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { TiktokIcon } from "../icons/TiktokIcon";
 import { PinterestIcon } from "../icons/PinterestIcon";
@@ -20,14 +18,6 @@ import { LinkedInIcon } from "../icons/LinkedInIcon";
 export function Footer() {
     const { language } = useLanguage();
     const pageContent = content[language].footer;
-    
-    const [personalInfo, setPersonalInfo] = useState<PersonalInfo | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
-
-    useEffect(() => {
-        setPersonalInfo(placeholderPersonalInfo);
-        setIsLoading(false);
-    }, []);
 
   return (
     <footer className="w-full border-t border-border/40">
@@ -35,7 +25,7 @@ export function Footer() {
         <div className="flex flex-col items-center gap-4 px-8 text-center md:flex-row md:gap-2 md:px-0 md:text-left">
           <NeonBloomLogo />
           <p className="text-sm leading-loose text-muted-foreground">
-            {pageContent.builtBy} {isLoading ? '...' : (personalInfo?.footerName || 'Thac Nguyen Dinh Vu')}. &copy; {new Date().getFullYear()}. {pageContent.reserved}
+            {pageContent.builtBy} {personalInfo?.footerName || 'Thac Nguyen Dinh Vu'}. &copy; {new Date().getFullYear()}. {pageContent.reserved}
           </p>
         </div>
         <TooltipProvider>

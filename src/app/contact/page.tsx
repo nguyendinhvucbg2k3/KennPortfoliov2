@@ -4,13 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { PersonalInfo } from "@/lib/types";
 import { Mail, Phone, MapPin } from "lucide-react";
 import Link from "next/link";
 import { useLanguage } from "@/context/language-context";
 import { content } from "@/lib/content";
-import { useState, useEffect } from "react";
-import { personalInfo as placeholderPersonalInfo } from "@/lib/placeholder-data";
+import { personalInfo } from "@/lib/placeholder-data";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { BehanceIcon } from "@/components/icons/BehanceIcon";
 import { TiktokIcon } from "@/components/icons/TiktokIcon";
@@ -23,14 +21,6 @@ import { LinkedInIcon } from "@/components/icons/LinkedInIcon";
 export default function ContactPage() {
     const { language } = useLanguage();
     const pageContent = content[language].contact;
-    
-    const [personalInfo, setPersonalInfo] = useState<PersonalInfo | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
-
-    useEffect(() => {
-        setPersonalInfo(placeholderPersonalInfo);
-        setIsLoading(false);
-    }, []);
 
   return (
     <div className="container mx-auto px-4 py-16 md:py-24">
@@ -46,28 +36,20 @@ export default function ContactPage() {
       <div className="grid md:grid-cols-2 gap-16 mt-16 max-w-6xl mx-auto">
         <div>
             <h2 className="font-headline text-3xl font-bold mb-8">{pageContent.getInTouch}</h2>
-            {isLoading ? (
-                <div className="space-y-6">
-                    <div className="h-6 w-3/4 bg-muted/50 rounded animate-pulse" />
-                    <div className="h-6 w-2/3 bg-muted/50 rounded animate-pulse" />
-                    <div className="h-6 w-1/2 bg-muted/50 rounded animate-pulse" />
+            <div className="space-y-6">
+                <div className="flex items-center gap-4 group">
+                    <Mail className="h-6 w-6 text-primary flex-shrink-0" />
+                    <a href={`mailto:${personalInfo.email}`} className="hover:text-primary break-all transition-colors">{personalInfo.email}</a>
                 </div>
-            ) : personalInfo && (
-                <div className="space-y-6">
-                    <div className="flex items-center gap-4 group">
-                        <Mail className="h-6 w-6 text-primary flex-shrink-0" />
-                        <a href={`mailto:${personalInfo.email}`} className="hover:text-primary break-all transition-colors">{personalInfo.email}</a>
-                    </div>
-                    <div className="flex items-center gap-4 group">
-                        <Phone className="h-6 w-6 text-primary flex-shrink-0" />
-                        <a href={personalInfo.phoneHref} className="hover:text-primary transition-colors">{personalInfo.phone}</a>
-                    </div>
-                    <div className="flex items-center gap-4">
-                        <MapPin className="h-6 w-6 text-primary flex-shrink-0" />
-                        <p>{personalInfo.address}</p>
-                    </div>
+                <div className="flex items-center gap-4 group">
+                    <Phone className="h-6 w-6 text-primary flex-shrink-0" />
+                    <a href={personalInfo.phoneHref} className="hover:text-primary transition-colors">{personalInfo.phone}</a>
                 </div>
-            )}
+                <div className="flex items-center gap-4">
+                    <MapPin className="h-6 w-6 text-primary flex-shrink-0" />
+                    <p>{personalInfo.address}</p>
+                </div>
+            </div>
              <h2 className="font-headline text-3xl font-bold mt-12 mb-6">{pageContent.followMe}</h2>
              <TooltipProvider>
              <div className="flex items-center gap-2 flex-wrap">

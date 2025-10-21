@@ -7,11 +7,9 @@ import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Download } from "lucide-react";
-import type { Skill } from "@/lib/types";
 import { useLanguage } from "@/context/language-context";
 import { content } from "@/lib/content";
-import { skills as placeholderSkills } from "@/lib/placeholder-data";
-import { useState, useEffect } from "react";
+import { skills } from "@/lib/placeholder-data";
 import { motion } from "framer-motion";
 import { PhotoshopIcon } from "@/components/icons/PhotoshopIcon";
 import { IllustratorIcon } from "@/components/icons/IllustratorIcon";
@@ -31,14 +29,6 @@ export default function AboutPage() {
   const { language } = useLanguage();
   const pageContent = content[language].about;
   const aboutImage = PlaceHolderImages.find((img) => img.id === "about-image");
-  
-  const [skills, setSkills] = useState<Skill[]>([]);
-  const [skillsLoading, setSkillsLoading] = useState(true);
-
-  useEffect(() => {
-    setSkills(placeholderSkills);
-    setSkillsLoading(false);
-  }, []);
 
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -124,19 +114,7 @@ export default function AboutPage() {
           viewport={{ once: true, amount: 0.2 }}
           variants={cardVariants}
         >
-          {skillsLoading ? (
-            Array.from({ length: 4 }).map((_, i) => (
-              <Card key={i}>
-                <CardHeader>
-                  <div className="h-6 w-3/4 bg-muted/50 rounded animate-pulse" />
-                </CardHeader>
-                <CardContent>
-                  <div className="h-4 w-full bg-muted/50 rounded animate-pulse mb-3" />
-                  <div className="h-2 w-full bg-muted/50 rounded animate-pulse" />
-                </CardContent>
-              </Card>
-            ))
-          ) : (skills || []).map((skill, index) => (
+          {(skills || []).map((skill, index) => (
             <Card key={index}>
               <CardHeader>
                 <CardTitle className="text-xl font-headline">{skill.name}</CardTitle>

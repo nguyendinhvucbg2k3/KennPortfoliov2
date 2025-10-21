@@ -9,26 +9,15 @@ import {
 import Link from 'next/link';
 import { ExternalLink } from 'lucide-react';
 import type { Resource } from '@/lib/types';
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo } from 'react';
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
-import { resources as placeholderResources } from '@/lib/placeholder-data';
+import { resources } from '@/lib/placeholder-data';
 import { motion } from 'framer-motion';
 
 export default function ResourcesPage() {
   const { language } = useLanguage();
   const pageContent = content[language].resources;
-  
-  const [resources, setResources] = useState<Resource[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    setIsLoading(true);
-    setTimeout(() => {
-        setResources(placeholderResources);
-        setIsLoading(false);
-    }, 500);
-  }, []);
 
   const resourcesByCategory = useMemo(() => {
     if (!resources) return {};
@@ -64,26 +53,6 @@ export default function ResourcesPage() {
       opacity: 1
     }
   };
-
-  if (isLoading) {
-    return (
-        <div className="container mx-auto px-4 py-16 md:py-24">
-            <div className="text-center">
-                <h1 className="font-headline text-4xl md:text-6xl font-bold text-primary text-glow">
-                    {pageContent.title}
-                </h1>
-                <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-                    {content[language].loading}
-                </p>
-            </div>
-             <div className="max-w-3xl mx-auto mt-12 space-y-4">
-                <div className="h-16 bg-card/50 rounded-lg animate-pulse"></div>
-                <div className="h-16 bg-card/50 rounded-lg animate-pulse"></div>
-                <div className="h-16 bg-card/50 rounded-lg animate-pulse"></div>
-            </div>
-        </div>
-    )
-  }
 
   return (
     <div className="container mx-auto px-4 py-16 md:py-24">

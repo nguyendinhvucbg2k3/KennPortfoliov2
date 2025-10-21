@@ -20,26 +20,20 @@ export default function ProjectPage() {
   const { language } = useLanguage();
   const pageContent = content[language].projectDetail;
 
-  const [project, setProject] = React.useState<Project | undefined>();
-  const [isLoading, setIsLoading] = React.useState(true);
+  // Since this is a client component, we find the project directly.
+  // In a real app with many projects, you might fetch this data.
+  const project = placeholderProjects.find(p => p.slug === slug || p.id === slug);
 
+  // If the project isn't found after checking, trigger a 404.
+  // We use useEffect to call notFound because it must be called during render.
   React.useEffect(() => {
-    setIsLoading(true);
-    const foundProject = placeholderProjects.find(p => p.slug === slug || p.id === slug);
-    setProject(foundProject);
-    setIsLoading(false);
-  }, [slug]);
-
-  React.useEffect(() => {
-    if (!isLoading && !project) {
+    if (!project) {
       notFound();
     }
-  }, [isLoading, project]);
+  }, [project]);
 
-  if (isLoading) {
-    return <div className="flex items-center justify-center h-screen">{content[language].loading}</div>;
-  }
-  
+  // If the project is not found, notFound() will be called,
+  // so we can return null here to prevent rendering anything further.
   if (!project) {
     return null;
   }
