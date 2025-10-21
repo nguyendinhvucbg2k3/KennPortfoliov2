@@ -33,33 +33,23 @@
   .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
-
-    /* Fluent Mica-like material for cards */
     --card: 240 4% 10%;
     --card-foreground: 0 0% 98%;
-
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
-
     --primary: 356 79% 56%;
     --primary-foreground: 0 0% 98%;
-
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
-
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 0 0% 63.9%;
-    
     --accent: 356 79% 56%;
     --accent-foreground: 0 0% 98%;
-
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 356 79% 56%;
-
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
@@ -115,5 +105,17 @@
   .reveal-highlight:hover::before {
     width: 200%;
     height: 200%;
+  }
+
+  .aurora-animate {
+      animation: aurora 20s infinite linear;
+  }
+
+  @keyframes aurora {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(40px, 60px) rotate(30deg); }
+    50% { transform: translate(-20px, -40px) rotate(-20deg); }
+    75% { transform: translate(30px, -50px) rotate(40deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
   }
 }
