@@ -25,7 +25,7 @@ Mỗi tài nguyên cần có cấu trúc như sau:
 ```javascript
 {
   id: "1", // ID duy nhất cho mỗi tài nguyên, không được trùng nhau.
-  category: "Tên danh mục (ví dụ: Nguồn website tham khảo)",
+  category: "Tên danh mục (ví dụ: Nguồn website tham khảo)", // Sẽ được dùng để gom nhóm
   title: "Tên của tài nguyên (ví dụ: Behance)",
   description: "Mô tả ngắn gọn về tài nguyên đó.",
   url: "https://www.behance.net/", // Đường dẫn (URL) đến tài nguyên
@@ -50,4 +50,4 @@ export const resources: Resource[] = [
 **LƯU Ý QUAN TRỌNG:**
 - Đảm bảo mỗi `id` là duy nhất.
 - Sau khi bạn lưu tệp `placeholder-data.ts`, trang "Tài nguyên" sẽ tự động cập nhật danh sách và các nhóm tài nguyên tương ứng.
-- Các tiêu đề và mô tả chung của trang được quản lý trong tệp `src/lib/content.ts` nếu bạn muốn thay đổi.
+- Các tiêu đề và mô tả chung của trang (ví dụ: "Trung tâm Tài nguyên") được quản lý trong tệp `src/lib/content.ts` nếu bạn muốn thay đổi.

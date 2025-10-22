@@ -9,9 +9,11 @@ Welcome to the source code for the **KENN** personal portfolio—a digital space
 ## ✨ Key Features
 
 -   **Unique "Neon Garden" Design**: The interface combines a deep dark tone, vibrant neon details (with red as the primary color), and glowing effects to create a futuristic and energetic space.
+-   **Light/Dark Mode Support**: Users can switch between a deep dark theme and a clean light theme, with all colors managed through CSS variables for consistency.
 -   **Bilingual Support (Vietnamese/English)**: Users can easily switch languages, helping the portfolio reach an international audience.
 -   **"Scroll Dragon" Mascot**: A stylized scrollbar in the shape of a coiling SVG dragon that "draws" itself as the user scrolls, creating a unique experience.
--   **Subtle Motion Effects**: Utilizes **Framer Motion** to create smooth motion effects on page load, element interactions, and a lively "Liquid Flow" background effect.
+-   **Subtle Motion Effects**: Utilizes **Framer Motion** to create smooth motion effects on page load, element interactions, and a gentle animated gradient background.
+-   **Offline Indicator**: A friendly, full-screen notice appears when the user's internet connection is lost.
 -   **Centralized Content Management**: All personal information, projects, skills, activities, and resources are managed in separate data files, making updates easy without touching the codebase.
 -   **Fully Responsive**: The interface is optimized to display beautifully on all devices, from desktops to mobile phones.
 
@@ -27,6 +29,7 @@ The project is built with a modern tech stack focused on performance and develop
 -   **Styling:**
     -   **Tailwind CSS**: Using utility classes for rapid and consistent interface creation.
     -   **Shadcn/ui**: A collection of beautifully designed and easily customizable pre-built React components. All colors (primary, background, accent...) are managed via CSS variables in `globals.css`.
+-   **Theme Switching:** **Next-themes** - For seamless switching between light and dark modes.
 -   **Animation:** **Framer Motion** - A powerful library for creating complex and smooth motion effects.
 -   **Icons:** **Lucide React** - A lightweight and consistent stroke-based icon library.
 
@@ -48,7 +51,7 @@ Most of the content on the website can be easily updated by editing the followin
         -   `personalInfo`: Personal information (name, title, email, phone number...).
         -   `skills`: List of skills and proficiency levels.
         -   `experiences`: List of activities, jobs (structured bilingually).
-        -   `projects`: List of portfolio projects.
+        -   `projects`: List of portfolio projects (structured bilingually).
         -   `resources`: Useful resources and links.
 
 3.  **Image Management (`placeholder-images.json`)**:
@@ -88,9 +91,11 @@ Chào mừng bạn đến với mã nguồn của portfolio cá nhân **KENN** �
 ## ✨ Tính năng nổi bật
 
 -   **Thiết kế "Neon Garden" độc đáo**: Giao diện kết hợp giữa tone màu tối sâu, các chi tiết neon rực rỡ (màu đỏ chủ đạo) và hiệu ứng phát sáng, tạo ra một không gian tương lai và đầy năng lượng.
+-   **Hỗ trợ Giao diện Sáng/Tối**: Người dùng có thể chuyển đổi giữa giao diện tối và giao diện sáng, với toàn bộ màu sắc được quản lý qua biến CSS để đảm bảo tính nhất quán.
 -   **Hỗ trợ song ngữ (Tiếng Việt/Tiếng Anh)**: Người dùng có thể dễ dàng chuyển đổi ngôn ngữ, giúp portfolio tiếp cận đối tượng quốc tế.
 -   **Linh vật "Rồng cuộn trang"**: Một thanh cuộn được cách điệu thành hình một con rồng SVG uốn lượn, tự "vẽ" mình khi người dùng cuộn trang, tạo ra một trải nghiệm độc đáo.
--   **Hiệu ứng chuyển động tinh tế**: Sử dụng **Framer Motion** để tạo ra các hiệu ứng chuyển động mượt mà khi tải trang, tương tác với các phần tử, và hiệu ứng nền "Liquid Flow" sống động.
+-   **Hiệu ứng chuyển động tinh tế**: Sử dụng **Framer Motion** để tạo ra các hiệu ứng chuyển động mượt mà khi tải trang, tương tác với các phần tử, và hiệu ứng nền gradient chuyển động nhẹ nhàng.
+-   **Chỉ báo mất kết nối**: Một thông báo thân thiện toàn màn hình sẽ xuất hiện khi người dùng mất kết nối Internet.
 -   **Quản lý nội dung tập trung**: Toàn bộ thông tin cá nhân, dự án, kỹ năng, hoạt động và tài nguyên đều được quản lý trong các tệp dữ liệu riêng biệt, giúp việc cập nhật trở nên dễ dàng mà không cần can thiệp vào mã nguồn.
 -   **Responsive hoàn toàn**: Giao diện được tối ưu hóa để hiển thị đẹp mắt trên mọi thiết bị, từ máy tính để bàn đến điện thoại di động.
 
@@ -106,6 +111,7 @@ Dự án được xây dựng với một stack công nghệ hiện đại, tậ
 -   **Styling:**
     -   **Tailwind CSS**: Sử dụng các lớp utility để tạo giao diện nhanh chóng và nhất quán.
     -   **Shadcn/ui**: Một bộ sưu tập các component React được xây dựng sẵn, đẹp mắt và dễ tùy chỉnh. Toàn bộ màu sắc (primary, background, accent...) được quản lý thông qua biến CSS trong `globals.css`.
+-   **Chuyển đổi Theme:** **Next-themes** - Giúp chuyển đổi mượt mà giữa hai chế độ sáng và tối.
 -   **Animation:** **Framer Motion** - Thư viện mạnh mẽ để tạo ra các hiệu ứng chuyển động phức tạp và mượt mà.
 -   **Icons:** **Lucide React** - Thư viện icon stroke-based gọn nhẹ và đồng bộ.
 
@@ -127,7 +133,7 @@ Hầu hết nội dung trên trang web có thể được cập nhật dễ dàn
         -   `personalInfo`: Thông tin cá nhân (tên, chức danh, email, SĐT...).
         -   `skills`: Danh sách các kỹ năng và mức độ thành thạo.
         -   `experiences`: Danh sách các hoạt động, công việc (đã được cấu trúc song ngữ).
-        -   `projects`: Danh sách các dự án portfolio.
+        -   `projects`: Danh sách các dự án portfolio (đã được cấu trúc song ngữ).
         -   `resources`: Các tài nguyên, liên kết hữu ích.
 
 3.  **Quản lý hình ảnh (`placeholder-images.json`)**:

@@ -9,7 +9,7 @@ HƯỚNG DẪN CẬP NHẬT THÔNG TIN CÁ NHÂN
 ---------------------------------
 Mở tệp: `src/lib/placeholder-data.ts`
 
-Tìm đến một đối tượng (object) có tên là `personalInfo`. Đây là nơi bạn cập nhật tất cả thông tin liên lạc chính của mình.
+Tìm đến một đối tượng (object) có tên là `personalInfo`. Đây là nơi bạn cập nhật tất cả thông tin liên lạc chính của mình. Các thông tin này sẽ được hiển thị trên nhiều trang như Trang chủ, Trang liên hệ,...
 
 ---------------------------------
 2. Cách chỉnh sửa
@@ -34,10 +34,10 @@ export const personalInfo: PersonalInfo = {
 ---------------------------------
 3. Cập nhật các liên kết mạng xã hội
 ---------------------------------
-Các liên kết mạng xã hội được quản lý tại 3 tệp riêng:
-- **Chân trang (Footer):** Mở tệp `src/components/layout/Footer.tsx` và cập nhật các đường link `href` trong các thẻ `<Link>`.
-- **Trang liên hệ (Contact Page):** Mở tệp `src/app/contact/page.tsx` và cập nhật các đường link `href` tương ứng.
-- **Nút liên hệ nhanh:** Mở tệp `src/components/layout/QuickContact.tsx` và cập nhật các liên kết.
+Các liên kết mạng xã hội được quản lý tại 3 tệp riêng, bạn có thể vào đó để thay đổi các đường dẫn `href`:
+- **Chân trang (Footer):** `src/components/layout/Footer.tsx`
+- **Trang liên hệ (Contact Page):** `src/app/contact/page.tsx`
+- **Nút liên hệ nhanh:** `src/components/layout/QuickContact.tsx`
 
 **LƯU Ý QUAN TRỌNG:**
 - Sau khi bạn lưu tệp `placeholder-data.ts`, tất cả các khu vực sử dụng thông tin này sẽ được cập nhật tự động.

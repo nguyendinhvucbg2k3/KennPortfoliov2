@@ -21,17 +21,26 @@ Tìm đến một mảng (array) có tên là `projects`. Mỗi dự án là m�
 --------------------------------------
 3. Cấu trúc của một đối tượng Dự án
 --------------------------------------
-Mỗi dự án cần có cấu trúc như sau:
+Mỗi dự án cần có cấu trúc song ngữ như sau để hiển thị đúng trên cả hai ngôn ngữ:
 
 ```javascript
 {
   id: "10", // ID duy nhất cho mỗi dự án, không được trùng nhau.
   slug: "ten-du-an-moi", // Tên rút gọn cho URL, viết liền không dấu, ngăn cách bằng gạch nối.
-  name: "Tên đầy đủ của dự án",
+  name: "Tên đầy đủ của dự án", // Tên này sẽ được hiển thị ở cả hai ngôn ngữ
   category: "Branding", // Danh mục của dự án (ví dụ: Branding, UI/UX, Illustration).
-  shortDescription: "Một mô tả rất ngắn gọn về dự án (dưới 150 ký tự).",
-  description: "Mô tả chi tiết hơn về dự án để hiển thị ở trang chi tiết.",
-  designPrinciples: "Mô tả các nguyên tắc hoặc ý tưởng thiết kế chính bạn đã áp dụng.",
+  shortDescription: {
+    vi: "Mô tả rất ngắn gọn về dự án (tiếng Việt).",
+    en: "A very short description of the project (English)."
+  },
+  description: {
+    vi: "Mô tả chi tiết hơn về dự án để hiển thị ở trang chi tiết (tiếng Việt).",
+    en: "A more detailed description for the detail page (English)."
+  },
+  designPrinciples: {
+    vi: "Mô tả các nguyên tắc hoặc ý tưởng thiết kế chính bạn đã áp dụng (tiếng Việt).",
+    en: "Describe the main design principles or ideas you applied (English)."
+  },
   image: {
     // Để quản lý ảnh, hãy xem tệp `src/lib/placeholder-images.json`
     src: PlaceHolderImages.find(p => p.id === 'project-id-anh')?.imageUrl || '',
@@ -47,4 +56,4 @@ Mỗi dự án cần có cấu trúc như sau:
 - Đảm bảo mỗi `id` và `slug` là duy nhất.
 - Sau khi lưu tệp `placeholder-data.ts`, trang web sẽ tự động cập nhật với thông tin mới nhất.
 - Để thay đổi hình ảnh, bạn cần chỉnh sửa trong tệp `src/lib/placeholder-images.json` và sau đó cập nhật lại `id` của ảnh trong đối tượng dự án.
-- Các tiêu đề chung của trang dự án (như "My Work", "View Project") được quản lý trong tệp `src/lib/content.ts` nếu bạn muốn thay đổi.
+- Các tiêu đề chung của trang dự án (như "My Work", "View Project") được quản lý trong tệp `src/lib/content.ts`.
