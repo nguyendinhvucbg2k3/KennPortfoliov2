@@ -39,7 +39,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-black/60 z-10"></div>
         <div className="relative z-20 p-4 max-w-4xl mx-auto flex flex-col items-center">
             <motion.p 
-              className="font-headline text-lg md:text-xl text-foreground/80 tracking-widest uppercase"
+              className="font-headline text-lg md:text-xl text-white tracking-widest uppercase"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -47,7 +47,7 @@ export default function Home() {
              {personalInfo?.title || pageContent.title}
             </motion.p>
             <motion.h1 
-              className="font-headline text-6xl md:text-8xl lg:text-9xl font-black text-white my-2"
+              className="font-headline text-6xl md:text-8xl lg:text-9xl font-black text-primary text-glow my-2"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.4, type: "spring", stiffness: 100 }}
@@ -55,13 +55,13 @@ export default function Home() {
               KENN
             </motion.h1>
             <motion.div
-              className="flex items-center gap-x-6 font-headline text-lg md:text-xl text-foreground/80 tracking-widest uppercase"
+              className="flex items-center gap-x-6 font-headline text-lg md:text-xl text-white tracking-widest uppercase"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
               <span>{personalInfo.footerName}</span>
-              <span className='h-4 w-px bg-foreground/50'></span>
+              <span className='h-4 w-px bg-white/50'></span>
               <span>{new Date().getFullYear()}</span>
             </motion.div>
             <motion.div
