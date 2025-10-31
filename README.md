@@ -9,6 +9,7 @@ Welcome to the source code for the **KENN** personal portfolio—a digital space
 ## ✨ Key Features
 
 -   **Unique "Neon Garden" Design**: The interface combines a deep dark tone, vibrant neon details (with red as the primary color), and glowing effects to create a futuristic and energetic space.
+-   **Dedicated "Editor" Section**: A separate gallery to showcase video editing projects, categorized into Personal, Work, and Hobby, distinct from graphic design work.
 -   **Light/Dark Mode Support**: Users can switch between a deep dark theme and a clean light theme, with all colors managed through CSS variables for consistency.
 -   **Bilingual Support (Vietnamese/English)**: Users can easily switch languages, helping the portfolio reach an international audience.
 -   **"Scroll Dragon" Mascot**: A stylized scrollbar in the shape of a coiling SVG dragon that "draws" itself as the user scrolls, creating a unique experience.
@@ -51,7 +52,8 @@ Most of the content on the website can be easily updated by editing the followin
         -   `personalInfo`: Personal information (name, title, email, phone number...).
         -   `skills`: List of skills and proficiency levels.
         -   `experiences`: List of activities, jobs (structured bilingually).
-        -   `projects`: List of portfolio projects (structured bilingually).
+        -   `projects`: List of graphic design projects (structured bilingually).
+        -   `editorProjects`: List of video editing projects.
         -   `resources`: Useful resources and links.
 
 3.  **Image Management (`placeholder-images.json`)**:
@@ -63,7 +65,7 @@ Most of the content on the website can be easily updated by editing the followin
     -   **Contact Page**: `src/app/contact/page.tsx`
     -   **Quick Contact Buttons**: `src/components/layout/QuickContact.tsx`
 
-> **Note**: Detailed instruction files for each section are located in the `docs/huong-dan/` directory.
+> **Note**: Detailed instruction files for each section (how to update projects, activities, images, etc.) are located in the `docs/huong-dan/` directory.
 
 ### Running the project locally
 
@@ -91,6 +93,7 @@ Chào mừng bạn đến với mã nguồn của portfolio cá nhân **KENN** �
 ## ✨ Tính năng nổi bật
 
 -   **Thiết kế "Neon Garden" độc đáo**: Giao diện kết hợp giữa tone màu tối sâu, các chi tiết neon rực rỡ (màu đỏ chủ đạo) và hiệu ứng phát sáng, tạo ra một không gian tương lai và đầy năng lượng.
+-   **Mục "Editor" chuyên biệt**: Một gallery riêng để trưng bày các dự án biên tập video, được phân loại theo "Cá nhân", "Công việc" và "Sở thích", tách biệt với các tác phẩm thiết kế đồ họa.
 -   **Hỗ trợ Giao diện Sáng/Tối**: Người dùng có thể chuyển đổi giữa giao diện tối và giao diện sáng, với toàn bộ màu sắc được quản lý qua biến CSS để đảm bảo tính nhất quán.
 -   **Hỗ trợ song ngữ (Tiếng Việt/Tiếng Anh)**: Người dùng có thể dễ dàng chuyển đổi ngôn ngữ, giúp portfolio tiếp cận đối tượng quốc tế.
 -   **Linh vật "Rồng cuộn trang"**: Một thanh cuộn được cách điệu thành hình một con rồng SVG uốn lượn, tự "vẽ" mình khi người dùng cuộn trang, tạo ra một trải nghiệm độc đáo.
@@ -133,7 +136,8 @@ Hầu hết nội dung trên trang web có thể được cập nhật dễ dàn
         -   `personalInfo`: Thông tin cá nhân (tên, chức danh, email, SĐT...).
         -   `skills`: Danh sách các kỹ năng và mức độ thành thạo.
         -   `experiences`: Danh sách các hoạt động, công việc (đã được cấu trúc song ngữ).
-        -   `projects`: Danh sách các dự án portfolio (đã được cấu trúc song ngữ).
+        -   `projects`: Danh sách các dự án thiết kế đồ họa (đã được cấu trúc song ngữ).
+        -   `editorProjects`: Danh sách các dự án biên tập video.
         -   `resources`: Các tài nguyên, liên kết hữu ích.
 
 3.  **Quản lý hình ảnh (`placeholder-images.json`)**:
@@ -145,7 +149,7 @@ Hầu hết nội dung trên trang web có thể được cập nhật dễ dàn
     -   **Trang liên hệ**: `src/app/contact/page.tsx`
     -   **Nút liên hệ nhanh (Quick Contact)**: `src/components/layout/QuickContact.tsx`
 
-> **Lưu ý**: Các tệp hướng dẫn chi tiết cho từng mục được đặt trong thư mục `docs/huong-dan/`.
+> **Lưu ý**: Các tệp hướng dẫn chi tiết cho từng mục (cách cập nhật dự án, hoạt động, hình ảnh...) được đặt trong thư mục `docs/huong-dan/`.
 
 ### Chạy dự án trên máy tính
 
