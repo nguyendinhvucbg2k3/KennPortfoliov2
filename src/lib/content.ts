@@ -5,6 +5,7 @@ export const content = {
       home: "Trang chủ",
       about: "Giới thiệu",
       projects: "Dự án",
+      editor: "Biên tập",
       resources: "Tài nguyên",
       contact: "Liên hệ",
       toggleMenu: "Chuyển đổi menu",
@@ -53,6 +54,11 @@ export const content = {
         viewProject: "Xem dự án",
         viewOnBehance: "Xem toàn bộ trên Behance",
     },
+    editor: {
+        title: "Dự án Biên tập Video",
+        description: "Tuyển tập các dự án biên tập video, từ highlights game đến video sự kiện.",
+        viewProject: "Xem chi tiết",
+    },
     projectDetail: {
         backToProjects: "Quay lại dự án",
         aboutTitle: "Về dự án",
@@ -68,6 +74,11 @@ export const content = {
             generatingButton: "Đang tạo...",
             resultTitle: "Kết quả phê bình",
         },
+    },
+    editorDetail: {
+        backToEditor: "Quay lại mục Biên tập",
+        aboutTitle: "Về dự án",
+        watchVideo: "Xem Video",
     },
     resources: {
         title: "Trung tâm tài nguyên",
@@ -101,6 +112,7 @@ export const content = {
       home: "Home",
       about: "About",
       projects: "Projects",
+      editor: "Editor",
       resources: "Resources",
       contact: "Contact",
       toggleMenu: "Toggle menu",
@@ -149,6 +161,11 @@ export const content = {
         viewProject: "View Project",
         viewOnBehance: "View all on Behance",
     },
+    editor: {
+        title: "Video Editor Portfolio",
+        description: "A collection of my video editing projects, from gaming highlights to event recaps.",
+        viewProject: "View Details",
+    },
     projectDetail: {
         backToProjects: "Back to Projects",
         aboutTitle: "About the Project",
@@ -164,6 +181,11 @@ export const content = {
             generatingButton: "Generating...",
             resultTitle: "Critique Result",
         },
+    },
+    editorDetail: {
+        backToEditor: "Back to Editor",
+        aboutTitle: "About the Project",
+        watchVideo: "Watch Video",
     },
     resources: {
         title: "Resource Hub",

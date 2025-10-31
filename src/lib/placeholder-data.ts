@@ -1,6 +1,6 @@
 
 import { PlaceHolderImages } from "./placeholder-images";
-import type { Skill, Project, Resource, Experience, PersonalInfo } from "./types";
+import type { Skill, Project, Resource, Experience, PersonalInfo, EditorProject } from "./types";
 
 export const personalInfo: PersonalInfo = {
     fullName: "Thac Nguyen Dinh Vu",
@@ -333,4 +333,47 @@ export const experiences: Experience[] = [
 ];
 
 
-
+export const editorProjects: EditorProject[] = [
+  {
+    id: '1',
+    slug: 'valorant-highlight-reel',
+    name: 'Valorant Highlight Reel',
+    category: 'Gaming',
+    description: 'A fast-paced highlight reel showcasing top plays in Valorant, edited with dynamic transitions and sound effects.',
+    image: {
+      src: PlaceHolderImages.find(p => p.id === 'editor-valorant-highlights')?.imageUrl || '',
+      alt: 'Valorant gameplay highlights',
+      aiHint: 'valorant game action',
+    },
+    year: 2024,
+    videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+  },
+  {
+    id: '2',
+    slug: 'esports-event-recap',
+    name: 'Esports Event Recap',
+    category: 'Event',
+    description: 'A recap video of the Phenikaa Esports Championship, capturing the excitement and key moments of the tournament.',
+    image: {
+      src: PlaceHolderImages.find(p => p.id === 'editor-esports-event')?.imageUrl || '',
+      alt: 'Esports tournament recap',
+      aiHint: 'esports tournament stage',
+    },
+    year: 2023,
+    videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+  },
+  {
+    id: '3',
+    slug: 'capcut-short-form-video',
+    name: 'Capcut Short Form Video',
+    category: 'Social Media',
+    description: 'A collection of short, engaging videos created with Capcut for TikTok and Instagram Reels, featuring trending audio and effects.',
+    image: {
+      src: PlaceHolderImages.find(p => p.id === 'editor-capcut-video')?.imageUrl || '',
+      alt: 'Short form video made with Capcut',
+      aiHint: 'mobile video editing',
+    },
+    year: 2024,
+    videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+  },
+];

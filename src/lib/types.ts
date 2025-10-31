@@ -14,6 +14,21 @@ export type Project = {
     year: number;
     behanceUrl: string;
 };
+
+export type EditorProject = {
+    id: string;
+    slug: string;
+    name: string;
+    category: "Gaming" | "Event" | "Social Media" | "Tutorial";
+    description: string;
+    image: {
+      src: string;
+      alt: string;
+      aiHint: string;
+    };
+    year: number;
+    videoUrl: string;
+};
   
 export type Resource = {
     id: string;

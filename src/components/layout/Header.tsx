@@ -21,6 +21,7 @@ export function Header() {
     { href: "/", label: navContent.home },
     { href: "/about", label: navContent.about },
     { href: "/projects", label: navContent.projects },
+    { href: "/editor", label: navContent.editor },
     { href: "/resources", label: navContent.resources },
     { href: "/contact", label: navContent.contact },
   ];
