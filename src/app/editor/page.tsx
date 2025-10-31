@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -11,48 +11,45 @@ import { editorProjects } from '@/lib/placeholder-data';
 import { useLanguage } from '@/context/language-context';
 import { content } from '@/lib/content';
 import { motion } from 'framer-motion';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import type { EditorProject, EditorProjectCategory } from '@/lib/types';
 
-export default function EditorPage() {
-  const { language } = useLanguage();
-  const pageContent = content[language].editor;
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
     }
-  };
+  }
+};
 
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1
+  }
+};
+
+
+const ProjectGrid = ({ projects, pageContent }: { projects: EditorProject[], pageContent: any }) => {
+    if (projects.length === 0) {
+        return (
+            <div className="text-center text-muted-foreground py-16">
+                Không có dự án nào trong mục này.
+            </div>
+        )
     }
-  };
-
-  return (
-    <div className="page-background">
-      <div className="container mx-auto px-4 py-16 md:py-24">
-        <div className="text-center">
-          <h1 className="font-headline text-4xl md:text-6xl font-bold text-primary text-glow">
-            {pageContent.title}
-          </h1>
-          <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-            {pageContent.description}
-          </p>
-        </div>
-
+    return (
         <motion.div 
-          className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
-          {editorProjects.map(project => (
+          {projects.map(project => (
             <motion.div key={project.id} variants={itemVariants}>
               <Link href={`/editor/${project.slug}`} className="block group">
                 <Card className="overflow-hidden flex flex-col h-full bg-card/80 transition-all duration-300 ease-out hover:border-primary/50 hover:shadow-primary/10">
@@ -70,7 +67,6 @@ export default function EditorPage() {
                   </div>
                   <CardContent className="flex flex-col flex-grow p-6">
                     <div className="flex-grow">
-                      <Badge variant="secondary" className="mb-2 text-xs">{project.category}</Badge>
                       <h3 className="font-headline text-xl mb-2 text-foreground">{project.name}</h3>
                       <p className="text-muted-foreground text-sm line-clamp-2">{project.description}</p>
                     </div>
@@ -85,6 +81,67 @@ export default function EditorPage() {
             </motion.div>
           ))}
         </motion.div>
+    )
+}
+
+export default function EditorPage() {
+  const { language } = useLanguage();
+  const pageContent = content[language].editor;
+
+  const categories = useMemo(() => {
+    const categorySet = new Set(editorProjects.map(p => p.category));
+    return Array.from(categorySet) as EditorProjectCategory[];
+  }, []);
+
+  const categoryLabels = {
+    vi: content.vi.editor.categories,
+    en: content.en.editor.categories
+  }
+
+  const getCategoryLabel = (category: EditorProjectCategory) => {
+    if (language === 'vi') {
+        return category; // The data is already in Vietnamese
+    }
+    // Map Vietnamese category to English key
+    switch (category) {
+        case 'Cá nhân': return categoryLabels.en.personal;
+        case 'Công việc': return categoryLabels.en.work;
+        case 'Sở thích': return categoryLabels.en.hobby;
+        default: return category;
+    }
+  }
+
+  return (
+    <div className="page-background">
+      <div className="container mx-auto px-4 py-16 md:py-24">
+        <div className="text-center">
+          <h1 className="font-headline text-4xl md:text-6xl font-bold text-primary text-glow">
+            {pageContent.title}
+          </h1>
+          <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
+            {pageContent.description}
+          </p>
+        </div>
+
+        <div className="mt-16">
+            <Tabs defaultValue={categories[0]} className="w-full">
+                <TabsList className="grid w-full max-w-md mx-auto grid-cols-3 mb-8">
+                    {categories.map(category => (
+                        <TabsTrigger key={category} value={category}>
+                            {getCategoryLabel(category)}
+                        </TabsTrigger>
+                    ))}
+                </TabsList>
+                {categories.map(category => (
+                    <TabsContent key={category} value={category}>
+                        <ProjectGrid 
+                            projects={editorProjects.filter(p => p.category === category)}
+                            pageContent={pageContent}
+                        />
+                    </TabsContent>
+                ))}
+            </Tabs>
+        </div>
       </div>
     </div>
   );

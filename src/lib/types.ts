@@ -15,11 +15,13 @@ export type Project = {
     behanceUrl: string;
 };
 
+export type EditorProjectCategory = "Cá nhân" | "Công việc" | "Sở thích";
+
 export type EditorProject = {
     id: string;
     slug: string;
     name: string;
-    category: "Gaming" | "Event" | "Social Media" | "Tutorial";
+    category: EditorProjectCategory;
     description: string;
     image: {
       src: string;

@@ -58,6 +58,11 @@ export const content = {
         title: "Dự án Biên tập Video",
         description: "Tuyển tập các dự án biên tập video, từ highlights game đến video sự kiện.",
         viewProject: "Xem chi tiết",
+        categories: {
+            personal: "Cá nhân",
+            work: "Công việc",
+            hobby: "Sở thích"
+        }
     },
     projectDetail: {
         backToProjects: "Quay lại dự án",
@@ -165,6 +170,11 @@ export const content = {
         title: "Video Editor Portfolio",
         description: "A collection of my video editing projects, from gaming highlights to event recaps.",
         viewProject: "View Details",
+        categories: {
+            personal: "Personal",
+            work: "Work",
+            hobby: "Hobby"
+        }
     },
     projectDetail: {
         backToProjects: "Back to Projects",
