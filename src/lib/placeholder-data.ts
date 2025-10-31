@@ -335,21 +335,21 @@ export const experiences: Experience[] = [
 
 export const editorProjects: EditorProject[] = [
   {
-    id: '1',
-    slug: 'valorant-highlight-reel',
-    name: 'Valorant Highlight Reel',
-    category: 'Sở thích',
-    description: 'A fast-paced highlight reel showcasing top plays in Valorant, edited with dynamic transitions and sound effects.',
+    id: '2025-31-stt1',
+    slug: 'flazer-highlight-tiktok-FPT-SPN',
+    name: 'Tiktok: Highlight FPT Flash vs Super Nova.',
+    category: 'Cá nhân',
+    description: 'Highlights trận đấu mở màn Super Week ĐTDV mùa Đông 2025 🙃 FPT Flash vs Super Nova. ',
     image: {
-      src: PlaceHolderImages.find(p => p.id === 'editor-valorant-highlights')?.imageUrl || '',
-      alt: 'Valorant gameplay highlights',
-      aiHint: 'valorant game action',
+      src: PlaceHolderImages.find(p => p.id === 'flazer-highlight-tiktok-FPT-SPN')?.imageUrl || 'https://www.tiktok.com/@nguyendinhvu_kenn/video/7559057482350415111',
+      alt: 'Tiktok: Highlight FPT Flash vs Super Nova.',
+      aiHint: 'highlight FPT vs SPN',
     },
     year: 2024,
-    videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    videoUrl: 'https://www.tiktok.com/@nguyendinhvu_kenn/video/7559057482350415111',
   },
   {
-    id: '2',
+    id: '2025-31-stt2',
     slug: 'esports-event-recap',
     name: 'Esports Event Recap',
     category: 'Công việc',
@@ -363,10 +363,10 @@ export const editorProjects: EditorProject[] = [
     videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
   },
   {
-    id: '3',
+    id: '2025-31-stt3',
     slug: 'capcut-short-form-video',
     name: 'Capcut Short Form Video',
-    category: 'Cá nhân',
+    category: 'Hoạt động Outsource',
     description: 'A collection of short, engaging videos created with Capcut for TikTok and Instagram Reels, featuring trending audio and effects.',
     image: {
       src: PlaceHolderImages.find(p => p.id === 'editor-capcut-video')?.imageUrl || '',
