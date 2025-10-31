@@ -1,0 +1,49 @@
+=======================================
+HƯỚNG DẪN CẬP NHẬT MỤC EDITOR
+=======================================
+
+Tất cả các dự án biên tập video hiển thị trên trang "Editor" của bạn đều được quản lý tại một nơi duy nhất.
+
+---------------------------------
+1. Vị trí tệp tin
+---------------------------------
+Mở tệp: `src/lib/placeholder-data.ts`
+
+Tìm đến một mảng (array) có tên là `editorProjects`. Mỗi dự án video là một đối tượng (object) trong mảng này.
+
+---------------------------------
+2. Cách chỉnh sửa
+---------------------------------
+- **Để thêm dự án mới:** Sao chép một khối đối tượng `{...}` có sẵn, dán nó vào cuối danh sách và thay đổi nội dung cho phù hợp với dự án video mới của bạn.
+- **Để sửa một dự án:** Tìm dự án bạn muốn sửa trong mảng `editorProjects` và thay đổi các giá trị của nó.
+- **Để xóa một dự án:** Xóa toàn bộ khối đối tượng của dự án đó (từ dấu `{` mở đầu đến dấu `},` kết thúc).
+
+---------------------------------
+3. Cấu trúc của một đối tượng Dự án Editor
+---------------------------------
+Mỗi dự án cần có cấu trúc như sau:
+
+```javascript
+{
+  id: "4", // ID duy nhất cho mỗi dự án, không được trùng nhau.
+  slug: "ten-video-moi", // Tên rút gọn cho URL, viết liền không dấu, ngăn cách bằng gạch nối.
+  name: "Tên đầy đủ của video", // Tên này sẽ được hiển thị
+  category: "Sở thích", // Danh mục của dự án. PHẢI LÀ MỘT TRONG BA GIÁ TRỊ: "Cá nhân", "Công việc", "Sở thích".
+  description: "Mô tả chi tiết hơn về dự án video để hiển thị ở trang chi tiết.",
+  image: {
+    // Để quản lý ảnh, hãy xem tệp `src/lib/placeholder-images.json`
+    src: PlaceHolderImages.find(p => p.id === 'id-anh-moi-cua-ban')?.imageUrl || '',
+    alt: "Mô tả hình ảnh (quan trọng cho SEO)",
+    aiHint: "goi-y-cho-ai" // Gợi ý cho AI (ví dụ: 'cinematic video still')
+  },
+  year: 2024, // Năm hoàn thành dự án
+  videoUrl: "https://www.youtube.com/watch?v=...", // Đường dẫn trực tiếp đến video (Youtube, Vimeo, etc.).
+},
+```
+
+**LƯU Ý QUAN TRỌNG:**
+- Đảm bảo mỗi `id` và `slug` là duy nhất.
+- Trường `category` phải là một trong ba lựa chọn chính xác: `"Cá nhân"`, `"Công việc"`, hoặc `"Sở thích"` để dự án được phân loại đúng tab.
+- Để thay đổi hình ảnh đại diện, bạn cần cập nhật trong tệp `src/lib/placeholder-images.json` và sau đó cập nhật lại `id` của ảnh trong đối tượng dự án.
+- Các tiêu đề chung của trang (như "Dự án Biên tập Video", "Xem chi tiết") được quản lý trong tệp `src/lib/content.ts`.
+- Sau khi lưu tệp `placeholder-data.ts`, trang "Editor" sẽ tự động cập nhật với thông tin mới nhất.
